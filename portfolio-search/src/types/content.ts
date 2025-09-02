@@ -7,6 +7,7 @@ export interface ContentItem {
   skills: string[];
   type: 'experience' | 'project' | 'education' | 'about';
   category: string;
+  relevance?: number;
   link?: {
     url: string;
     label: string;

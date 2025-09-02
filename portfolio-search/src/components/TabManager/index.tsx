@@ -98,6 +98,14 @@ const TabManager: React.FC<TabManagerProps> = ({
     if (tab.type === 'content' && tab.contentId) {
       setActiveTabId(tab.id);
       onTabChange(tab.contentId);
+    } else if (tab.type === 'search' && tab.searchQuery) {
+      setActiveTabId(tab.id);
+      // Navigate to search results with the stored query
+      window.dispatchEvent(new CustomEvent('navigateToSearch', { detail: tab.searchQuery }));
+    } else if (tab.type === 'skills' && tab.skillName) {
+      setActiveTabId(tab.id);
+      // Navigate to skills results with the stored skill
+      window.dispatchEvent(new CustomEvent('navigateToSkills', { detail: tab.skillName }));
     }
   };
 

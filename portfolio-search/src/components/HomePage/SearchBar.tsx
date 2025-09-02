@@ -144,7 +144,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
     <SearchContainer>
       <SearchInput
         type="text"
-        placeholder="Search Ollie's portfolio..."
+        placeholder="Search my portfolio..."
         value={searchQuery}
         onChange={(e) => onSearchChange(e.target.value)}
         onFocus={onFocus}

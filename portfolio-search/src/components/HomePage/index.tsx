@@ -3,12 +3,14 @@
 import React, { useState, useMemo } from 'react';
 import styled from 'styled-components';
 import { Code, Briefcase, GraduationCap, User, Linkedin, Github } from 'lucide-react';
-import { searchContent, getAllContent } from '../../utils/contentUtils';
+import { searchContent, getAllContent, getContentBySkill } from '../../utils/contentUtils';
 import { GlobalStyle } from './GlobalStyles';
 import AnimatedLogo from './AnimatedLogo';
 import SearchBar from './SearchBar';
 import Shortcuts from './Shortcuts';
 import ContentPage from '../ContentPage';
+import SearchResults from '../SearchResults';
+import SkillsResults from '../SkillsResults';
 import TabManager from '../TabManager';
 
 // Types
@@ -53,8 +55,11 @@ const SearchSection = styled.div`
 const HomePage: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [showAutocomplete, setShowAutocomplete] = useState<boolean>(false);
-  const [currentView, setCurrentView] = useState<'home' | 'content'>('home');
+  const [currentView, setCurrentView] = useState<'home' | 'content' | 'search' | 'skills'>('home');
   const [selectedContentId, setSelectedContentId] = useState<string | null>(null);
+  const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [skillsResults, setSkillsResults] = useState<any[]>([]);
+  const [selectedSkill, setSelectedSkill] = useState<string>('');
 
   // Navigation functions
   const navigateToContent = (contentId: string) => {
@@ -67,6 +72,17 @@ const HomePage: React.FC = () => {
     setCurrentView('home');
     setSelectedContentId(null);
     setSearchQuery('');
+    setSearchResults([]);
+    setSkillsResults([]);
+    setSelectedSkill('');
+  };
+
+  // Skills navigation function
+  const navigateToSkills = (skill: string) => {
+    const results = getContentBySkill(skill);
+    setSkillsResults(results);
+    setSelectedSkill(skill);
+    setCurrentView('skills');
   };
 
   // Tab management functions
@@ -98,7 +114,7 @@ const HomePage: React.FC = () => {
     { 
       name: 'About Me', 
       icon: <User size={20} />,
-      action: () => console.log('Navigate to About Ollie') 
+      action: () => console.log('Navigate to About Me') 
     }
   ];
 
@@ -171,9 +187,12 @@ const HomePage: React.FC = () => {
   }, [searchQuery]);
 
   const handleSearch = () => {
-    console.log('Performing search for:', searchQuery);
-    setShowAutocomplete(false);
-    // TODO: Navigate to search results page
+    if (searchQuery.trim()) {
+      const results = searchContent(searchQuery);
+      setSearchResults(results);
+      setCurrentView('search');
+      setShowAutocomplete(false);
+    }
   };
 
   const handleFocus = () => {
@@ -184,6 +203,50 @@ const HomePage: React.FC = () => {
     // Delay hiding autocomplete to allow for clicks
     setTimeout(() => setShowAutocomplete(false), 200);
   };
+
+  // Render skills results page
+  if (currentView === 'skills') {
+    return (
+      <>
+        <GlobalStyle />
+        <TabManager
+          currentView={currentView}
+          selectedContentId={selectedContentId}
+          onTabChange={handleTabChange}
+          onNewSearch={handleNewSearch}
+        >
+          <SkillsResults
+            skill={selectedSkill}
+            results={skillsResults}
+            onResultClick={navigateToContent}
+            onBack={navigateToHome}
+          />
+        </TabManager>
+      </>
+    );
+  }
+
+  // Render search results page
+  if (currentView === 'search') {
+    return (
+      <>
+        <GlobalStyle />
+        <TabManager
+          currentView={currentView}
+          selectedContentId={selectedContentId}
+          onTabChange={handleTabChange}
+          onNewSearch={handleNewSearch}
+        >
+          <SearchResults
+            query={searchQuery}
+            results={searchResults}
+            onResultClick={navigateToContent}
+            onBack={navigateToHome}
+          />
+        </TabManager>
+      </>
+    );
+  }
 
   // Render content page if selected
   if (currentView === 'content' && selectedContentId) {
@@ -199,7 +262,8 @@ const HomePage: React.FC = () => {
           <ContentPage
             contentId={selectedContentId}
             onBack={navigateToHome}
-            onSkillClick={(skill) => console.log(`Search for skill: ${skill}`)}
+            onSkillClick={navigateToSkills}
+            showBackButton={false} // Hide back button since we have tabs
           />
         </TabManager>
       </>
@@ -213,6 +277,8 @@ const HomePage: React.FC = () => {
       <TabManager
         currentView={currentView}
         selectedContentId={selectedContentId}
+        searchQuery={searchQuery}
+        selectedSkill={selectedSkill}
         onTabChange={handleTabChange}
         onNewSearch={handleNewSearch}
       >
