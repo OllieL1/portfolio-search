@@ -1,12 +1,15 @@
-'use client';
+"use client";
 
 import React, { useState, useMemo } from 'react';
 import styled from 'styled-components';
 import { Code, Briefcase, GraduationCap, User, Linkedin, Github } from 'lucide-react';
+import { searchContent, getAllContent } from '../../utils/contentUtils';
 import { GlobalStyle } from './GlobalStyles';
 import AnimatedLogo from './AnimatedLogo';
 import SearchBar from './SearchBar';
 import Shortcuts from './Shortcuts';
+import ContentPage from '../ContentPage';
+import TabManager from '../TabManager';
 
 // Types
 interface AutocompleteItem {
@@ -50,6 +53,30 @@ const SearchSection = styled.div`
 const HomePage: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [showAutocomplete, setShowAutocomplete] = useState<boolean>(false);
+  const [currentView, setCurrentView] = useState<'home' | 'content'>('home');
+  const [selectedContentId, setSelectedContentId] = useState<string | null>(null);
+
+  // Navigation functions
+  const navigateToContent = (contentId: string) => {
+    setSelectedContentId(contentId);
+    setCurrentView('content');
+    setShowAutocomplete(false);
+  };
+
+  const navigateToHome = () => {
+    setCurrentView('home');
+    setSelectedContentId(null);
+    setSearchQuery('');
+  };
+
+  // Tab management functions
+  const handleTabChange = (contentId: string) => {
+    navigateToContent(contentId);
+  };
+
+  const handleNewSearch = () => {
+    navigateToHome();
+  };
 
   // Sample shortcuts - these will eventually navigate to different pages
   const shortcuts: ShortcutItem[] = [
@@ -69,7 +96,7 @@ const HomePage: React.FC = () => {
       action: () => console.log('Navigate to Education') 
     },
     { 
-      name: 'About Ollie', 
+      name: 'About Me', 
       icon: <User size={20} />,
       action: () => console.log('Navigate to About Ollie') 
     }
@@ -81,10 +108,23 @@ const HomePage: React.FC = () => {
 
     const items: AutocompleteItem[] = [];
 
-    // Add page matches
-    const pageMatches = ['Projects', 'Experience', 'Education', 'About Ollie'];
-    pageMatches.forEach(page => {
-      if (page.toLowerCase().includes(searchQuery.toLowerCase())) {
+    // Add content matches from JSON data
+    const contentMatches = searchContent(searchQuery);
+    contentMatches.slice(0, 3).forEach(content => {
+      items.push({
+        text: content.title,
+        type: 'page',
+        action: () => {
+          navigateToContent(content.id);
+        }
+      });
+    });
+
+    // Add static page matches
+    const staticPages = ['Projects', 'Experience', 'Education', 'About Me'];
+    staticPages.forEach(page => {
+      if (page.toLowerCase().includes(searchQuery.toLowerCase()) && 
+          !items.some(item => item.text === page)) {
         items.push({
           text: page,
           type: 'page',
@@ -107,7 +147,7 @@ const HomePage: React.FC = () => {
         icon: <Linkedin size={16} />,
         subtitle: 'Open in LinkedIn',
         action: () => {
-          window.open('https://www.linkedin.com/in/ollie-wl', '_blank');
+          window.open('https://linkedin.com', '_blank');
           setShowAutocomplete(false);
         }
       });
@@ -121,7 +161,7 @@ const HomePage: React.FC = () => {
         icon: <Github size={16} />,
         subtitle: 'Open in GitHub',
         action: () => {
-          window.open('https://github.com/OllieL1', '_blank');
+          window.open('https://github.com', '_blank');
           setShowAutocomplete(false);
         }
       });
@@ -145,24 +185,53 @@ const HomePage: React.FC = () => {
     setTimeout(() => setShowAutocomplete(false), 200);
   };
 
+  // Render content page if selected
+  if (currentView === 'content' && selectedContentId) {
+    return (
+      <>
+        <GlobalStyle />
+        <TabManager
+          currentView={currentView}
+          selectedContentId={selectedContentId}
+          onTabChange={handleTabChange}
+          onNewSearch={handleNewSearch}
+        >
+          <ContentPage
+            contentId={selectedContentId}
+            onBack={navigateToHome}
+            onSkillClick={(skill) => console.log(`Search for skill: ${skill}`)}
+          />
+        </TabManager>
+      </>
+    );
+  }
+
+  // Render home page
   return (
     <>
       <GlobalStyle />
-      <Container>
-        <SearchSection>
-          <AnimatedLogo />
-          <SearchBar
-            searchQuery={searchQuery}
-            onSearchChange={setSearchQuery}
-            onSearch={handleSearch}
-            autocompleteItems={autocompleteItems}
-            showAutocomplete={showAutocomplete}
-            onFocus={handleFocus}
-            onBlur={handleBlur}
-          />
-          <Shortcuts shortcuts={shortcuts} />
-        </SearchSection>
-      </Container>
+      <TabManager
+        currentView={currentView}
+        selectedContentId={selectedContentId}
+        onTabChange={handleTabChange}
+        onNewSearch={handleNewSearch}
+      >
+        <Container>
+          <SearchSection>
+            <AnimatedLogo />
+            <SearchBar
+              searchQuery={searchQuery}
+              onSearchChange={setSearchQuery}
+              onSearch={handleSearch}
+              autocompleteItems={autocompleteItems}
+              showAutocomplete={showAutocomplete}
+              onFocus={handleFocus}
+              onBlur={handleBlur}
+            />
+            <Shortcuts shortcuts={shortcuts} />
+          </SearchSection>
+        </Container>
+      </TabManager>
     </>
   );
 };

@@ -1,0 +1,192 @@
+{
+  "experiences": [
+    {
+      "id": "course-development-assistant",
+      "title": "Course Development Assistant",
+      "company": "University of Glasgow",
+      "dateRange": "May 2024 - September 2024",
+      "detail": "I was disappointed with the course content of one of my second year courses Networked Systems. I reached out to my lecturer after the course offering my honest, non-anonymous feedback. It was his first year taking the course and he asked if I could help during the summer to revamp and modernise the course. We worked closely together to redesign lecture slides, create weekly quizzes and extended supplementary notes to aid future students with their learning.",
+      "skills": [
+        "Networked Systems",
+        "Sockets Programming", 
+        "PowerPoint",
+        "Communication",
+        "Adaptive"
+      ],
+      "type": "experience",
+      "category": "Work Experience",
+      "relevance" : 3
+    },
+    {
+      "id": "jp-morgan",
+      "title": "Software Engineer Industrial Placement",
+      "company": "JP Morgan Chase",
+      "dateRange": "June 2025 - June 2026",
+      "detail": "As part of my degree, I have been part of a year long placement at Glasgow Technology Centre of JPMorganChase. I could not have hoped for more in my learning. My main project so far has been migrating a legacy file upload system for financial documents to cloud. I own the UI portion of the project and so far I have designed, implemented and deployed modernised screens that are now in the hands of business users. I have worked closely with stakeholders, adapted designs to changing requirements and created feature-full pages with powerful tools to visualise and filter data. This role has been a complete change to my life - I have taken up much more sport, got into actual cooking routine and learned to appreciate free-time a lot more. I am grateful to JP for all their efforts in making settling in a lot easier than I thought it would be. I have worked with a wonderful group of 12 IPs and going through this journey with them has made it all the more enjoyable.",
+      "skills": [
+        "React",
+        "TypeScript",
+        "Python",
+        "AWS",
+        "Databricks",
+        "Terraform",
+        "Node.js",
+        "Mobile Development",
+        "Figma",
+        "UI/UX",
+        "Design",
+        "Technical Problem Solving", 
+        "Teamwork",
+        "Communication",
+        "Adaptive"
+      ],
+      "type": "experience",
+      "category": "Work Experience",
+      "relevance" : 5
+    },
+    {
+      "id": "guss",
+      "title": "Software Developer",
+      "company": "Glasgow University Software Service",
+      "dateRange": "October 2024 - June 2026",
+      "detail": "During my third year of university, I worked with the uni's software team on a web application for the MVLS college. Balancing my work with my studies, I delivered weekly features in an agile development cycle. I was most proud of building an Editable FAQ Page for super admins - the edit mode was rich in features. It allowed for the creation of sections, paragraphs and tables in an easy-to-use way and when saved would be pushed to the database that was then reflected for all users. It took a lot of work but was very satisfying to see come together.",
+      "skills": [
+        "JavaScript",
+        "Technical Problem Solving",
+        "Communication",
+        "Docker",
+        "Django",
+        "Agile"
+      ],
+      "type": "experience",
+      "category": "Work Experience",
+      "relevance": 4
+    },
+    {
+      "id": "hgi-exp",
+      "title": "Food & Beverages Assistant",
+      "company": "Hilton Garden Inn Glasgow",
+      "dateRange": "June 2023 - ",
+      "detail": "My last stint in hospitality, I have thoroughly enjoyed working with the Hilton. Surrounded by a great team, we always delivered friendly and effective service. I got properly bar trained here which was a really fun skill to learn. I have the luxury of only living five minutes from the hotel which is very helpful for the late night closes!",
+      "skills": [
+        "Teamwork",
+        "Communication",
+        "Adaptive"
+      ],
+      "type": "experience",
+      "category": "Work Experience",
+      "relevance": 2
+    },
+    {
+      "id": "luxford-exp",
+      "title": "Front of House Burger Van",
+      "company": "Luxford Burgers",
+      "dateRange": "August 2023",
+      "detail": "Probably the most insane month of my life. I worked 28 days in a row, pulling four back to back 80 hour weeks. Working in a food van at the Edinburgh Fringe was definitely an experience I will never regret - but also not repeat quickly. I will also die on the hill that Luxfords burgers are sensational and if you are ever in Edinburgh, do your best to go and try them.",
+      "skills": [
+        "Teamwork",
+        "Communication",
+        "Adaptive",
+        "Sales"
+      ],
+      "type": "experience",
+      "category": "Work Experience",
+      "relevance": 1
+    }
+  ],
+  "projects": [
+    {
+      "id": "team-project",
+      "title": "University Team Project",
+      "company": "Thales",
+      "dateRange": "September 2024 - April 2025",
+      "detail": "This is a project I am truly proud of. As part of a third year university course, six of us worked together for Thales UK to build a AI Map Generation Desktop App - Map Genie. The concept was simple - the user inputs a plain English prompt on the UI, customises the styling of the map and then a map opens in QGIS (map software) with the result of their query highlighted and the map nicely styled. An example use case would be 'Police stations in a 5 mile radius around Wembley Stadium'. I was our Product Owner which meant working frequently with our client to ensure our app was progressing aligned to his requirements. I also delivered the PyQGIS service of the project which included taking the result of the query and rendering the map in QGIS programatically. I also built offline maps functionality where the user could save their QGIS map for offline use - a feature that required sockets programming to send and receive requests to QGIS from our front end. This project also resulted in my greatest academic achievement to date: winning the Team Project award for our yeargroup (the top six of 400 students).",
+      "skills": [
+        "Project Management",
+        "Teamwork",
+        "Communication",
+        "Leadership",
+        "React",
+        "TypeScript",
+        "GIS Software",
+        "Python",
+        "Databases",
+        "Sockets Programming"
+      ],
+      "type": "project",
+      "category": "Projects"
+    }
+  ],
+  "education": [
+    {
+      "id": "compsci1001-education",
+      "title": "Computing Science 1P - COMPSCI1001",
+      "company": "University of Glasgow",
+      "dateRange": "Grade: A4",
+      "detail": "My main course in first year of university - a programming fundamentals course primarily taught in Python but more to teach general core concepts.",
+      "skills": [
+        "Python",
+        "Object Orientated Programming",
+        "Technical Problem Solving"
+      ],
+      "type": "education",
+      "category": "Education",
+      "link": {
+        "url": "https://www.gla.ac.uk/coursecatalogue/course/?code=COMPSCI1001",
+        "label": "Course Specification"
+      },
+      "relevance" : 2
+    },
+    {
+      "id": "compsci1006-education",
+      "title": "Computing Fundamentals  - COMPSCI1006",
+      "company": "University of Glasgow",
+      "dateRange": "Grade: A5",
+      "detail": "A fundamentals course mainly focusing on the core concepts of human computer interaction. We completed a HCI evaluation of an application by assessing where it lacked in quality of design and we would redesign it. We also were taught the fundamentals of databases and SQL.",
+      "skills": [
+        "Design",
+        "Databases",
+        "UI/UX"
+      ],
+      "type": "education",
+      "category": "Education",
+      "link": {
+        "url": "https://www.gla.ac.uk/coursecatalogue/course/?code=COMPSCI1006",
+        "label": "Course Specification"
+      },
+      "relevance" : 1
+    }
+  ],
+  "about": [
+    {
+      "id": "about-me",
+      "title": "About Me",
+      "company": "Ollie",
+      "dateRange": "2004 - ",
+      "detail": "Hello! I'm delighted you have taken the time to visit my website. My name is Ollie Livingston and I am a 4th year Software Engineering student at the University of Glasgow, Scotland. Currently, I am completing a year long placement at JPMorganChase - a huge life change for me, and honestly one I am still getting used to. Outside of the office, I am very into my sport. If I'm not playing one of football, tennis or badminton, I will likely be in the pub watching them. I am an avid cook - check out the Cooking page for some of my recommendations. I am unfortunately a West Ham fan which has only really resulted in one brief season of joy in my life so far - but I'm sure they've got one or two left in them! In a brief summary of myself, I always push myself to be outgoing and friendly. I love meeting new people, hearing different perspectives and exploring the world. Next destination for me is Hong Kong in January! I'm happy for a chat with anyone, work or non-work related - please feel free to reach out at oliverlivingston@iCloud.com or via LinkedIn.",
+      "skills": [
+        "Software Engineering",
+        "Cooking",
+        "Football",
+        "Tennis",
+        "Badminton"
+      ],
+      "type": "about",
+      "category": "About",
+      "relevance": 5
+    },
+    {
+      "id": "cooking",
+      "title": "Cooking",
+      "company": "Ollie",
+      "dateRange": "Not that long",
+      "detail": "I thought I may as well dedicate a page to it. Cooking has hugely grown on me and is something I find quite therapeutic after work. My comfort dish to make is Creamy Chorizo & Halloumi Pasta - maybe not the most healthy but so quick and tasty. Recently some of my favourites to make have been Lamb Tagine, Paneer Makhani, a hearty Chicken Pasta Bake and Kung Pao Chicken. Check out the photo gallery for some food snaps!",
+      "skills": [
+        "Cooking"
+      ],
+      "type": "about",
+      "category": "About",
+      "relevance": 3
+    }
+  ]
+}

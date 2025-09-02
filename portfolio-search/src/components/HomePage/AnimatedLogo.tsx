@@ -19,7 +19,7 @@ const gentlePulse = keyframes`
 
 const Logo = styled.h1`
   font-size: 4rem;
-  font-weight: 300;
+  font-weight: 400;
   margin-bottom: 2rem;
   color: #333;
   
@@ -32,7 +32,7 @@ const AnimatedO = styled.span`
   display: inline-block;
   width: 0.85em;
   height: 0.85em;
-  border: 0.06em solid #4285f4;
+  border: 0.1em solid #4285f4;
   border-radius: 50%;
   position: relative;
   vertical-align: baseline;
