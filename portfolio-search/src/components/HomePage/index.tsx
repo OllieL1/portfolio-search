@@ -12,6 +12,8 @@ import ContentPage from '../ContentPage';
 import SearchResults from '../SearchResults';
 import SkillsResults from '../SkillsResults';
 import TabManager from '../TabManager';
+import ExperiencePage from '../ExperiencePage';
+import EducationPage from '../EducationPage';
 
 // Types
 interface AutocompleteItem {
@@ -55,7 +57,7 @@ const SearchSection = styled.div`
 const HomePage: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [showAutocomplete, setShowAutocomplete] = useState<boolean>(false);
-  const [currentView, setCurrentView] = useState<'home' | 'content' | 'search' | 'skills'>('home');
+  const [currentView, setCurrentView] = useState<'home' | 'content' | 'search' | 'skills' | 'experience' | 'education'>('home');
   const [selectedContentId, setSelectedContentId] = useState<string | null>(null);
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [skillsResults, setSkillsResults] = useState<any[]>([]);
@@ -85,6 +87,15 @@ const HomePage: React.FC = () => {
     setCurrentView('skills');
   };
 
+  // Navigation to section pages
+  const navigateToExperience = () => {
+    setCurrentView('experience');
+  };
+
+  const navigateToEducation = () => {
+    setCurrentView('education');
+  };
+
   // Tab management functions
   const handleTabChange = (contentId: string) => {
     navigateToContent(contentId);
@@ -104,12 +115,12 @@ const HomePage: React.FC = () => {
     { 
       name: 'Experience', 
       icon: <Briefcase size={20} />,
-      action: () => console.log('Navigate to Experience') 
+      action: navigateToExperience
     },
     { 
       name: 'Education', 
       icon: <GraduationCap size={20} />,
-      action: () => console.log('Navigate to Education') 
+      action: navigateToEducation  // You'll need to create this function
     },
     { 
       name: 'About Me', 
@@ -204,6 +215,49 @@ const HomePage: React.FC = () => {
     setTimeout(() => setShowAutocomplete(false), 200);
   };
 
+  // Render experience page
+  if (currentView === 'experience') {
+    return (
+      <>
+        <GlobalStyle />
+        <TabManager
+          currentView={currentView}
+          selectedContentId={selectedContentId}
+          searchQuery={searchQuery}
+          selectedSkill={selectedSkill}
+          onTabChange={handleTabChange}
+          onNewSearch={handleNewSearch}
+        >
+          <ExperiencePage 
+            onItemClick={navigateToContent} 
+            onSkillClick={navigateToSkills}
+          />
+        </TabManager>
+      </>
+    );
+  }
+
+  if (currentView === 'education') {
+  return (
+    <>
+      <GlobalStyle />
+      <TabManager
+        currentView={currentView}
+        selectedContentId={selectedContentId}
+        searchQuery={searchQuery}
+        selectedSkill={selectedSkill}
+        onTabChange={handleTabChange}
+        onNewSearch={handleNewSearch}
+      >
+        <EducationPage 
+          onItemClick={navigateToContent} 
+          onSkillClick={navigateToSkills}
+        />
+      </TabManager>
+    </>
+  );
+}
+
   // Render skills results page
   if (currentView === 'skills') {
     return (
@@ -261,9 +315,8 @@ const HomePage: React.FC = () => {
         >
           <ContentPage
             contentId={selectedContentId}
-            onBack={navigateToHome}
             onSkillClick={navigateToSkills}
-            showBackButton={false} // Hide back button since we have tabs
+            showBackButton={false}
           />
         </TabManager>
       </>

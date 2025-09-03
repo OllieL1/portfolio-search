@@ -2,7 +2,9 @@ export interface ContentItem {
   id: string;
   title: string;
   company: string;
-  dateRange: string;
+  startDate: string;
+  endDate?: string;
+  dateRange?: string;
   detail: string;
   skills: string[];
   type: 'experience' | 'project' | 'education' | 'about';
