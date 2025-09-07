@@ -47,7 +47,7 @@ const ContentPage: React.FC<ContentPageProps> = ({
       <ExperienceCard
         title={content.title}
         company={content.company}
-        dateRange={content.dateRange}
+        dateRange={content.dateRange || ''} // Provide empty string as fallback
         detail={content.detail}
         skills={content.skills}
         link={content.link}

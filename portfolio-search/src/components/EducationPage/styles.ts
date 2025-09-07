@@ -57,14 +57,14 @@ export const TimelineLine = styled.div`
   }
 `;
 
-export const Section = styled.div`
+export const Section = styled.div<{ $isActive: boolean }>`
   margin-bottom: 4rem;
   transition: all 0.3s ease;
   opacity: ${props => props.$isActive ? 1 : 0.7};
   transform: ${props => props.$isActive ? 'translateX(0)' : 'translateX(-5px)'};
 `;
 
-export const SectionHeader = styled.div`
+export const SectionHeader = styled.div<{ $color: string }>`
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -113,7 +113,7 @@ export const TimelineItem = styled.div`
   }
 `;
 
-export const TimelineDot = styled.div`
+export const TimelineDot = styled.div<{ $color: string }>`
   position: absolute;
   left: -26px;
   top: 1rem;

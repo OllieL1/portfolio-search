@@ -35,16 +35,21 @@ const ExperiencePage: React.FC<ExperiencePageProps> = ({ onItemClick, onSkillCli
   const experiences = getContentByType('experiences');
   
   // Helper function to format date for display
-  const formatDateDisplay = (startDate: string, endDate?: string) => {
+  const formatDateDisplay = (startDate: string | null, endDate?: string | null) => {
     const formatDate = (dateStr: string) => {
       const [year, month] = dateStr.split('-');
       if (month) {
         const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-                           'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                          'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         return `${monthNames[parseInt(month) - 1]} ${year}`;
       }
       return year;
     };
+    
+    // Handle null startDate
+    if (!startDate) {
+      return 'Date not specified';
+    }
     
     const start = formatDate(startDate);
     const end = endDate ? formatDate(endDate) : 'Present';
@@ -52,7 +57,10 @@ const ExperiencePage: React.FC<ExperiencePageProps> = ({ onItemClick, onSkillCli
   };
   
   // Parse dates for sorting and grouping
-  const parseDate = (dateStr: string) => {
+  const parseDate = (dateStr: string | null) => {
+    if (!dateStr) {
+      return new Date(); // Return current date as fallback
+    }
     const [year, month = '12'] = dateStr.split('-');
     return new Date(parseInt(year), parseInt(month) - 1);
   };
@@ -63,7 +71,7 @@ const ExperiencePage: React.FC<ExperiencePageProps> = ({ onItemClick, onSkillCli
     const yearGroups: { [year: number]: ContentItem[] } = {};
     
     experiences.forEach(exp => {
-      // Use end date year, or current year if ongoing
+      // Use end date year, or current year if ongoing or null
       const endYear = exp.endDate ? parseDate(exp.endDate).getFullYear() : currentYear;
       
       if (!yearGroups[endYear]) {

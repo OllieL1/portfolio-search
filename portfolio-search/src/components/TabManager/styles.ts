@@ -29,10 +29,11 @@ export const TabsContainer = styled.div`
   }
 `;
 
-export const Tab = styled.div<{ active: boolean; isNewSearch?: boolean }>`
-  background: ${props => props.active ? '#4285f4' : 'white'};
-  color: ${props => props.active ? 'white' : '#333'};
-  border: 1px solid ${props => props.active ? '#4285f4' : '#e0e0e0'};
+// Update the interface to use $ prefix
+export const Tab = styled.div<{ $active: boolean; $isNewSearch?: boolean }>`
+  background: ${props => props.$active ? '#4285f4' : 'white'};
+  color: ${props => props.$active ? 'white' : '#333'};
+  border: 1px solid ${props => props.$active ? '#4285f4' : '#e0e0e0'};
   border-radius: 20px;
   padding: 0.5rem 1rem;
   cursor: pointer;
@@ -47,7 +48,7 @@ export const Tab = styled.div<{ active: boolean; isNewSearch?: boolean }>`
   font-weight: 500;
 
   &:hover {
-    background: ${props => props.active ? '#3367d6' : '#f8f9fa'};
+    background: ${props => props.$active ? '#3367d6' : '#f8f9fa'};
     transform: translateY(-1px);
   }
   

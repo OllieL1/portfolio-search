@@ -27,8 +27,8 @@ interface ProjectsPageProps {
   onSkillClick: (skill: string) => void;
 }
 
-// Helper function to format date range
-const formatDateRange = (startDate: string, endDate: string | null): string => {
+// Helper function to format date range - now handles null startDate
+const formatDateRange = (startDate: string | null, endDate: string | null | undefined): string => {
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr);
     return date.toLocaleDateString('en-US', { 
@@ -36,6 +36,11 @@ const formatDateRange = (startDate: string, endDate: string | null): string => {
       month: 'short' 
     });
   };
+  
+  // Handle case where startDate is null
+  if (!startDate) {
+    return 'Date Range Not Available';
+  }
   
   const start = formatDate(startDate);
   const end = endDate ? formatDate(endDate) : 'Present';

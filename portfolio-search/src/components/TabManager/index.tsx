@@ -262,38 +262,38 @@ const TabManager: React.FC<TabManagerProps> = ({ children }) => {
   }
 
   return (
-    <>
-      <TabsContainer>
-        {/* New Search Tab */}
+  <>
+    <TabsContainer>
+      {/* New Search Tab */}
+      <TabElement
+        $active={activeTabId === 'new-search'}
+        $isNewSearch={true}
+        onClick={handleNewSearchClick}
+      >
+        <Search size={14} />
+        <TabTitle>New Search</TabTitle>
+      </TabElement>
+
+      {/* Content Tabs */}
+      {tabs.map(tab => (
         <TabElement
-          active={activeTabId === 'new-search'}
-          isNewSearch={true}
-          onClick={handleNewSearchClick}
+          key={tab.id}
+          $active={activeTabId === tab.id}
+          onClick={() => handleTabClick(tab)}
         >
-          <Search size={14} />
-          <TabTitle>New Search</TabTitle>
+          {getTabIcon(tab.type)}
+          <TabTitle title={tab.title}>{tab.title}</TabTitle>
+          <CloseButton onClick={(e) => handleCloseTab(e, tab.id)}>
+            <X size={12} />
+          </CloseButton>
         </TabElement>
+      ))}
+    </TabsContainer>
 
-        {/* Content Tabs */}
-        {tabs.map(tab => (
-          <TabElement
-            key={tab.id}
-            active={activeTabId === tab.id}
-            onClick={() => handleTabClick(tab)}
-          >
-            {getTabIcon(tab.type)}
-            <TabTitle title={tab.title}>{tab.title}</TabTitle>
-            <CloseButton onClick={(e) => handleCloseTab(e, tab.id)}>
-              <X size={12} />
-            </CloseButton>
-          </TabElement>
-        ))}
-      </TabsContainer>
-
-      <ContentWrapper>
-        {children}
-      </ContentWrapper>
-    </>
+    <ContentWrapper>
+      {children}
+    </ContentWrapper>
+  </>
   );
 };
 
