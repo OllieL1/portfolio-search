@@ -68,13 +68,11 @@ const SearchResults: React.FC<SearchResultsProps> = ({
     
     // Find the first occurrence of any search term
     let bestIndex = -1;
-    let bestTerm = "";
     
     searchTerms.forEach(term => {
       const index = lowerDetail.indexOf(term);
       if (index !== -1 && (bestIndex === -1 || index < bestIndex)) {
         bestIndex = index;
-        bestTerm = term;
       }
     });
     
