@@ -68,7 +68,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({
     
     // Find the first occurrence of any search term
     let bestIndex = -1;
-    let bestTerm;
+    let bestTerm = "";
     
     searchTerms.forEach(term => {
       const index = lowerDetail.indexOf(term);
@@ -102,7 +102,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({
 
       <SearchHeader>
         <SearchTitle>
-          Search results for "<SearchQuery>{query}</SearchQuery>"
+          Search results for &quot;<SearchQuery>{query}</SearchQuery>&quot;
         </SearchTitle>
         <ResultCount>
           {results.length} {results.length === 1 ? 'result' : 'results'} found

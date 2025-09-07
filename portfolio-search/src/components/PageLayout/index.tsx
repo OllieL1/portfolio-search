@@ -9,8 +9,7 @@ interface PageLayoutProps {
 }
 
 const PageLayout: React.FC<PageLayoutProps> = ({ 
-  children,
-  onBack
+  children
 }) => {
 
   return (

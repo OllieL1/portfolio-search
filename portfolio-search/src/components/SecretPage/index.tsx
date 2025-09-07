@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import { Eye, EyeOff, Lock, Heart, Zap, Target, Users, Code, Lightbulb } from 'lucide-react';
 import { GlobalStyle } from '../../components/HomePage/GlobalStyles';
 import TabManager from '../../components/TabManager';
