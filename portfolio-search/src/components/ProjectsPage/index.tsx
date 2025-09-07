@@ -1,6 +1,7 @@
 import React from 'react';
 import { Calendar, Award } from 'lucide-react';
 import { getAllContent } from '../../utils/contentUtils';
+import { useWindow } from '../../hooks/useWindow'; // Import the custom hook
 import {
   Container,
   Header,
@@ -49,14 +50,16 @@ const formatDateRange = (startDate: string | null, endDate: string | null | unde
 };
 
 const ProjectsPage: React.FC<ProjectsPageProps> = ({ onItemClick, onSkillClick }) => {
+  // Use custom hook for window detection
+  const { isMobile } = useWindow();
+  
   // Get all project content
   const allContent = getAllContent();
   const projects = allContent.filter(item => item.type === 'project');
 
   // Helper function to render skills with responsive truncation
   const renderSkills = (skills: string[]) => {
-    // Determine if we're on mobile using window width (simple approach)
-    const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+    // Use the isMobile value from the custom hook
     const limit = isMobile ? 3 : 5;
     
     return (

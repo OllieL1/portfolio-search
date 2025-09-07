@@ -2,6 +2,7 @@ import React from 'react';
 import { ExternalLink } from 'lucide-react';
 import { getContentByType } from '../../utils/contentUtils';
 import { ContentItem } from '../../types/content';
+import { useWindow } from '../../hooks/useWindow'; // Import the custom hook
 import {
   ExperienceContainer,
   ExperienceHeader,
@@ -31,6 +32,9 @@ interface ExperiencePageProps {
 }
 
 const ExperiencePage: React.FC<ExperiencePageProps> = ({ onItemClick, onSkillClick }) => {
+  // Use custom hook for window detection
+  const { isMobile } = useWindow();
+  
   // Get experience content
   const experiences = getContentByType('experiences');
   
@@ -112,8 +116,7 @@ const ExperiencePage: React.FC<ExperiencePageProps> = ({ onItemClick, onSkillCli
 
   // Helper function to render skills with responsive truncation
   const renderSkills = (skills: string[]) => {
-    // Determine if we're on mobile using window width (simple approach)
-    const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+    // Use the isMobile value from the custom hook
     const limit = isMobile ? 3 : 5;
     
     return (

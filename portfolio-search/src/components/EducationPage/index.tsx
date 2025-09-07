@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { ExternalLink, GraduationCap, School } from 'lucide-react';
 import { getAllContent } from '../../utils/contentUtils';
+import { useWindow, useIsClient } from '../../hooks/useWindow'; // Import the custom hooks
 import {
   Container,
   Header,
@@ -56,18 +57,10 @@ interface EducationPageProps {
 const EducationPage: React.FC<EducationPageProps> = ({ onItemClick, onSkillClick }) => {
   const [activeSection, setActiveSection] = useState<string>('university');
   const [educationData, setEducationData] = useState<EducationItem[]>([]);
-  const [isMobile, setIsMobile] = useState<boolean>(false);
-
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
+  
+  // Use custom hooks for window detection
+  const { isMobile } = useWindow();
+  const isClient = useIsClient();
 
   useEffect(() => {
     const allContent = getAllContent();
@@ -76,6 +69,9 @@ const EducationPage: React.FC<EducationPageProps> = ({ onItemClick, onSkillClick
   }, []);
 
   useEffect(() => {
+    // Only add scroll listener on client side
+    if (!isClient) return;
+
     const handleScroll = () => {
       const sections = ['university', 'highschool'];
       const scrollPosition = window.scrollY + window.innerHeight / 2;
@@ -97,7 +93,7 @@ const EducationPage: React.FC<EducationPageProps> = ({ onItemClick, onSkillClick
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isClient]);
 
   // Helper function to determine which year a course belongs to
   const getCourseYear = (startDate: string, endDate: string): string | null => {
@@ -188,6 +184,18 @@ const EducationPage: React.FC<EducationPageProps> = ({ onItemClick, onSkillClick
       </EmptyYearMessage>
     );
   };
+
+  // Show loading during SSR
+  if (!isClient) {
+    return (
+      <Container>
+        <Header>
+          <h1>Education</h1>
+          <p>Loading...</p>
+        </Header>
+      </Container>
+    );
+  }
 
   return (
     <Container>
