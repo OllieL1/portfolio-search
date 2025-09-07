@@ -2,6 +2,7 @@ import React from 'react';
 import { ExternalLink } from 'lucide-react';
 import { getContentByType } from '../../utils/contentUtils';
 import { ContentItem } from '../../types/content';
+import { useWindow } from '../../hooks/useWindow'; // Import the custom hook
 import {
   ExperienceContainer,
   ExperienceHeader,
@@ -31,20 +32,28 @@ interface ExperiencePageProps {
 }
 
 const ExperiencePage: React.FC<ExperiencePageProps> = ({ onItemClick, onSkillClick }) => {
+  // Use custom hook for window detection
+  const { isMobile } = useWindow();
+  
   // Get experience content
   const experiences = getContentByType('experiences');
   
   // Helper function to format date for display
-  const formatDateDisplay = (startDate: string, endDate?: string) => {
+  const formatDateDisplay = (startDate: string | null, endDate?: string | null) => {
     const formatDate = (dateStr: string) => {
       const [year, month] = dateStr.split('-');
       if (month) {
         const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-                           'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                          'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         return `${monthNames[parseInt(month) - 1]} ${year}`;
       }
       return year;
     };
+    
+    // Handle null startDate
+    if (!startDate) {
+      return 'Date not specified';
+    }
     
     const start = formatDate(startDate);
     const end = endDate ? formatDate(endDate) : 'Present';
@@ -52,7 +61,10 @@ const ExperiencePage: React.FC<ExperiencePageProps> = ({ onItemClick, onSkillCli
   };
   
   // Parse dates for sorting and grouping
-  const parseDate = (dateStr: string) => {
+  const parseDate = (dateStr: string | null) => {
+    if (!dateStr) {
+      return new Date(); // Return current date as fallback
+    }
     const [year, month = '12'] = dateStr.split('-');
     return new Date(parseInt(year), parseInt(month) - 1);
   };
@@ -63,7 +75,7 @@ const ExperiencePage: React.FC<ExperiencePageProps> = ({ onItemClick, onSkillCli
     const yearGroups: { [year: number]: ContentItem[] } = {};
     
     experiences.forEach(exp => {
-      // Use end date year, or current year if ongoing
+      // Use end date year, or current year if ongoing or null
       const endYear = exp.endDate ? parseDate(exp.endDate).getFullYear() : currentYear;
       
       if (!yearGroups[endYear]) {
@@ -104,8 +116,7 @@ const ExperiencePage: React.FC<ExperiencePageProps> = ({ onItemClick, onSkillCli
 
   // Helper function to render skills with responsive truncation
   const renderSkills = (skills: string[]) => {
-    // Determine if we're on mobile using window width (simple approach)
-    const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+    // Use the isMobile value from the custom hook
     const limit = isMobile ? 3 : 5;
     
     return (
@@ -141,7 +152,7 @@ const ExperiencePage: React.FC<ExperiencePageProps> = ({ onItemClick, onSkillCli
         <EmptyState>
           <EmptyStateTitle>No Experience Found</EmptyStateTitle>
           <EmptyStateText>
-            Experience entries will appear here once they're added to the content.
+            Experience entries will appear here once they are added to the content.
           </EmptyStateText>
         </EmptyState>
       </ExperienceContainer>

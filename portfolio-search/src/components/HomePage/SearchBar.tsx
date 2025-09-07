@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Search, Linkedin, Github } from 'lucide-react';
+import { Search } from 'lucide-react';
 
 // Types
 interface AutocompleteItem {

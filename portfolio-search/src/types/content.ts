@@ -2,18 +2,18 @@ export interface ContentItem {
   id: string;
   title: string;
   company: string;
-  startDate: string;
-  endDate?: string;
-  dateRange?: string;
+  startDate: string | null;  // Allow null
+  endDate: string | null;    // Allow null
+  dateRange?: string;        // Keep optional
   detail: string;
   skills: string[];
-  type: 'experience' | 'project' | 'education' | 'about';
-  category: string;
-  relevance?: number;
   link?: {
     url: string;
     label: string;
   };
+  relevance?: number;
+  type: string;
+  category: string;
 }
 
 export interface ContentData {

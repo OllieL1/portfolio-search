@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import { Eye, EyeOff, Lock, Heart, Zap, Target, Users, Code, Lightbulb } from 'lucide-react';
 import { GlobalStyle } from '../../components/HomePage/GlobalStyles';
 import TabManager from '../../components/TabManager';
@@ -41,7 +40,6 @@ interface SellingPoint {
 }
 
 const SecretPage: React.FC = () => {
-  const router = useRouter();
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [password, setPassword] = useState<string>('');
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -49,7 +47,6 @@ const SecretPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const requiredPassword = process.env.NEXT_PUBLIC_SECRET_PASSWORD;
-  const secretTrigger = process.env.NEXT_PUBLIC_SECRET_TRIGGER;
 
   useEffect(() => {
     // Check if already authenticated in session
@@ -180,7 +177,7 @@ const SecretPage: React.FC = () => {
                 </p>
                 <p>
                   Please make use of the site to help you inform your hiring choices, it is built to be a search engine - a sort of wikipedia about me. You can find the shortcuts on the Home Page which all have custom built pages to add more detail to my CV. If you are looking for specific skills/info, the global search of all pages is particularly powerful and sorts the results by relevance. 
-                  Please do enjoy the site and good luck with your hiring! I'll be hoping to hear from you!
+                  Please do enjoy the site and good luck with your hiring! I&apos;ll be hoping to hear from you!
                 </p>
               </TextContent>
             </Section>
@@ -189,10 +186,10 @@ const SecretPage: React.FC = () => {
               <SectionTitle>Why This Opportunity Excites Me</SectionTitle>
               <TextContent>
                 <p>
-                  Throughout my career, I've been drawn to companies that don't just build software—they craft experiences that fundamentally change how people work and think. The intersection of elegant design and powerful functionality represents everything I'm passionate about in technology.
+                  Throughout my career, I&apos;ve been drawn to companies that don&apos;t just build software—they craft experiences that fundamentally change how people work and think. The intersection of elegant design and powerful functionality represents everything I&apos;m passionate about in technology.
                 </p>
                 <p>
-                  What captivates me most is the mission of democratizing powerful tools. Having worked in both academic and enterprise environments, I've seen how the right platform can transform scattered thoughts into actionable insights, and fragmented workflows into seamless productivity systems.
+                  What captivates me most is the mission of democratizing powerful tools. Having worked in both academic and enterprise environments, I&apos;ve seen how the right platform can transform scattered thoughts into actionable insights, and fragmented workflows into seamless productivity systems.
                 </p>
                 <p>
                   The opportunity to contribute to a platform that millions rely on daily to organize their thoughts, collaborate with teams, and build knowledge bases represents the kind of meaningful impact I want to have in my career.
@@ -201,13 +198,13 @@ const SecretPage: React.FC = () => {
             </Section>
 
             <Section>
-              <SectionTitle>Why I'm the Right Fit</SectionTitle>
+              <SectionTitle>Why I&apos;m the Right Fit</SectionTitle>
               <TextContent>
                 <p>
                   My experience spans the full spectrum of product development—from understanding user needs as a Product Owner, to implementing complex technical solutions, to working directly with stakeholders in fast-paced environments.
                 </p>
                 <p>
-                  At JP Morgan, I've learned to balance innovation with reliability, building user interfaces that handle complex financial data while remaining intuitive. This mirrors the challenge of creating powerful productivity tools that don't overwhelm users with complexity.
+                  At JP Morgan, I&apos;ve learned to balance innovation with reliability, building user interfaces that handle complex financial data while remaining intuitive. This mirrors the challenge of creating powerful productivity tools that don&apos;t overwhelm users with complexity.
                 </p>
                 <p>
                   My collaborative approach, combined with technical versatility and genuine enthusiasm for creating products that people love, aligns perfectly with building tools that enhance human creativity and productivity.

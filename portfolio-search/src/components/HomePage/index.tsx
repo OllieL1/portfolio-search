@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import styled from 'styled-components';
 import { Code, Briefcase, GraduationCap, User, Linkedin, Github } from 'lucide-react';
 import { searchContent } from '../../utils/contentUtils';
+import { useIsClient } from '../../hooks/useWindow'; // Import the custom hook
 import { GlobalStyle } from './GlobalStyles';
 import AnimatedLogo from './AnimatedLogo';
 import SearchBar from './SearchBar';
@@ -54,6 +55,9 @@ const HomePage: React.FC = () => {
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [showAutocomplete, setShowAutocomplete] = useState<boolean>(false);
+  
+  // Use custom hook for client-side detection
+  const isClient = useIsClient();
 
   // Environment variables for secret page
   const secretTrigger = process.env.NEXT_PUBLIC_SECRET_TRIGGER;
@@ -87,6 +91,14 @@ const HomePage: React.FC = () => {
 
   const navigateToSecret = () => {
     router.push('/secret');
+    setShowAutocomplete(false);
+  };
+
+  // Safe window.open function
+  const safeWindowOpen = (url: string) => {
+    if (isClient) {
+      window.open(url, '_blank');
+    }
     setShowAutocomplete(false);
   };
 
@@ -177,8 +189,7 @@ const HomePage: React.FC = () => {
           icon: <Linkedin size={16} />,
           subtitle: 'Open in LinkedIn',
           action: () => {
-            window.open('https://linkedin.com/in/your-profile', '_blank');
-            setShowAutocomplete(false);
+            safeWindowOpen('https://linkedin.com/in/your-profile');
           }
         });
       }
@@ -191,15 +202,14 @@ const HomePage: React.FC = () => {
           icon: <Github size={16} />,
           subtitle: 'Open in GitHub',
           action: () => {
-            window.open('https://github.com/your-username', '_blank');
-            setShowAutocomplete(false);
+            safeWindowOpen('https://github.com/your-username');
           }
         });
       }
     }
 
     return items.slice(0, 5);
-  }, [searchQuery, secretTrigger]);
+  }, [searchQuery, secretTrigger, isClient]);
 
   const handleSearch = () => {
     if (searchQuery.trim()) {

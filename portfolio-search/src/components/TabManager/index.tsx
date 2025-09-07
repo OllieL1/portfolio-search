@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { X, Search, Briefcase, GraduationCap, Code, User, Hash } from 'lucide-react';
 import { getContentById } from '../../utils/contentUtils';
+import { useIsClient } from '../../hooks/useWindow'; // Import the custom hook
 import { Tab } from './types';
 import { TabsContainer, Tab as TabElement, TabTitle, CloseButton, ContentWrapper } from './styles';
 
@@ -35,6 +36,14 @@ const loadTabsFromStorage = (): Tab[] => {
     }
   }
   return [];
+};
+
+// Helper function to get search params safely
+const getSearchParams = (): URLSearchParams => {
+  if (typeof window !== 'undefined') {
+    return new URLSearchParams(window.location.search);
+  }
+  return new URLSearchParams();
 };
 
 // Helper function to get icon for tab type
@@ -113,9 +122,9 @@ const createTabFromRoute = (pathname: string, searchParams?: URLSearchParams): T
     
     if (searchParams) {
       query = searchParams.get('q') || '';
-    } else if (typeof window !== 'undefined') {
-      // Fallback to reading from window.location if searchParams not available
-      const urlParams = new URLSearchParams(window.location.search);
+    } else {
+      // Fallback to safe search params getter
+      const urlParams = getSearchParams();
       query = urlParams.get('q') || '';
     }
     
@@ -173,20 +182,25 @@ const TabManager: React.FC<TabManagerProps> = ({ children }) => {
   const router = useRouter();
   const pathname = usePathname();
   const [tabs, setTabs] = useState<Tab[]>([]);
+  
+  // Use custom hook for client-side detection
+  const isClient = useIsClient();
 
   // Load tabs from session storage on mount
   useEffect(() => {
+    if (!isClient) return;
+    
     const storedTabs = loadTabsFromStorage();
     if (storedTabs.length > 0) {
       setTabs(storedTabs);
     }
-  }, []);
+  }, [isClient]);
 
   // Update tabs when route changes
   useEffect(() => {
-    if (typeof window === 'undefined') return;
+    if (!isClient) return;
     
-    const searchParams = new URLSearchParams(window.location.search);
+    const searchParams = getSearchParams();
     const currentTab = createTabFromRoute(pathname, searchParams);
     
     if (currentTab) {
@@ -213,7 +227,7 @@ const TabManager: React.FC<TabManagerProps> = ({ children }) => {
         return newTabs;
       });
     }
-  }, [pathname]);
+  }, [pathname, isClient]);
 
   const handleTabClick = (tab: Tab) => {
     router.push(tab.url);
@@ -247,14 +261,15 @@ const TabManager: React.FC<TabManagerProps> = ({ children }) => {
     }
     
     // For all other pages, find the matching tab
-    const searchParams = new URLSearchParams(window.location.search);
+    const searchParams = getSearchParams();
     const currentTab = createTabFromRoute(pathname, searchParams);
     
     // If we can't find a matching tab, don't highlight anything (not even New Search)
     return currentTab ? currentTab.id : '';
   };
 
-  const activeTabId = getActiveTabId();
+  // Only calculate active tab on client side
+  const activeTabId = isClient ? getActiveTabId() : '';
   const shouldShowTabs = tabs.length > 0 || pathname !== '/';
 
   if (!shouldShowTabs) {
@@ -262,38 +277,38 @@ const TabManager: React.FC<TabManagerProps> = ({ children }) => {
   }
 
   return (
-    <>
-      <TabsContainer>
-        {/* New Search Tab */}
+  <>
+    <TabsContainer>
+      {/* New Search Tab */}
+      <TabElement
+        $active={activeTabId === 'new-search'}
+        $isNewSearch={true}
+        onClick={handleNewSearchClick}
+      >
+        <Search size={14} />
+        <TabTitle>New Search</TabTitle>
+      </TabElement>
+
+      {/* Content Tabs */}
+      {tabs.map(tab => (
         <TabElement
-          active={activeTabId === 'new-search'}
-          isNewSearch={true}
-          onClick={handleNewSearchClick}
+          key={tab.id}
+          $active={activeTabId === tab.id}
+          onClick={() => handleTabClick(tab)}
         >
-          <Search size={14} />
-          <TabTitle>New Search</TabTitle>
+          {getTabIcon(tab.type)}
+          <TabTitle title={tab.title}>{tab.title}</TabTitle>
+          <CloseButton onClick={(e) => handleCloseTab(e, tab.id)}>
+            <X size={12} />
+          </CloseButton>
         </TabElement>
+      ))}
+    </TabsContainer>
 
-        {/* Content Tabs */}
-        {tabs.map(tab => (
-          <TabElement
-            key={tab.id}
-            active={activeTabId === tab.id}
-            onClick={() => handleTabClick(tab)}
-          >
-            {getTabIcon(tab.type)}
-            <TabTitle title={tab.title}>{tab.title}</TabTitle>
-            <CloseButton onClick={(e) => handleCloseTab(e, tab.id)}>
-              <X size={12} />
-            </CloseButton>
-          </TabElement>
-        ))}
-      </TabsContainer>
-
-      <ContentWrapper>
-        {children}
-      </ContentWrapper>
-    </>
+    <ContentWrapper>
+      {children}
+    </ContentWrapper>
+  </>
   );
 };
 

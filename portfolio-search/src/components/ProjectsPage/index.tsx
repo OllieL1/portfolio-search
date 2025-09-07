@@ -1,6 +1,7 @@
 import React from 'react';
 import { Calendar, Award } from 'lucide-react';
 import { getAllContent } from '../../utils/contentUtils';
+import { useWindow } from '../../hooks/useWindow'; // Import the custom hook
 import {
   Container,
   Header,
@@ -27,8 +28,8 @@ interface ProjectsPageProps {
   onSkillClick: (skill: string) => void;
 }
 
-// Helper function to format date range
-const formatDateRange = (startDate: string, endDate: string | null): string => {
+// Helper function to format date range - now handles null startDate
+const formatDateRange = (startDate: string | null, endDate: string | null | undefined): string => {
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr);
     return date.toLocaleDateString('en-US', { 
@@ -37,6 +38,11 @@ const formatDateRange = (startDate: string, endDate: string | null): string => {
     });
   };
   
+  // Handle case where startDate is null
+  if (!startDate) {
+    return 'Date Range Not Available';
+  }
+  
   const start = formatDate(startDate);
   const end = endDate ? formatDate(endDate) : 'Present';
   
@@ -44,14 +50,16 @@ const formatDateRange = (startDate: string, endDate: string | null): string => {
 };
 
 const ProjectsPage: React.FC<ProjectsPageProps> = ({ onItemClick, onSkillClick }) => {
+  // Use custom hook for window detection
+  const { isMobile } = useWindow();
+  
   // Get all project content
   const allContent = getAllContent();
   const projects = allContent.filter(item => item.type === 'project');
 
   // Helper function to render skills with responsive truncation
   const renderSkills = (skills: string[]) => {
-    // Determine if we're on mobile using window width (simple approach)
-    const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+    // Use the isMobile value from the custom hook
     const limit = isMobile ? 3 : 5;
     
     return (
