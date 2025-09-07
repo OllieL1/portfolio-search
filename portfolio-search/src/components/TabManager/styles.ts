@@ -30,17 +30,9 @@ export const TabsContainer = styled.div`
 `;
 
 export const Tab = styled.div<{ active: boolean; isNewSearch?: boolean }>`
-  background: ${props => 
-    props.isNewSearch 
-      ? props.active ? '#4285f4' : '#f0f8ff'
-      : props.active ? '#4285f4' : 'white'
-  };
+  background: ${props => props.active ? '#4285f4' : 'white'};
   color: ${props => props.active ? 'white' : '#333'};
-  border: 1px solid ${props => 
-    props.isNewSearch 
-      ? props.active ? '#4285f4' : '#4285f4'
-      : props.active ? '#4285f4' : '#e0e0e0'
-  };
+  border: 1px solid ${props => props.active ? '#4285f4' : '#e0e0e0'};
   border-radius: 20px;
   padding: 0.5rem 1rem;
   cursor: pointer;
@@ -53,13 +45,9 @@ export const Tab = styled.div<{ active: boolean; isNewSearch?: boolean }>`
   max-width: 200px;
   font-size: 0.875rem;
   font-weight: 500;
-  
+
   &:hover {
-    background: ${props => 
-      props.isNewSearch 
-        ? props.active ? '#3367d6' : '#e6f3ff'
-        : props.active ? '#3367d6' : '#f8f9fa'
-    };
+    background: ${props => props.active ? '#3367d6' : '#f8f9fa'};
     transform: translateY(-1px);
   }
   

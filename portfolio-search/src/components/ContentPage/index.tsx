@@ -1,8 +1,8 @@
 import React from 'react';
-import { ContentItem } from '../types/content';
-import { getContentById } from '../utils/contentUtils';
-import PageLayout from './PageLayout';
-import ExperienceCard from './ExperienceCard';
+import { ContentItem } from '../../types/content';
+import { getContentById } from '../../utils/contentUtils';
+import PageLayout from '../PageLayout';
+import ExperienceCard from '../ExperienceCard'; 
 
 interface ContentPageProps {
   contentId: string;

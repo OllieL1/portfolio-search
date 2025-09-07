@@ -1,19 +1,15 @@
 "use client";
 
 import React, { useState, useMemo } from 'react';
+import { useRouter } from 'next/navigation';
 import styled from 'styled-components';
 import { Code, Briefcase, GraduationCap, User, Linkedin, Github } from 'lucide-react';
-import { searchContent, getAllContent, getContentBySkill } from '../../utils/contentUtils';
+import { searchContent } from '../../utils/contentUtils';
 import { GlobalStyle } from './GlobalStyles';
 import AnimatedLogo from './AnimatedLogo';
 import SearchBar from './SearchBar';
 import Shortcuts from './Shortcuts';
-import ContentPage from '../ContentPage';
-import SearchResults from '../SearchResults';
-import SkillsResults from '../SkillsResults';
 import TabManager from '../TabManager';
-import ExperiencePage from '../ExperiencePage';
-import EducationPage from '../EducationPage';
 
 // Types
 interface AutocompleteItem {
@@ -55,62 +51,51 @@ const SearchSection = styled.div`
 
 // Main component
 const HomePage: React.FC = () => {
+  const router = useRouter();
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [showAutocomplete, setShowAutocomplete] = useState<boolean>(false);
-  const [currentView, setCurrentView] = useState<'home' | 'content' | 'search' | 'skills' | 'experience' | 'education'>('home');
-  const [selectedContentId, setSelectedContentId] = useState<string | null>(null);
-  const [searchResults, setSearchResults] = useState<any[]>([]);
-  const [skillsResults, setSkillsResults] = useState<any[]>([]);
-  const [selectedSkill, setSelectedSkill] = useState<string>('');
 
-  // Navigation functions
+  // Environment variables for secret page
+  const secretTrigger = process.env.NEXT_PUBLIC_SECRET_TRIGGER;
+
+  // Navigation functions using Next.js router
   const navigateToContent = (contentId: string) => {
-    setSelectedContentId(contentId);
-    setCurrentView('content');
+    router.push(`/content/${contentId}`);
     setShowAutocomplete(false);
   };
 
-  const navigateToHome = () => {
-    setCurrentView('home');
-    setSelectedContentId(null);
-    setSearchQuery('');
-    setSearchResults([]);
-    setSkillsResults([]);
-    setSelectedSkill('');
+  const navigateToSearch = (query: string) => {
+    router.push(`/search?q=${encodeURIComponent(query)}`);
+    setShowAutocomplete(false);
   };
 
-  // Skills navigation function
-  const navigateToSkills = (skill: string) => {
-    const results = getContentBySkill(skill);
-    setSkillsResults(results);
-    setSelectedSkill(skill);
-    setCurrentView('skills');
-  };
-
-  // Navigation to section pages
   const navigateToExperience = () => {
-    setCurrentView('experience');
+    router.push('/experience');
   };
 
   const navigateToEducation = () => {
-    setCurrentView('education');
+    router.push('/education');
   };
 
-  // Tab management functions
-  const handleTabChange = (contentId: string) => {
-    navigateToContent(contentId);
+  const navigateToProjects = () => {
+    router.push('/projects');
   };
 
-  const handleNewSearch = () => {
-    navigateToHome();
+  const navigateToAbout = () => {
+    router.push('/about');
   };
 
-  // Sample shortcuts - these will eventually navigate to different pages
+  const navigateToSecret = () => {
+    router.push('/secret');
+    setShowAutocomplete(false);
+  };
+
+  // Shortcuts that navigate to different routes
   const shortcuts: ShortcutItem[] = [
     { 
       name: 'Projects', 
       icon: <Code size={20} />,
-      action: () => console.log('Navigate to Projects') 
+      action: navigateToProjects
     },
     { 
       name: 'Experience', 
@@ -120,12 +105,12 @@ const HomePage: React.FC = () => {
     { 
       name: 'Education', 
       icon: <GraduationCap size={20} />,
-      action: navigateToEducation  // You'll need to create this function
+      action: navigateToEducation
     },
     { 
       name: 'About Me', 
       icon: <User size={20} />,
-      action: () => console.log('Navigate to About Me') 
+      action: navigateToAbout
     }
   ];
 
@@ -135,74 +120,95 @@ const HomePage: React.FC = () => {
 
     const items: AutocompleteItem[] = [];
 
-    // Add content matches from JSON data
-    const contentMatches = searchContent(searchQuery);
-    contentMatches.slice(0, 3).forEach(content => {
+    // Check for secret page trigger (exact match, case insensitive)
+    if (secretTrigger && searchQuery.toLowerCase() === secretTrigger.toLowerCase()) {
       items.push({
-        text: content.title,
+        text: 'Special Access',
         type: 'page',
-        action: () => {
-          navigateToContent(content.id);
-        }
+        subtitle: 'Restricted content',
+        action: navigateToSecret
       });
-    });
+    }
 
-    // Add static page matches
-    const staticPages = ['Projects', 'Experience', 'Education', 'About Me'];
-    staticPages.forEach(page => {
-      if (page.toLowerCase().includes(searchQuery.toLowerCase()) && 
-          !items.some(item => item.text === page)) {
+    // Only add other suggestions if it's not the secret trigger
+    if (searchQuery.toLowerCase() !== secretTrigger?.toLowerCase()) {
+      // Add content matches from JSON data
+      const contentMatches = searchContent(searchQuery);
+      contentMatches.slice(0, 3).forEach(content => {
         items.push({
-          text: page,
+          text: content.title,
           type: 'page',
           action: () => {
-            console.log(`Navigate to ${page}`);
+            navigateToContent(content.id);
+          }
+        });
+      });
+
+      // Add static page matches
+      const staticPages = [
+        { name: 'Projects', action: navigateToProjects },
+        { name: 'Experience', action: navigateToExperience },
+        { name: 'Education', action: navigateToEducation },
+        { name: 'About Me', action: navigateToAbout }
+      ];
+      
+      staticPages.forEach(page => {
+        if (page.name.toLowerCase().includes(searchQuery.toLowerCase()) && 
+            !items.some(item => item.text === page.name)) {
+          items.push({
+            text: page.name,
+            type: 'page',
+            action: () => {
+              page.action();
+              setShowAutocomplete(false);
+            }
+          });
+        }
+      });
+
+      // Add external links with partial matching
+      const query = searchQuery.toLowerCase();
+      
+      // LinkedIn - matches "link", "linkedin", "in", etc.
+      if ('linkedin'.includes(query) && query.length >= 2) {
+        items.push({
+          text: 'LinkedIn',
+          type: 'external',
+          icon: <Linkedin size={16} />,
+          subtitle: 'Open in LinkedIn',
+          action: () => {
+            window.open('https://linkedin.com/in/your-profile', '_blank');
             setShowAutocomplete(false);
           }
         });
       }
-    });
 
-    // Add external links with partial matching
-    const query = searchQuery.toLowerCase();
-    
-    // LinkedIn - matches "link", "linkedin", "in", etc.
-    if ('linkedin'.includes(query) && query.length >= 2) {
-      items.push({
-        text: 'LinkedIn',
-        type: 'external',
-        icon: <Linkedin size={16} />,
-        subtitle: 'Open in LinkedIn',
-        action: () => {
-          window.open('https://linkedin.com', '_blank');
-          setShowAutocomplete(false);
-        }
-      });
-    }
-
-    // GitHub - matches "git", "github", "hub", etc.
-    if ('github'.includes(query) && query.length >= 2) {
-      items.push({
-        text: 'GitHub',
-        type: 'external',
-        icon: <Github size={16} />,
-        subtitle: 'Open in GitHub',
-        action: () => {
-          window.open('https://github.com', '_blank');
-          setShowAutocomplete(false);
-        }
-      });
+      // GitHub - matches "git", "github", "hub", etc.
+      if ('github'.includes(query) && query.length >= 2) {
+        items.push({
+          text: 'GitHub',
+          type: 'external',
+          icon: <Github size={16} />,
+          subtitle: 'Open in GitHub',
+          action: () => {
+            window.open('https://github.com/your-username', '_blank');
+            setShowAutocomplete(false);
+          }
+        });
+      }
     }
 
     return items.slice(0, 5);
-  }, [searchQuery]);
+  }, [searchQuery, secretTrigger]);
 
   const handleSearch = () => {
     if (searchQuery.trim()) {
-      const results = searchContent(searchQuery);
-      setSearchResults(results);
-      setCurrentView('search');
-      setShowAutocomplete(false);
+      // Check if it's the secret trigger first
+      if (secretTrigger && searchQuery.toLowerCase() === secretTrigger.toLowerCase()) {
+        navigateToSecret();
+      } else {
+        navigateToSearch(searchQuery);
+      }
     }
   };
 
@@ -215,126 +221,11 @@ const HomePage: React.FC = () => {
     setTimeout(() => setShowAutocomplete(false), 200);
   };
 
-  // Render experience page
-  if (currentView === 'experience') {
-    return (
-      <>
-        <GlobalStyle />
-        <TabManager
-          currentView={currentView}
-          selectedContentId={selectedContentId}
-          searchQuery={searchQuery}
-          selectedSkill={selectedSkill}
-          onTabChange={handleTabChange}
-          onNewSearch={handleNewSearch}
-        >
-          <ExperiencePage 
-            onItemClick={navigateToContent} 
-            onSkillClick={navigateToSkills}
-          />
-        </TabManager>
-      </>
-    );
-  }
-
-  if (currentView === 'education') {
+  // Home page only renders the search interface
   return (
     <>
       <GlobalStyle />
-      <TabManager
-        currentView={currentView}
-        selectedContentId={selectedContentId}
-        searchQuery={searchQuery}
-        selectedSkill={selectedSkill}
-        onTabChange={handleTabChange}
-        onNewSearch={handleNewSearch}
-      >
-        <EducationPage 
-          onItemClick={navigateToContent} 
-          onSkillClick={navigateToSkills}
-        />
-      </TabManager>
-    </>
-  );
-}
-
-  // Render skills results page
-  if (currentView === 'skills') {
-    return (
-      <>
-        <GlobalStyle />
-        <TabManager
-          currentView={currentView}
-          selectedContentId={selectedContentId}
-          onTabChange={handleTabChange}
-          onNewSearch={handleNewSearch}
-        >
-          <SkillsResults
-            skill={selectedSkill}
-            results={skillsResults}
-            onResultClick={navigateToContent}
-            onBack={navigateToHome}
-          />
-        </TabManager>
-      </>
-    );
-  }
-
-  // Render search results page
-  if (currentView === 'search') {
-    return (
-      <>
-        <GlobalStyle />
-        <TabManager
-          currentView={currentView}
-          selectedContentId={selectedContentId}
-          onTabChange={handleTabChange}
-          onNewSearch={handleNewSearch}
-        >
-          <SearchResults
-            query={searchQuery}
-            results={searchResults}
-            onResultClick={navigateToContent}
-            onBack={navigateToHome}
-          />
-        </TabManager>
-      </>
-    );
-  }
-
-  // Render content page if selected
-  if (currentView === 'content' && selectedContentId) {
-    return (
-      <>
-        <GlobalStyle />
-        <TabManager
-          currentView={currentView}
-          selectedContentId={selectedContentId}
-          onTabChange={handleTabChange}
-          onNewSearch={handleNewSearch}
-        >
-          <ContentPage
-            contentId={selectedContentId}
-            onSkillClick={navigateToSkills}
-            showBackButton={false}
-          />
-        </TabManager>
-      </>
-    );
-  }
-
-  // Render home page
-  return (
-    <>
-      <GlobalStyle />
-      <TabManager
-        currentView={currentView}
-        selectedContentId={selectedContentId}
-        searchQuery={searchQuery}
-        selectedSkill={selectedSkill}
-        onTabChange={handleTabChange}
-        onNewSearch={handleNewSearch}
-      >
+      <TabManager>
         <Container>
           <SearchSection>
             <AnimatedLogo />

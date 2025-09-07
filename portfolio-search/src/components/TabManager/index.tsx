@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { X, Search } from 'lucide-react';
+import { useRouter, usePathname } from 'next/navigation';
+import { X, Search, Briefcase, GraduationCap, Code, User, Hash } from 'lucide-react';
 import { getContentById } from '../../utils/contentUtils';
-import { Tab, TabManagerProps } from './types';
+import { Tab } from './types';
 import { TabsContainer, Tab as TabElement, TabTitle, CloseButton, ContentWrapper } from './styles';
+
+interface TabManagerProps {
+  children: React.ReactNode;
+}
 
 // Session storage helpers (safe for SSR)
 const saveTabsToStorage = (tabs: Tab[]) => {
@@ -21,7 +26,6 @@ const loadTabsFromStorage = (): Tab[] => {
       const stored = sessionStorage.getItem('portfolio-tabs');
       if (stored) {
         const tabs = JSON.parse(stored);
-        // Validate tabs structure
         if (Array.isArray(tabs) && tabs.every(tab => tab.id && tab.title && tab.type)) {
           return tabs;
         }
@@ -33,15 +37,142 @@ const loadTabsFromStorage = (): Tab[] => {
   return [];
 };
 
-const TabManager: React.FC<TabManagerProps> = ({
-  children,
-  currentView,
-  selectedContentId,
-  onTabChange,
-  onNewSearch
-}) => {
+// Helper function to get icon for tab type
+const getTabIcon = (type: Tab['type']) => {
+  switch (type) {
+    case 'search':
+      return <Hash size={14} />;
+    case 'experience':
+      return <Briefcase size={14} />;
+    case 'education':
+      return <GraduationCap size={14} />;
+    case 'projects':
+      return <Code size={14} />;
+    case 'about':
+      return <User size={14} />;
+    case 'skills':
+      return <Hash size={14} />;
+    case 'content':
+      return null; // No icon for content tabs
+    default:
+      return null;
+  }
+};
+
+// Helper function to create tab from current route
+const createTabFromRoute = (pathname: string, searchParams?: URLSearchParams): Tab | null => {
+  const timestamp = Date.now();
+  
+  if (pathname === '/') {
+    return null; // Home doesn't create a tab
+  }
+  
+  if (pathname === '/experience') {
+    return {
+      id: 'experience',
+      title: 'Experience',
+      type: 'experience',
+      url: pathname,
+      timestamp
+    };
+  }
+  
+  if (pathname === '/projects') {
+    return {
+      id: 'projects',
+      title: 'Projects',
+      type: 'projects',
+      url: pathname,
+      timestamp
+    };
+  }
+  
+  if (pathname === '/education') {
+    return {
+      id: 'education',
+      title: 'Education',
+      type: 'education',
+      url: pathname,
+      timestamp
+    };
+  }
+  
+  if (pathname === '/about') {
+    return {
+      id: 'about',
+      title: 'About Me',
+      type: 'about',
+      url: pathname,
+      timestamp
+    };
+  }
+  
+  if (pathname === '/search') {
+    // Handle search tabs more robustly
+    let query = '';
+    
+    if (searchParams) {
+      query = searchParams.get('q') || '';
+    } else if (typeof window !== 'undefined') {
+      // Fallback to reading from window.location if searchParams not available
+      const urlParams = new URLSearchParams(window.location.search);
+      query = urlParams.get('q') || '';
+    }
+    
+    if (query) {
+      return {
+        id: `search-${query}`,
+        title: `Search: ${query}`,
+        type: 'search',
+        url: `${pathname}?q=${encodeURIComponent(query)}`,
+        searchQuery: query,
+        timestamp
+      };
+    }
+    
+    // If no query, don't create a tab (this prevents the flicker)
+    return null;
+  }
+  
+  if (pathname.startsWith('/skills/')) {
+    const skill = pathname.split('/skills/')[1];
+    if (skill) {
+      const decodedSkill = decodeURIComponent(skill);
+      return {
+        id: `skills-${decodedSkill}`,
+        title: `Skill: ${decodedSkill}`,
+        type: 'skills',
+        url: pathname,
+        skillName: decodedSkill,
+        timestamp
+      };
+    }
+  }
+  
+  if (pathname.startsWith('/content/')) {
+    const contentId = pathname.split('/content/')[1];
+    if (contentId) {
+      const content = getContentById(contentId);
+      if (content) {
+        return {
+          id: contentId,
+          title: content.title,
+          type: 'content',
+          url: pathname,
+          contentId: contentId,
+          timestamp
+        };
+      }
+    }
+  }
+  
+  return null;
+};
+
+const TabManager: React.FC<TabManagerProps> = ({ children }) => {
+  const router = useRouter();
+  const pathname = usePathname();
   const [tabs, setTabs] = useState<Tab[]>([]);
-  const [activeTabId, setActiveTabId] = useState<string>('new-search');
 
   // Load tabs from session storage on mount
   useEffect(() => {
@@ -51,67 +182,45 @@ const TabManager: React.FC<TabManagerProps> = ({
     }
   }, []);
 
-  // Update tabs when view changes
+  // Update tabs when route changes
   useEffect(() => {
-    if (currentView === 'content' && selectedContentId) {
-      const content = getContentById(selectedContentId);
-      if (content) {
-        const newTab: Tab = {
-          id: selectedContentId,
-          title: content.title,
-          type: 'content',
-          contentId: selectedContentId,
-          timestamp: Date.now()
-        };
-
-        setTabs(prevTabs => {
-          // Check if tab already exists
-          const existingTabIndex = prevTabs.findIndex(tab => tab.id === selectedContentId);
-          let newTabs;
-          
-          if (existingTabIndex >= 0) {
-            // Update existing tab timestamp
-            newTabs = [...prevTabs];
-            newTabs[existingTabIndex] = { ...newTabs[existingTabIndex], timestamp: Date.now() };
-          } else {
-            // Add new tab, limit to 10 tabs
-            newTabs = [...prevTabs, newTab];
-            if (newTabs.length > 10) {
-              // Remove oldest tab
-              newTabs.sort((a, b) => a.timestamp - b.timestamp);
-              newTabs = newTabs.slice(1);
-            }
+    if (typeof window === 'undefined') return;
+    
+    const searchParams = new URLSearchParams(window.location.search);
+    const currentTab = createTabFromRoute(pathname, searchParams);
+    
+    if (currentTab) {
+      setTabs(prevTabs => {
+        // Check if tab already exists
+        const existingTabIndex = prevTabs.findIndex(tab => tab.id === currentTab.id);
+        let newTabs;
+        
+        if (existingTabIndex >= 0) {
+          // Update existing tab timestamp
+          newTabs = [...prevTabs];
+          newTabs[existingTabIndex] = { ...newTabs[existingTabIndex], timestamp: Date.now() };
+        } else {
+          // Add new tab, limit to 10 tabs
+          newTabs = [...prevTabs, currentTab];
+          if (newTabs.length > 10) {
+            // Remove oldest tab
+            newTabs.sort((a, b) => a.timestamp - b.timestamp);
+            newTabs = newTabs.slice(1);
           }
-          
-          saveTabsToStorage(newTabs);
-          return newTabs;
-        });
-
-        setActiveTabId(selectedContentId);
-      }
-    } else if (currentView === 'home') {
-      setActiveTabId('new-search');
+        }
+        
+        saveTabsToStorage(newTabs);
+        return newTabs;
+      });
     }
-  }, [currentView, selectedContentId]);
+  }, [pathname]);
 
   const handleTabClick = (tab: Tab) => {
-    if (tab.type === 'content' && tab.contentId) {
-      setActiveTabId(tab.id);
-      onTabChange(tab.contentId);
-    } else if (tab.type === 'search' && tab.searchQuery) {
-      setActiveTabId(tab.id);
-      // Navigate to search results with the stored query
-      window.dispatchEvent(new CustomEvent('navigateToSearch', { detail: tab.searchQuery }));
-    } else if (tab.type === 'skills' && tab.skillName) {
-      setActiveTabId(tab.id);
-      // Navigate to skills results with the stored skill
-      window.dispatchEvent(new CustomEvent('navigateToSkills', { detail: tab.skillName }));
-    }
+    router.push(tab.url);
   };
 
   const handleNewSearchClick = () => {
-    setActiveTabId('new-search');
-    onNewSearch();
+    router.push('/');
   };
 
   const handleCloseTab = (e: React.MouseEvent, tabId: string) => {
@@ -120,18 +229,33 @@ const TabManager: React.FC<TabManagerProps> = ({
     setTabs(prevTabs => {
       const newTabs = prevTabs.filter(tab => tab.id !== tabId);
       saveTabsToStorage(newTabs);
-      
-      // If we're closing the active tab, switch to new search
-      if (activeTabId === tabId) {
-        setActiveTabId('new-search');
-        onNewSearch();
-      }
-      
       return newTabs;
     });
+    
+    // If we're closing the currently active tab, navigate to home
+    const activeTabId = getActiveTabId();
+    if (activeTabId === tabId) {
+      router.push('/');
+    }
   };
 
-  const shouldShowTabs = tabs.length > 0 || currentView === 'content';
+  // Find the currently active tab based on pathname
+  const getActiveTabId = (): string => {
+    // New Search is ONLY active on home page
+    if (pathname === '/') {
+      return 'new-search';
+    }
+    
+    // For all other pages, find the matching tab
+    const searchParams = new URLSearchParams(window.location.search);
+    const currentTab = createTabFromRoute(pathname, searchParams);
+    
+    // If we can't find a matching tab, don't highlight anything (not even New Search)
+    return currentTab ? currentTab.id : '';
+  };
+
+  const activeTabId = getActiveTabId();
+  const shouldShowTabs = tabs.length > 0 || pathname !== '/';
 
   if (!shouldShowTabs) {
     return <>{children}</>;
@@ -157,6 +281,7 @@ const TabManager: React.FC<TabManagerProps> = ({
             active={activeTabId === tab.id}
             onClick={() => handleTabClick(tab)}
           >
+            {getTabIcon(tab.type)}
             <TabTitle title={tab.title}>{tab.title}</TabTitle>
             <CloseButton onClick={(e) => handleCloseTab(e, tab.id)}>
               <X size={12} />

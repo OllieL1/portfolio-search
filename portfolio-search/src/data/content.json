@@ -9,7 +9,7 @@
       "detail": "I was disappointed with the course content of one of my second year courses, Networked Systems. I reached out to my lecturer after the course offering my honest, non-anonymous feedback.\n\nIt was his first year taking the course and he asked if I could help during the summer to revamp and modernise the course. We worked closely together to redesign lecture slides, create weekly quizzes, and develop extended supplementary notes to aid future students with their learning.",
       "skills": [
         "Networked Systems",
-        "Sockets Programming", 
+        "Sockets Programming",
         "PowerPoint",
         "Communication",
         "Adaptive"
@@ -37,7 +37,7 @@
         "Figma",
         "UI/UX",
         "Design",
-        "Technical Problem Solving", 
+        "Technical Problem Solving",
         "Teamwork",
         "Communication",
         "Adaptive"
@@ -97,6 +97,23 @@
       "type": "experience",
       "category": "Work Experience",
       "relevance": 1
+    },
+    {
+      "id": "spotify-we",
+      "title": "Marketing Work Experience",
+      "company": "Spotify",
+      "startDate": "2021-02",
+      "detail": "I worked in a team of 5 to come up with a marketing campaign for a new movie that was a partnership between Spotify and Netflix. In the end, we presented to around 400 people - this was terrifying to me at the time but a huge confidence booster.\\n\\nWe ended up winning the category for the Most Unique Idea! I was really proud of this experience; especially being in Covid, I hadn't had many opportunities like this.\\n\\nIt's also clear I did not go down the marketing route! But it is nice to have experience in non-tech areas.",
+      "skills": [
+        "Communication",
+        "Teamwork",
+        "Leadership",
+        "Presenting"
+      ],
+      "type": "experience",
+      "category": "Work Experience",
+      "endDate": "2021-02",
+      "relevance": 1
     }
   ],
   "projects": [
@@ -120,7 +137,50 @@
         "Sockets Programming"
       ],
       "type": "project",
-      "category": "Projects"
+      "category": "Projects",
+      "relevance": 5
+    },
+    {
+      "id": "cereal-site",
+      "title": "Cereal Webscraping Site",
+      "company": "Boroughmuir High School",
+      "startDate": "2021-08",
+      "detail": "I love cereal. Maybe not as much as I used too, but I think was known throughout high school by friends and family for loving cereal. \\n\\nAs part of Advanced Higher Computing, we had a build a project adopting full agile methodology that incorporated at least two of Databases, Web Dev and Python. \\n\\nI took all 3 and built a webscraping script in Python to query the main 4 UK supermarkets and save their deals to a DB, then I built an intuitive UI for searching, filtering and sorting cereal deals. \\n\\nThis project was entirely pre-AI - back when if people got stuck StackOverflow was the go-to. I am extremely proud of this project and I was rewarded with an exceptional mark in the course. \\n\\nUnfortunately, the source code for this resides on a password-protected USB stick so I could access it on school computers. This password is completely lost to me - but I still have the 173 pages of documentation, so if you are interested I'd be happy to share!",
+      "skills": [
+        "Agile",
+        "Python",
+        "Technical Problem Solving",
+        "UI/UX",
+        "Databases"
+      ],
+      "type": "project",
+      "category": "Projects",
+      "endDate": "2022-04",
+      "relevance": 3
+    },
+    {
+      "id": "web-app-tp",
+      "title": "Web App Team Project",
+      "company": "University of Glasgow",
+      "startDate": "2024-01",
+      "detail": "As part of my second year Web App Development course, I was placed in a team of 6 and challenged to design, implement and deploy a web app within 3 months. My team created a site to aid people with Exploring Glasgow - coming with an Events page, Activities page and a Scheduling tool. \\n\\nDespite having to use Django as part of the course (truly not my favourite technology), we excelled in the project. Our presentation (albeit very last minute) went exceptionaly well. To this day, this course is my highest mark at university so far (see /compsci-2006).",
+      "skills": [
+        "Teamwork",
+        "Communication",
+        "Technical Problem Solving",
+        "Django",
+        "UI/UX",
+        "Design",
+        "Databases"
+      ],
+      "type": "project",
+      "category": "Projects",
+      "endDate": "2024-03",
+      "relevance": 3,
+      "link": {
+        "url": "https://github.com/calilak/explore_glasgow_project",
+        "label": "GitHub Link"
+      }
     }
   ],
   "education": [
@@ -165,6 +225,133 @@
         "label": "Course Specification"
       },
       "relevance": 1
+    },
+    {
+      "id": "compsci-1018",
+      "title": "Computing Science - 1S",
+      "company": "University of Glasgow",
+      "startDate": "2023-01",
+      "detail": "A course focussing on Computer Hardware. Not one of my best results in courses but no doubt, a very interesting and different course to what I was used to. \\n\\nThe coursework for this course involved writing programs in Assembly which I did very well in - it was the exam that let me down.",
+      "skills": [
+        "Technical Problem Solving"
+      ],
+      "type": "education",
+      "category": "Education",
+      "endDate": "2023-05",
+      "dateRange": "Grade: C1",
+      "relevance": 1,
+      "link": {
+        "url": "https://www.gla.ac.uk/coursecatalogue/course/?code=COMPSCI1018",
+        "label": "Course Specification"
+      }
+    },
+    {
+      "id": "compsci-2001",
+      "title": "Introduction to Object Orientated Programming",
+      "company": "University of Glasgow",
+      "startDate": "2023-09",
+      "detail": "I find object orientated programming to be a genuinely enjoyable programming paradigm which uses a lot of problem solving. This course was a great introduction and set us up very well for the follow on Object Orientated Software Engineering course.",
+      "skills": [
+        "Object Oriented Programming",
+        "Technical Problem Solving",
+        "Java"
+      ],
+      "type": "education",
+      "category": "Education",
+      "endDate": "2023-12",
+      "dateRange": "Grade: B2",
+      "relevance": 2,
+      "link": {
+        "url": "https://www.gla.ac.uk/coursecatalogue/course/?code=COMPSCI2001",
+        "label": "Course Specification"
+      }
+    },
+    {
+      "id": "compsci-2003",
+      "title": "Algorithmic Foundations",
+      "company": "University of Glasgow",
+      "startDate": "2023-09",
+      "detail": "Quite a maths based course, this focused on proving the correctness of algorithms as well as rules of inference, graphs and matrices.\\n\\nThis course was tricky but taught by two of the best lecturers at Glasgow Uni which definitely helped. I don't think I was committed enough to doing well in this course as I fully feel the A was within grasp.",
+      "skills": [
+        "Java"
+      ],
+      "type": "education",
+      "category": "Education",
+      "endDate": "2023-12",
+      "dateRange": "Grade: B2",
+      "relevance": 2,
+      "link": {
+        "url": "https://www.gla.ac.uk/coursecatalogue/course/?code=COMPSCI2003",
+        "label": "Course Specification"
+      }
+    },
+    {
+      "id": "sqa-advh-cs",
+      "title": "SQA Advanced Higher Computing Science",
+      "company": "Boroughmuir High School",
+      "startDate": "2021-08",
+      "detail": "The course that reassured my choice of taking Computing at university. This was just a lot of fun, we worked on projects throughout the course. I built a cereal webscraping site for finding the best deals at UK supermarkets. You can check more detail out on that following the project link.\\n\\nThis was also the year we ran the Computing Club for first years - a weekly lunchtime club where we taught 12-13 year olds the basics of programming. It was a monumentously successful club with the best turnout it had ever had - and two years later our hard work was rewarded with record uptake of Computing Science at a National 5 level (when the kids we taught were making their course choice).\\n\\nIt was a year filled with a lot of learning and a lot of fun. A massive shoutout to our teacher Mrs Dighton who is now enjoying retirement; she was a great teacher and a great laugh!",
+      "skills": [
+        "Python",
+        "Databases",
+        "Object Oriented Programming",
+        "Agile",
+        "Software Engineering",
+        "Leadership",
+        "Communication",
+        "Technical Problem Solving"
+      ],
+      "type": "education",
+      "category": "Education",
+      "endDate": "2022-05",
+      "dateRange": "Grade: A1",
+      "relevance": 1,
+      "link": {
+        "url": "/content/cereal-site",
+        "label": "Cereal Project"
+      }
+    },
+    {
+      "id": "compsci-2007",
+      "title": "Algorithms & Data Structures - COMPSCI2007",
+      "company": "University of Glasgow",
+      "startDate": "2024-01",
+      "detail": "By far the biggest disappointment in my academic career so far. I really blundered this exam. I found out my grades while on a train from Prague to Berlin interrailing - and it was kind of more shock rather than any other emotion.\\n\\nThe course was definitely challenging - but these were two things that I had been good at throughout CS. I knew I had an Algorithms course in third year so I ensured I properly learnt, prepped and studied for that and walked away with an \tA4. \\n\\nALthough a low point in university, I know I built a lot on this. Before my grades properly mattered in third year, I feel I benefitted from getting a kick that I couldn't coast these much harder years.",
+      "skills": [
+        "Resilience",
+        "Java",
+        "Technical Problem Solving"
+      ],
+      "type": "education",
+      "category": "Education",
+      "endDate": "2024-05",
+      "dateRange": "Grade: D1",
+      "relevance": 2,
+      "link": {
+        "url": "https://www.gla.ac.uk/coursecatalogue/course/?code=COMPSCI2007",
+        "label": "Course Specification"
+      }
+    },
+    {
+      "id": "compsci-2008",
+      "title": "Object Orientated Software Engineering",
+      "company": "University of Glasgow",
+      "startDate": "2024-01",
+      "detail": "A follow on from the Intro to OOP course. I really liked this course. It focussed mainly on object orientated design patterns which I found incredibly interesting.\\n\\nThe coursework went very well - we were given a problem and told to use design patterns to implement our solution. A lot of my programming ability can be attributed to this course.",
+      "skills": [
+        "Object Oriented Programming",
+        "Java",
+        "Technical Problem Solving"
+      ],
+      "type": "education",
+      "category": "Education",
+      "endDate": "2024-05",
+      "dateRange": "Grade: B1",
+      "relevance": 2,
+      "link": {
+        "url": "https://www.gla.ac.uk/coursecatalogue/course/?code=COMPSCI2008",
+        "label": "Course Specification"
+      }
     }
   ],
   "about": [
