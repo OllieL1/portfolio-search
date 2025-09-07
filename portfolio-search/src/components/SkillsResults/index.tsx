@@ -74,7 +74,7 @@ const SkillsResults: React.FC<SkillsResultsProps> = ({
         <NoResults>
           <NoResultsTitle>No items found</NoResultsTitle>
           <NoResultsText>
-            No content was found with the skill "{skill}".
+            No content was found with the skill &quot;{skill}&quot;.
             <br />
             Try exploring other skills or check out the main content sections.
           </NoResultsText>

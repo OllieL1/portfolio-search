@@ -1,5 +1,5 @@
 import React from 'react';
-import { MapPin, Mail, Linkedin, Github, Calendar, Heart } from 'lucide-react';
+import { MapPin, Mail, Linkedin, Github, Calendar } from 'lucide-react';
 import { getContentByType } from '../../utils/contentUtils';
 import {
   AboutContainer,

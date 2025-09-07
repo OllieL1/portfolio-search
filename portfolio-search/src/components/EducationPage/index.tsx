@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { Calendar, ExternalLink, Award, BookOpen, GraduationCap, School } from 'lucide-react';
+import { ExternalLink, GraduationCap, School } from 'lucide-react';
 import { getAllContent } from '../../utils/contentUtils';
 import {
   Container,

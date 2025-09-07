@@ -1,7 +1,6 @@
 import React from 'react';
-import { ArrowLeft } from 'lucide-react';
 import { GlobalStyle } from '../HomePage/GlobalStyles';
-import { PageContainer, PageContent, BackButton } from './styles';
+import { PageContainer, PageContent } from './styles';
 
 interface PageLayoutProps {
   children: React.ReactNode;
@@ -10,16 +9,9 @@ interface PageLayoutProps {
 }
 
 const PageLayout: React.FC<PageLayoutProps> = ({ 
-  children, 
-  onBack, 
+  children,
+  onBack
 }) => {
-  const handleBack = () => {
-    if (onBack) {
-      onBack();
-    } else {
-      console.log('Navigate back to home');
-    }
-  };
 
   return (
     <>

@@ -141,7 +141,7 @@ const ExperiencePage: React.FC<ExperiencePageProps> = ({ onItemClick, onSkillCli
         <EmptyState>
           <EmptyStateTitle>No Experience Found</EmptyStateTitle>
           <EmptyStateText>
-            Experience entries will appear here once they're added to the content.
+            Experience entries will appear here once they are added to the content.
           </EmptyStateText>
         </EmptyState>
       </ExperienceContainer>
