@@ -1,0 +1,26 @@
+export interface ContentItem {
+  id: string;
+  title: string;
+  company: string;
+  startDate: string;
+  endDate?: string;
+  dateRange?: string;
+  detail: string;
+  skills: string[];
+  type: 'experience' | 'project' | 'education' | 'about';
+  category: string;
+  relevance?: number;
+  link?: {
+    url: string;
+    label: string;
+  };
+}
+
+export interface ContentData {
+  experiences: ContentItem[];
+  projects: ContentItem[];
+  education: ContentItem[];
+  about: ContentItem[];
+}
+
+export type ContentType = 'experiences' | 'projects' | 'education' | 'about';
