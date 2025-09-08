@@ -11,12 +11,6 @@ export const TabsContainer = styled.div`
   z-index: 1000;
   display: flex;
   gap: 0.5rem;
-  overflow-x: auto;
-  scrollbar-width: none;
-  
-  &::-webkit-scrollbar {
-    display: none;
-  }
   
   @media (max-width: 768px) {
     position: fixed;
@@ -26,6 +20,59 @@ export const TabsContainer = styled.div`
     border-bottom: none;
     padding: 1rem;
     z-index: 1000;
+    gap: 0.75rem;
+  }
+`;
+
+export const NewSearchButton = styled.div<{ $active: boolean }>`
+  background: ${props => props.$active ? '#4285f4' : 'white'};
+  color: ${props => props.$active ? 'white' : '#333'};
+  border: 1px solid ${props => props.$active ? '#4285f4' : '#e0e0e0'};
+  border-radius: 20px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s;
+  min-width: fit-content;
+  font-size: 0.875rem;
+  font-weight: 500;
+  flex-shrink: 0;
+
+  &:hover {
+    background: ${props => props.$active ? '#3367d6' : '#f8f9fa'};
+    transform: translateY(-1px);
+  }
+  
+  @media (max-width: 768px) {
+    font-size: 0.8rem;
+    padding: 0.5rem;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    justify-content: center;
+    
+    .desktop-only {
+      display: none;
+    }
+  }
+`;
+
+export const ScrollableTabs = styled.div`
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  flex: 1;
+  
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  
+  @media (max-width: 768px) {
+    gap: 0.5rem;
   }
 `;
 
