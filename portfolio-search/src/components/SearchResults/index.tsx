@@ -144,7 +144,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({
                 {result.skills.slice(0, 5).map((skill, index) => (
                   <SkillChip 
                     key={index}
-                    highlighted={isSkillHighlighted(skill, query)}
+                    $highlighted={isSkillHighlighted(skill, query)}
                   >
                     {skill}
                   </SkillChip>

@@ -145,10 +145,10 @@ export const ResultSkills = styled.div`
   margin-top: 1rem;
 `;
 
-export const SkillChip = styled.span<{ highlighted?: boolean }>`
-  background: ${props => props.highlighted ? '#4285f4' : '#f8f9fa'};
-  color: ${props => props.highlighted ? 'white' : '#333'};
-  border: 1px solid ${props => props.highlighted ? '#4285f4' : '#e0e0e0'};
+export const SkillChip = styled.span<{ $highlighted?: boolean }>`
+  background: ${props => props.$highlighted ? '#4285f4' : '#f8f9fa'};
+  color: ${props => props.$highlighted ? 'white' : '#333'};
+  border: 1px solid ${props => props.$highlighted ? '#4285f4' : '#e0e0e0'};
   border-radius: 16px;
   padding: 0.25rem 0.75rem;
   font-size: 0.8rem;

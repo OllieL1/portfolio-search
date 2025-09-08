@@ -37,7 +37,9 @@ export const Subtitle = styled.p`
 `;
 
 export const ProjectsGrid = styled.div`
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: 2rem;
   
   @media (max-width: 768px) {
@@ -52,7 +54,8 @@ export const ProjectCard = styled.div`
   padding: 1.5rem;
   cursor: pointer;
   transition: all 0.2s ease;
-  max-width:600px;
+  width: 100%;
+  max-width: 600px;
   
   &:hover {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -66,7 +69,7 @@ export const ProjectCard = styled.div`
 
 export const ProjectHeader = styled.div`
   display: flex;
-  justify-content: between;
+  justify-content: space-between;
   align-items: flex-start;
   gap: 1rem;
   margin-bottom: 1rem;
@@ -83,8 +86,8 @@ export const ProjectInfo = styled.div`
 
 export const ProjectTitle = styled.h2`
   font-size: 1.5rem;
-  font-weight: 400;
-  color: #1a73e8;
+  font-weight: 600;
+  color: #202124;
   margin: 0 0 0.25rem 0;
   
   @media (max-width: 768px) {
@@ -131,29 +134,31 @@ export const SkillsContainer = styled.div`
 `;
 
 export const MoreSkills = styled.span`
-  background: #f1f3f4;
-  color: #5f6368;
-  padding: 0.25rem 0.75rem;
-  border-radius: 16px;
-  font-size: 0.8rem;
-  border: 1px solid #dadce0;
+  background: #f0f8ff;
+  color: #4285f4;
+  border: 1px solid #e6f3ff;
+  border-radius: 12px;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  cursor: pointer;
   font-style: italic;
 `;
 
 export const SkillTag = styled.span`
-  background: #f8f9fa;
-  color: #3c4043;
-  padding: 0.25rem 0.75rem;
-  border-radius: 16px;
-  font-size: 0.8rem;
-  border: 1px solid #dadce0;
+  background: #f0f8ff;
+  color: #4285f4;
+  border: 1px solid #e6f3ff;
+  border-radius: 12px;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 500;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.2s;
   
   &:hover {
-    background: #e8f0fe;
-    border-color: #1a73e8;
-    color: #1a73e8;
+    background: #4285f4;
+    color: white;
+    transform: translateY(-1px);
   }
 `;
 
