@@ -4,7 +4,7 @@ import { X, Search, Briefcase, GraduationCap, Code, User, Hash } from 'lucide-re
 import { getContentById } from '../../utils/contentUtils';
 import { useIsClient } from '../../hooks/useWindow'; // Import the custom hook
 import { Tab } from './types';
-import { TabsContainer, Tab as TabElement, TabTitle, CloseButton, ContentWrapper } from './styles';
+import { TabsContainer, Tab as TabElement, TabTitle, CloseButton, ContentWrapper, NewSearchButton, ScrollableTabs } from './styles';
 
 interface TabManagerProps {
   children: React.ReactNode;
@@ -277,38 +277,39 @@ const TabManager: React.FC<TabManagerProps> = ({ children }) => {
   }
 
   return (
-  <>
-    <TabsContainer>
-      {/* New Search Tab */}
-      <TabElement
-        $active={activeTabId === 'new-search'}
-        $isNewSearch={true}
-        onClick={handleNewSearchClick}
-      >
-        <Search size={14} />
-        <TabTitle>New Search</TabTitle>
-      </TabElement>
-
-      {/* Content Tabs */}
-      {tabs.map(tab => (
-        <TabElement
-          key={tab.id}
-          $active={activeTabId === tab.id}
-          onClick={() => handleTabClick(tab)}
+    <>
+      <TabsContainer>
+        {/* New Search Button - pinned on mobile */}
+        <NewSearchButton
+          $active={activeTabId === 'new-search'}
+          onClick={handleNewSearchClick}
         >
-          {getTabIcon(tab.type)}
-          <TabTitle title={tab.title}>{tab.title}</TabTitle>
-          <CloseButton onClick={(e) => handleCloseTab(e, tab.id)}>
-            <X size={12} />
-          </CloseButton>
-        </TabElement>
-      ))}
-    </TabsContainer>
+          <Search size={14} />
+          <TabTitle className="desktop-only">New Search</TabTitle>
+        </NewSearchButton>
 
-    <ContentWrapper>
-      {children}
-    </ContentWrapper>
-  </>
+        {/* Scrollable tabs container */}
+        <ScrollableTabs>
+          {tabs.map(tab => (
+            <TabElement
+              key={tab.id}
+              $active={activeTabId === tab.id}
+              onClick={() => handleTabClick(tab)}
+            >
+              {getTabIcon(tab.type)}
+              <TabTitle title={tab.title}>{tab.title}</TabTitle>
+              <CloseButton onClick={(e) => handleCloseTab(e, tab.id)}>
+                <X size={12} />
+              </CloseButton>
+            </TabElement>
+          ))}
+        </ScrollableTabs>
+      </TabsContainer>
+
+      <ContentWrapper>
+        {children}
+      </ContentWrapper>
+    </>
   );
 };
 
