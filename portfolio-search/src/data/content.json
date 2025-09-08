@@ -6,7 +6,7 @@
       "company": "University of Glasgow",
       "startDate": "2024-05",
       "endDate": "2024-09",
-      "detail": "I was disappointed with the course content of one of my second year courses, Networked Systems. I reached out to my lecturer after the course offering my honest, non-anonymous feedback.\\n\\nIt was his first year taking the course and he asked if I could help during the summer to revamp and modernise the course. We worked closely together to redesign lecture slides, create weekly quizzes, and develop extended supplementary notes to aid future students with their learning.",
+      "detail": "I was disappointed with the course content of one of my second year courses, Networked Systems. I reached out to my lecturer after the course offering my honest, non-anonymous feedback.\n\nIt was his first year taking the course and he asked if I could help during the summer to revamp and modernise the course. We worked closely together to redesign lecture slides, create weekly quizzes, and develop extended supplementary notes to aid future students with their learning.",
       "skills": [
         "Networked Systems",
         "Sockets Programming",
@@ -24,7 +24,7 @@
       "company": "JP Morgan Chase",
       "startDate": "2025-06",
       "endDate": "2026-06",
-      "detail": "As part of my degree, I have been part of a year-long placement at the Glasgow Technology Centre of JPMorganChase. I could not have hoped for more in my learning.\\n\\nMy main project so far has been migrating a legacy file upload system for financial documents to the cloud. I own the UI portion of the project and so far I have designed, implemented, and deployed modernised screens that are now in the hands of business users.\\n\\nI have worked closely with stakeholders, adapted designs to changing requirements, and created feature-rich pages with powerful tools to visualise and filter data.\\n\\nThis role has been a complete change to my life - I have taken up much more sport, got into an actual cooking routine, and learned to appreciate free time a lot more. I am grateful to JP for all their efforts in making settling in a lot easier than I thought it would be.\\n\\nI have worked with a wonderful group of 12 IPs and going through this journey with them has made it all the more enjoyable.",
+      "detail": "As part of my degree, I have been part of a year-long placement at the Glasgow Technology Centre of JPMorganChase. I could not have hoped for more in my learning.\n\nMy main project so far has been migrating a legacy file upload system for financial documents to the cloud. I own the UI portion of the project and so far I have designed, implemented, and deployed modernised screens that are now in the hands of business users.\n\nI have worked closely with stakeholders, adapted designs to changing requirements, and created feature-rich pages with powerful tools to visualise and filter data.\n\nThis role has been a complete change to my life - I have taken up much more sport, got into an actual cooking routine, and learned to appreciate free time a lot more. I am grateful to JP for all their efforts in making settling in a lot easier than I thought it would be.\n\nI have worked with a wonderful group of 12 IPs and going through this journey with them has made it all the more enjoyable.",
       "skills": [
         "React",
         "TypeScript",
@@ -52,7 +52,7 @@
       "company": "Glasgow University Software Service",
       "startDate": "2024-10",
       "endDate": "2025-06",
-      "detail": "During my third year of university, I worked with the university's software team on a web application for the MVLS college. Balancing my work with my studies, I delivered weekly features in an agile development cycle.\\n\\nI was most proud of building an Editable FAQ Page for super admins - the edit mode was rich in features. It allowed for the creation of sections, paragraphs, and tables in an easy-to-use way, and when saved would be pushed to the database that was then reflected for all users.\\n\\nIt took a lot of work but was very satisfying to see come together.",
+      "detail": "During my third year of university, I worked with the university's software team on a web application for the MVLS college. Balancing my work with my studies, I delivered weekly features in an agile development cycle.\n\nI was most proud of building an Editable FAQ Page for super admins - the edit mode was rich in features. It allowed for the creation of sections, paragraphs, and tables in an easy-to-use way, and when saved would be pushed to the database that was then reflected for all users.\n\nIt took a lot of work but was very satisfying to see come together.",
       "skills": [
         "JavaScript",
         "Technical Problem Solving",
@@ -71,7 +71,7 @@
       "company": "Hilton Garden Inn Glasgow",
       "startDate": "2023-06",
       "endDate": null,
-      "detail": "My last stint in hospitality - I have thoroughly enjoyed working with the Hilton. Surrounded by a great team, we always delivered friendly and effective service.\\n\\nI got properly bar trained here which was a really fun skill to learn. I have the luxury of only living five minutes from the hotel which is very helpful for the late night closes!",
+      "detail": "My last stint in hospitality - I have thoroughly enjoyed working with the Hilton. Surrounded by a great team, we always delivered friendly and effective service.\n\nI got properly bar trained here which was a really fun skill to learn. I have the luxury of only living five minutes from the hotel which is very helpful for the late night closes!",
       "skills": [
         "Teamwork",
         "Communication",
@@ -87,7 +87,7 @@
       "company": "Luxford Burgers",
       "startDate": "2023-08",
       "endDate": "2023-08",
-      "detail": "Probably the most insane month of my life. I worked 28 days in a row, pulling four back-to-back 80-hour weeks.\\n\\nWorking in a food van at the Edinburgh Fringe was definitely an experience I will never regret - but also not repeat quickly.\\n\\nI will also die on the hill that Luxford's burgers are sensational and if you are ever in Edinburgh, do your best to go and try them.",
+      "detail": "Probably the most insane month of my life. I worked 28 days in a row, pulling four back-to-back 80-hour weeks.\n\nWorking in a food van at the Edinburgh Fringe was definitely an experience I will never regret - but also not repeat quickly.\n\nI will also die on the hill that Luxford's burgers are sensational and if you are ever in Edinburgh, do your best to go and try them.",
       "skills": [
         "Teamwork",
         "Communication",
@@ -103,7 +103,7 @@
       "title": "Marketing Work Experience",
       "company": "Spotify",
       "startDate": "2021-02",
-      "detail": "I worked in a team of 5 to come up with a marketing campaign for a new movie that was a partnership between Spotify and Netflix. In the end, we presented to around 400 people - this was terrifying to me at the time but a huge confidence booster.\\n\\nWe ended up winning the category for the Most Unique Idea! I was really proud of this experience; especially being in Covid, I hadn't had many opportunities like this.\\n\\nIt's also clear I did not go down the marketing route! But it is nice to have experience in non-tech areas.",
+      "detail": "I worked in a team of 5 to come up with a marketing campaign for a new movie that was a partnership between Spotify and Netflix. In the end, we presented to around 400 people - this was terrifying to me at the time but a huge confidence booster.\n\nWe ended up winning the category for the Most Unique Idea! I was really proud of this experience; especially being in Covid, I hadn't had many opportunities like this.\n\nIt's also clear I did not go down the marketing route! But it is nice to have experience in non-tech areas.",
       "skills": [
         "Communication",
         "Teamwork",
@@ -123,7 +123,7 @@
       "company": "Thales",
       "startDate": "2024-09",
       "endDate": "2025-04",
-      "detail": "This is a project I am truly proud of. As part of a third year university course, six of us worked together for Thales UK to build an AI Map Generation Desktop App - Map Genie.\\n\\nThe concept was simple - the user inputs a plain English prompt on the UI, customises the styling of the map, and then a map opens in QGIS (map software) with the result of their query highlighted and the map nicely styled. An example use case would be 'Police stations in a 5-mile radius around Wembley Stadium'.\\n\\nI was our Product Owner which meant working frequently with our client to ensure our app was progressing aligned to his requirements. I also delivered the PyQGIS service of the project which included taking the result of the query and rendering the map in QGIS programmatically.\\n\\nI also built offline maps functionality where the user could save their QGIS map for offline use - a feature that required sockets programming to send and receive requests to QGIS from our front end.\\n\\nThis project also resulted in my greatest academic achievement to date: winning the Team Project award for our year group (the top six of 400 students).",
+      "detail": "This is a project I am truly proud of. As part of a third year university course, six of us worked together for Thales UK to build an AI Map Generation Desktop App - Map Genie.\n\nThe concept was simple - the user inputs a plain English prompt on the UI, customises the styling of the map, and then a map opens in QGIS (map software) with the result of their query highlighted and the map nicely styled. An example use case would be 'Police stations in a 5-mile radius around Wembley Stadium'.\n\nI was our Product Owner which meant working frequently with our client to ensure our app was progressing aligned to his requirements. I also delivered the PyQGIS service of the project which included taking the result of the query and rendering the map in QGIS programmatically.\n\nI also built offline maps functionality where the user could save their QGIS map for offline use - a feature that required sockets programming to send and receive requests to QGIS from our front end.\n\nThis project also resulted in my greatest academic achievement to date: winning the Team Project award for our year group (the top six of 400 students).",
       "skills": [
         "Project Management",
         "Teamwork",
@@ -145,7 +145,7 @@
       "title": "Cereal Webscraping Site",
       "company": "Boroughmuir High School",
       "startDate": "2021-08",
-      "detail": "I love cereal. Maybe not as much as I used too, but I think was known throughout high school by friends and family for loving cereal. \\n\\nAs part of Advanced Higher Computing, we had a build a project adopting full agile methodology that incorporated at least two of Databases, Web Dev and Python. \\n\\nI took all 3 and built a webscraping script in Python to query the main 4 UK supermarkets and save their deals to a DB, then I built an intuitive UI for searching, filtering and sorting cereal deals. \\n\\nThis project was entirely pre-AI - back when if people got stuck StackOverflow was the go-to. I am extremely proud of this project and I was rewarded with an exceptional mark in the course. \\n\\nUnfortunately, the source code for this resides on a password-protected USB stick so I could access it on school computers. This password is completely lost to me - but I still have the 173 pages of documentation, so if you are interested I'd be happy to share!",
+      "detail": "I love cereal. Maybe not as much as I used too, but I think was known throughout high school by friends and family for loving cereal. \n\nAs part of Advanced Higher Computing, we had a build a project adopting full agile methodology that incorporated at least two of Databases, Web Dev and Python. \n\nI took all 3 and built a webscraping script in Python to query the main 4 UK supermarkets and save their deals to a DB, then I built an intuitive UI for searching, filtering and sorting cereal deals. \n\nThis project was entirely pre-AI - back when if people got stuck StackOverflow was the go-to. I am extremely proud of this project and I was rewarded with an exceptional mark in the course. \n\nUnfortunately, the source code for this resides on a password-protected USB stick so I could access it on school computers. This password is completely lost to me - but I still have the 173 pages of documentation, so if you are interested I'd be happy to share!",
       "skills": [
         "Agile",
         "Python",
@@ -163,7 +163,7 @@
       "title": "Web App Team Project",
       "company": "University of Glasgow",
       "startDate": "2024-01",
-      "detail": "As part of my second year Web App Development course, I was placed in a team of 6 and challenged to design, implement and deploy a web app within 3 months. My team created a site to aid people with Exploring Glasgow - coming with an Events page, Activities page and a Scheduling tool. \\n\\nDespite having to use Django as part of the course (truly not my favourite technology), we excelled in the project. Our presentation (albeit very last minute) went exceptionaly well. To this day, this course is my highest mark at university so far (see /compsci-2006).",
+      "detail": "As part of my second year Web App Development course, I was placed in a team of 6 and challenged to design, implement and deploy a web app within 3 months. My team created a site to aid people with Exploring Glasgow - coming with an Events page, Activities page and a Scheduling tool. \n\nDespite having to use Django as part of the course (truly not my favourite technology), we excelled in the project. Our presentation (albeit very last minute) went exceptionaly well. To this day, this course is my highest mark at university so far (see /compsci-2006).",
       "skills": [
         "Teamwork",
         "Communication",
@@ -212,7 +212,7 @@
       "startDate": "2022-09",
       "endDate": "2023-05",
       "dateRange": "Grade: A5",
-      "detail": "A fundamentals course mainly focusing on the core concepts of human computer interaction. We completed an HCI evaluation of an application by assessing where it lacked in quality of design and we would redesign it.\\n\\nWe also were taught the fundamentals of databases and SQL.",
+      "detail": "A fundamentals course mainly focusing on the core concepts of human computer interaction. We completed an HCI evaluation of an application by assessing where it lacked in quality of design and we would redesign it.\n\nWe also were taught the fundamentals of databases and SQL.",
       "skills": [
         "Design",
         "Databases",
@@ -231,7 +231,7 @@
       "title": "Computing Science - 1S",
       "company": "University of Glasgow",
       "startDate": "2023-01",
-      "detail": "A course focussing on Computer Hardware. Not one of my best results in courses but no doubt, a very interesting and different course to what I was used to. \\n\\nThe coursework for this course involved writing programs in Assembly which I did very well in - it was the exam that let me down.",
+      "detail": "A course focussing on Computer Hardware. Not one of my best results in courses but no doubt, a very interesting and different course to what I was used to. \n\nThe coursework for this course involved writing programs in Assembly which I did very well in - it was the exam that let me down.",
       "skills": [
         "Technical Problem Solving"
       ],
@@ -271,7 +271,7 @@
       "title": "Algorithmic Foundations",
       "company": "University of Glasgow",
       "startDate": "2023-09",
-      "detail": "Quite a maths based course, this focused on proving the correctness of algorithms as well as rules of inference, graphs and matrices.\\n\\nThis course was tricky but taught by two of the best lecturers at Glasgow Uni which definitely helped. I don't think I was committed enough to doing well in this course as I fully feel the A was within grasp.",
+      "detail": "Quite a maths based course, this focused on proving the correctness of algorithms as well as rules of inference, graphs and matrices.\n\nThis course was tricky but taught by two of the best lecturers at Glasgow Uni which definitely helped. I don't think I was committed enough to doing well in this course as I fully feel the A was within grasp.",
       "skills": [
         "Java"
       ],
@@ -290,7 +290,7 @@
       "title": "SQA Advanced Higher Computing Science",
       "company": "Boroughmuir High School",
       "startDate": "2021-08",
-      "detail": "The course that reassured my choice of taking Computing at university. This was just a lot of fun, we worked on projects throughout the course. I built a cereal webscraping site for finding the best deals at UK supermarkets. You can check more detail out on that following the project link.\\n\\nThis was also the year we ran the Computing Club for first years - a weekly lunchtime club where we taught 12-13 year olds the basics of programming. It was a monumentously successful club with the best turnout it had ever had - and two years later our hard work was rewarded with record uptake of Computing Science at a National 5 level (when the kids we taught were making their course choice).\\n\\nIt was a year filled with a lot of learning and a lot of fun. A massive shoutout to our teacher Mrs Dighton who is now enjoying retirement; she was a great teacher and a great laugh!",
+      "detail": "The course that reassured my choice of taking Computing at university. This was just a lot of fun, we worked on projects throughout the course. I built a cereal webscraping site for finding the best deals at UK supermarkets. You can check more detail out on that following the project link.\n\nThis was also the year we ran the Computing Club for first years - a weekly lunchtime club where we taught 12-13 year olds the basics of programming. It was a monumentously successful club with the best turnout it had ever had - and two years later our hard work was rewarded with record uptake of Computing Science at a National 5 level (when the kids we taught were making their course choice).\n\nIt was a year filled with a lot of learning and a lot of fun. A massive shoutout to our teacher Mrs Dighton who is now enjoying retirement; she was a great teacher and a great laugh!",
       "skills": [
         "Python",
         "Databases",
@@ -316,7 +316,7 @@
       "title": "Algorithms & Data Structures - COMPSCI2007",
       "company": "University of Glasgow",
       "startDate": "2024-01",
-      "detail": "By far the biggest disappointment in my academic career so far. I really blundered this exam. I found out my grades while on a train from Prague to Berlin interrailing - and it was kind of more shock rather than any other emotion.\\n\\nThe course was definitely challenging - but these were two things that I had been good at throughout CS. I knew I had an Algorithms course in third year so I ensured I properly learnt, prepped and studied for that and walked away with an \tA4. \\n\\nALthough a low point in university, I know I built a lot on this. Before my grades properly mattered in third year, I feel I benefitted from getting a kick that I couldn't coast these much harder years.",
+      "detail": "By far the biggest disappointment in my academic career so far. I really blundered this exam. I found out my grades while on a train from Prague to Berlin interrailing - and it was kind of more shock rather than any other emotion.\n\nThe course was definitely challenging - but these were two things that I had been good at throughout CS. I knew I had an Algorithms course in third year so I ensured I properly learnt, prepped and studied for that and walked away with an \tA4. \n\nALthough a low point in university, I know I built a lot on this. Before my grades properly mattered in third year, I feel I benefitted from getting a kick that I couldn't coast these much harder years.",
       "skills": [
         "Resilience",
         "Java",
@@ -337,7 +337,7 @@
       "title": "Object Orientated Software Engineering",
       "company": "University of Glasgow",
       "startDate": "2024-01",
-      "detail": "A follow on from the Intro to OOP course. I really liked this course. It focussed mainly on object orientated design patterns which I found incredibly interesting.\\n\\nThe coursework went very well - we were given a problem and told to use design patterns to implement our solution. A lot of my programming ability can be attributed to this course.",
+      "detail": "A follow on from the Intro to OOP course. I really liked this course. It focussed mainly on object orientated design patterns which I found incredibly interesting.\n\nThe coursework went very well - we were given a problem and told to use design patterns to implement our solution. A lot of my programming ability can be attributed to this course.",
       "skills": [
         "Object Oriented Programming",
         "Java",
@@ -361,7 +361,7 @@
       "company": "Ollie",
       "startDate": "2004-11",
       "endDate": null,
-      "detail": "Hello! I'm delighted you have taken the time to visit my website. My name is Ollie Livingston and I am a 4th year Software Engineering student at the University of Glasgow, Scotland.\\n\\nCurrently, I am completing a year-long placement at JPMorganChase - a huge life change for me, and honestly one I am still getting used to.\\n\\nOutside of the office, I am very into my sport. If I'm not playing one of football, tennis, or badminton, I will likely be in the pub watching them. I am an avid cook - check out the Cooking page for some of my recommendations.\\n\\nI am unfortunately a West Ham fan which has only really resulted in one brief season of joy in my life so far - but I'm sure they've got one or two left in them!\\n\\nIn a brief summary of myself, I always push myself to be outgoing and friendly. I love meeting new people, hearing different perspectives, and exploring the world. Next destination for me is Hong Kong in January!\\n\\nI'm happy for a chat with anyone, work or non-work related - please feel free to reach out at oliverlivingston@iCloud.com or via LinkedIn.",
+      "detail": "Hello! I'm delighted you have taken the time to visit my website. My name is Ollie Livingston and I am a 4th year Software Engineering student at the University of Glasgow, Scotland.\n\nCurrently, I am completing a year-long placement at JPMorganChase - a huge life change for me, and honestly one I am still getting used to.\n\nOutside of the office, I am very into my sport. If I'm not playing one of football, tennis, or badminton, I will likely be in the pub watching them. I am an avid cook - check out the Cooking page for some of my recommendations.\n\nI am unfortunately a West Ham fan which has only really resulted in one brief season of joy in my life so far - but I'm sure they've got one or two left in them!\n\nIn a brief summary of myself, I always push myself to be outgoing and friendly. I love meeting new people, hearing different perspectives, and exploring the world. Next destination for me is Hong Kong in January!\n\nI'm happy for a chat with anyone, work or non-work related - please feel free to reach out at oliverlivingston@iCloud.com or via LinkedIn.",
       "skills": [
         "Software Engineering",
         "Cooking",
@@ -379,7 +379,7 @@
       "company": "Ollie",
       "startDate": null,
       "endDate": null,
-      "detail": "I thought I may as well dedicate a page to it. Cooking has hugely grown on me and is something I find quite therapeutic after work.\\n\\nMy comfort dish to make is Creamy Chorizo & Halloumi Pasta - maybe not the most healthy but so quick and tasty.\\n\\nRecently some of my favourites to make have been Lamb Tagine, Paneer Makhani, a hearty Chicken Pasta Bake, and Kung Pao Chicken.\\n\\nCheck out the photo gallery for some food snaps!",
+      "detail": "I thought I may as well dedicate a page to it. Cooking has hugely grown on me and is something I find quite therapeutic after work.\n\nMy comfort dish to make is Creamy Chorizo & Halloumi Pasta - maybe not the most healthy but so quick and tasty.\n\nRecently some of my favourites to make have been Lamb Tagine, Paneer Makhani, a hearty Chicken Pasta Bake, and Kung Pao Chicken.\n\nCheck out the photo gallery for some food snaps!",
       "skills": [
         "Cooking"
       ],
