@@ -6,7 +6,7 @@
       "company": "University of Glasgow",
       "startDate": "2024-05",
       "endDate": "2024-09",
-      "detail": "I was disappointed with the course content of one of my second year courses, Networked Systems. I reached out to my lecturer after the course offering my honest, non-anonymous feedback.\n\nIt was his first year taking the course and he asked if I could help during the summer to revamp and modernise the course. We worked closely together to redesign lecture slides, create weekly quizzes, and develop extended supplementary notes to aid future students with their learning.",
+      "detail": "I was disappointed with the course content of one of my second year courses, Networked Systems. I reached out to my lecturer after the course offering my honest, non-anonymous feedback.\\n\\nIt was his first year taking the course and he asked if I could help during the summer to revamp and modernise the course. We worked closely together to redesign lecture slides, create weekly quizzes, and develop extended supplementary notes to aid future students with their learning.",
       "skills": [
         "Networked Systems",
         "Sockets Programming",
@@ -24,7 +24,7 @@
       "company": "JP Morgan Chase",
       "startDate": "2025-06",
       "endDate": "2026-06",
-      "detail": "As part of my degree, I have been part of a year-long placement at the Glasgow Technology Centre of JPMorganChase. I could not have hoped for more in my learning.\n\nMy main project so far has been migrating a legacy file upload system for financial documents to the cloud. I own the UI portion of the project and so far I have designed, implemented, and deployed modernised screens that are now in the hands of business users.\n\nI have worked closely with stakeholders, adapted designs to changing requirements, and created feature-rich pages with powerful tools to visualise and filter data.\n\nThis role has been a complete change to my life - I have taken up much more sport, got into an actual cooking routine, and learned to appreciate free time a lot more. I am grateful to JP for all their efforts in making settling in a lot easier than I thought it would be.\n\nI have worked with a wonderful group of 12 IPs and going through this journey with them has made it all the more enjoyable.",
+      "detail": "As part of my degree, I have been part of a year-long placement at the Glasgow Technology Centre of JPMorganChase. I could not have hoped for more in my learning.\\n\\nMy main project so far has been migrating a legacy file upload system for financial documents to the cloud. I own the UI portion of the project and so far I have designed, implemented, and deployed modernised screens that are now in the hands of business users.\\n\\nI have worked closely with stakeholders, adapted designs to changing requirements, and created feature-rich pages with powerful tools to visualise and filter data.\\n\\nThis role has been a complete change to my life - I have taken up much more sport, got into an actual cooking routine, and learned to appreciate free time a lot more. I am grateful to JP for all their efforts in making settling in a lot easier than I thought it would be.\\n\\nI have worked with a wonderful group of 12 IPs and going through this journey with them has made it all the more enjoyable.",
       "skills": [
         "React",
         "TypeScript",
@@ -52,7 +52,7 @@
       "company": "Glasgow University Software Service",
       "startDate": "2024-10",
       "endDate": "2025-06",
-      "detail": "During my third year of university, I worked with the university's software team on a web application for the MVLS college. Balancing my work with my studies, I delivered weekly features in an agile development cycle.\n\nI was most proud of building an Editable FAQ Page for super admins - the edit mode was rich in features. It allowed for the creation of sections, paragraphs, and tables in an easy-to-use way, and when saved would be pushed to the database that was then reflected for all users.\n\nIt took a lot of work but was very satisfying to see come together.",
+      "detail": "During my third year of university, I worked with the university's software team on a web application for the MVLS college. Balancing my work with my studies, I delivered weekly features in an agile development cycle.\\n\\nI was most proud of building an Editable FAQ Page for super admins - the edit mode was rich in features. It allowed for the creation of sections, paragraphs, and tables in an easy-to-use way, and when saved would be pushed to the database that was then reflected for all users.\\n\\nIt took a lot of work but was very satisfying to see come together.",
       "skills": [
         "JavaScript",
         "Technical Problem Solving",
@@ -71,7 +71,7 @@
       "company": "Hilton Garden Inn Glasgow",
       "startDate": "2023-06",
       "endDate": null,
-      "detail": "My last stint in hospitality - I have thoroughly enjoyed working with the Hilton. Surrounded by a great team, we always delivered friendly and effective service.\n\nI got properly bar trained here which was a really fun skill to learn. I have the luxury of only living five minutes from the hotel which is very helpful for the late night closes!",
+      "detail": "My last stint in hospitality - I have thoroughly enjoyed working with the Hilton. Surrounded by a great team, we always delivered friendly and effective service.\\n\\nI got properly bar trained here which was a really fun skill to learn. I have the luxury of only living five minutes from the hotel which is very helpful for the late night closes!",
       "skills": [
         "Teamwork",
         "Communication",
@@ -87,7 +87,7 @@
       "company": "Luxford Burgers",
       "startDate": "2023-08",
       "endDate": "2023-08",
-      "detail": "Probably the most insane month of my life. I worked 28 days in a row, pulling four back-to-back 80-hour weeks.\n\nWorking in a food van at the Edinburgh Fringe was definitely an experience I will never regret - but also not repeat quickly.\n\nI will also die on the hill that Luxford's burgers are sensational and if you are ever in Edinburgh, do your best to go and try them.",
+      "detail": "Probably the most insane month of my life. I worked 28 days in a row, pulling four back-to-back 80-hour weeks.\\n\\nWorking in a food van at the Edinburgh Fringe was definitely an experience I will never regret - but also not repeat quickly.\\n\\nI will also die on the hill that Luxford's burgers are sensational and if you are ever in Edinburgh, do your best to go and try them.",
       "skills": [
         "Teamwork",
         "Communication",
@@ -123,7 +123,7 @@
       "company": "Thales",
       "startDate": "2024-09",
       "endDate": "2025-04",
-      "detail": "This is a project I am truly proud of. As part of a third year university course, six of us worked together for Thales UK to build an AI Map Generation Desktop App - Map Genie.\n\nThe concept was simple - the user inputs a plain English prompt on the UI, customises the styling of the map, and then a map opens in QGIS (map software) with the result of their query highlighted and the map nicely styled. An example use case would be 'Police stations in a 5-mile radius around Wembley Stadium'.\n\nI was our Product Owner which meant working frequently with our client to ensure our app was progressing aligned to his requirements. I also delivered the PyQGIS service of the project which included taking the result of the query and rendering the map in QGIS programmatically.\n\nI also built offline maps functionality where the user could save their QGIS map for offline use - a feature that required sockets programming to send and receive requests to QGIS from our front end.\n\nThis project also resulted in my greatest academic achievement to date: winning the Team Project award for our year group (the top six of 400 students).",
+      "detail": "This is a project I am truly proud of. As part of a third year university course, six of us worked together for Thales UK to build an AI Map Generation Desktop App - Map Genie.\\n\\nThe concept was simple - the user inputs a plain English prompt on the UI, customises the styling of the map, and then a map opens in QGIS (map software) with the result of their query highlighted and the map nicely styled. An example use case would be 'Police stations in a 5-mile radius around Wembley Stadium'.\\n\\nI was our Product Owner which meant working frequently with our client to ensure our app was progressing aligned to his requirements. I also delivered the PyQGIS service of the project which included taking the result of the query and rendering the map in QGIS programmatically.\\n\\nI also built offline maps functionality where the user could save their QGIS map for offline use - a feature that required sockets programming to send and receive requests to QGIS from our front end.\\n\\nThis project also resulted in my greatest academic achievement to date: winning the Team Project award for our year group (the top six of 400 students).",
       "skills": [
         "Project Management",
         "Teamwork",
@@ -212,7 +212,7 @@
       "startDate": "2022-09",
       "endDate": "2023-05",
       "dateRange": "Grade: A5",
-      "detail": "A fundamentals course mainly focusing on the core concepts of human computer interaction. We completed an HCI evaluation of an application by assessing where it lacked in quality of design and we would redesign it.\n\nWe also were taught the fundamentals of databases and SQL.",
+      "detail": "A fundamentals course mainly focusing on the core concepts of human computer interaction. We completed an HCI evaluation of an application by assessing where it lacked in quality of design and we would redesign it.\\n\\nWe also were taught the fundamentals of databases and SQL.",
       "skills": [
         "Design",
         "Databases",
@@ -361,7 +361,7 @@
       "company": "Ollie",
       "startDate": "2004-11",
       "endDate": null,
-      "detail": "Hello! I'm delighted you have taken the time to visit my website. My name is Ollie Livingston and I am a 4th year Software Engineering student at the University of Glasgow, Scotland.\n\nCurrently, I am completing a year-long placement at JPMorganChase - a huge life change for me, and honestly one I am still getting used to.\n\nOutside of the office, I am very into my sport. If I'm not playing one of football, tennis, or badminton, I will likely be in the pub watching them. I am an avid cook - check out the Cooking page for some of my recommendations.\n\nI am unfortunately a West Ham fan which has only really resulted in one brief season of joy in my life so far - but I'm sure they've got one or two left in them!\n\nIn a brief summary of myself, I always push myself to be outgoing and friendly. I love meeting new people, hearing different perspectives, and exploring the world. Next destination for me is Hong Kong in January!\n\nI'm happy for a chat with anyone, work or non-work related - please feel free to reach out at oliverlivingston@iCloud.com or via LinkedIn.",
+      "detail": "Hello! I'm delighted you have taken the time to visit my website. My name is Ollie Livingston and I am a 4th year Software Engineering student at the University of Glasgow, Scotland.\\n\\nCurrently, I am completing a year-long placement at JPMorganChase - a huge life change for me, and honestly one I am still getting used to.\\n\\nOutside of the office, I am very into my sport. If I'm not playing one of football, tennis, or badminton, I will likely be in the pub watching them. I am an avid cook - check out the Cooking page for some of my recommendations.\\n\\nI am unfortunately a West Ham fan which has only really resulted in one brief season of joy in my life so far - but I'm sure they've got one or two left in them!\\n\\nIn a brief summary of myself, I always push myself to be outgoing and friendly. I love meeting new people, hearing different perspectives, and exploring the world. Next destination for me is Hong Kong in January!\\n\\nI'm happy for a chat with anyone, work or non-work related - please feel free to reach out at oliverlivingston@iCloud.com or via LinkedIn.",
       "skills": [
         "Software Engineering",
         "Cooking",
@@ -379,7 +379,7 @@
       "company": "Ollie",
       "startDate": null,
       "endDate": null,
-      "detail": "I thought I may as well dedicate a page to it. Cooking has hugely grown on me and is something I find quite therapeutic after work.\n\nMy comfort dish to make is Creamy Chorizo & Halloumi Pasta - maybe not the most healthy but so quick and tasty.\n\nRecently some of my favourites to make have been Lamb Tagine, Paneer Makhani, a hearty Chicken Pasta Bake, and Kung Pao Chicken.\n\nCheck out the photo gallery for some food snaps!",
+      "detail": "I thought I may as well dedicate a page to it. Cooking has hugely grown on me and is something I find quite therapeutic after work.\\n\\nMy comfort dish to make is Creamy Chorizo & Halloumi Pasta - maybe not the most healthy but so quick and tasty.\\n\\nRecently some of my favourites to make have been Lamb Tagine, Paneer Makhani, a hearty Chicken Pasta Bake, and Kung Pao Chicken.\\n\\nCheck out the photo gallery for some food snaps!",
       "skills": [
         "Cooking"
       ],

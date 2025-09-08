@@ -46,13 +46,23 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
     }
   };
 
+  // Function to render text with line breaks
+  const renderTextWithLineBreaks = (text: string) => {
+    return text.split('\\n').map((line, index, array) => (
+      <React.Fragment key={index}>
+        {line}
+        {index < array.length - 1 && <br />}
+      </React.Fragment>
+    ));
+  };
+
   return (
     <CardContainer>
       <CardHeader>
         <Title>{title}</Title>
         <Company>{company}</Company>
         <HeaderBottom>
-          <DateRange>{dateRange}</DateRange>
+          {dateRange && <DateRange>{dateRange}</DateRange>}
           {link && (
             <ExternalLinkButton
               href={link.url}
@@ -68,7 +78,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
 
       <DetailSection>
         <SectionTitle>About the Role</SectionTitle>
-        <DetailText>{detail}</DetailText>
+        <DetailText>{renderTextWithLineBreaks(detail)}</DetailText>
       </DetailSection>
 
       <SkillsSection>
