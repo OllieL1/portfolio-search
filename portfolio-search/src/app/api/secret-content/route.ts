@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server';
-import { Heart, Zap, Target, Users, Code, Lightbulb } from 'lucide-react';
 
 export async function GET() {
   try {
