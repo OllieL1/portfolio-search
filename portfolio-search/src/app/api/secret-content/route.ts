@@ -66,6 +66,7 @@ export async function GET() {
 
     return NextResponse.json(content);
   } catch (error) {
+    console.error('Error loading secret content:', error);
     return NextResponse.json(
       { error: 'Failed to load content' },
       { status: 500 }
