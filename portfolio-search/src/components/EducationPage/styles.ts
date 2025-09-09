@@ -153,7 +153,7 @@ export const CourseCard = styled.div`
 
 export const CourseHeader = styled.div`
   display: flex;
-  justify-content: between;
+  justify-content: space-between;
   align-items: flex-start;
   gap: 1rem;
   margin-bottom: 1rem;
@@ -191,6 +191,11 @@ export const CourseDescription = styled.p`
   font-size: 0.95rem;
   line-height: 1.5;
   margin-bottom: 1rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 export const SkillsContainer = styled.div`

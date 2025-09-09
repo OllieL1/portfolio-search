@@ -71,7 +71,7 @@
       "company": "Hilton Garden Inn Glasgow",
       "startDate": "2023-06",
       "endDate": null,
-      "detail": "My last stint in hospitality - I have thoroughly enjoyed working with the Hilton. Surrounded by a great team, we always delivered friendly and effective service.\n\nI got properly bar trained here which was a really fun skill to learn. I have the luxury of only living five minutes from the hotel which is very helpful for the late night closes!",
+      "detail": "My last stint in hospitality - I have thoroughly enjoyed working with the Hilton. Surrounded by a great team, we always delivered friendly and effective service.\n\nThe Hilton is definitely a fast paced environment and we had some insanely hectic shifts that have delivered some fantastic hospitality stories.",
       "skills": [
         "Teamwork",
         "Communication",
@@ -156,7 +156,7 @@
       "type": "project",
       "category": "Projects",
       "endDate": "2022-04",
-      "relevance": 3
+      "relevance": 2
     },
     {
       "id": "web-app-tp",
@@ -228,7 +228,7 @@
     },
     {
       "id": "compsci-1018",
-      "title": "Computing Science - 1S",
+      "title": "Computer Systems - COMPSCI1018",
       "company": "University of Glasgow",
       "startDate": "2023-01",
       "detail": "A course focussing on Computer Hardware. Not one of my best results in courses but no doubt, a very interesting and different course to what I was used to. \n\nThe coursework for this course involved writing programs in Assembly which I did very well in - it was the exam that let me down.",
@@ -247,7 +247,7 @@
     },
     {
       "id": "compsci-2001",
-      "title": "Introduction to Object Orientated Programming",
+      "title": "Introduction to Object Orientated Programming - COMPSCI2001",
       "company": "University of Glasgow",
       "startDate": "2023-09",
       "detail": "I find object orientated programming to be a genuinely enjoyable programming paradigm which uses a lot of problem solving. This course was a great introduction and set us up very well for the follow on Object Orientated Software Engineering course.",
@@ -268,7 +268,7 @@
     },
     {
       "id": "compsci-2003",
-      "title": "Algorithmic Foundations",
+      "title": "Algorithmic Foundations - COMPSCI2003",
       "company": "University of Glasgow",
       "startDate": "2023-09",
       "detail": "Quite a maths based course, this focused on proving the correctness of algorithms as well as rules of inference, graphs and matrices.\n\nThis course was tricky but taught by two of the best lecturers at Glasgow Uni which definitely helped. I don't think I was committed enough to doing well in this course as I fully feel the A was within grasp.",
@@ -334,7 +334,7 @@
     },
     {
       "id": "compsci-2008",
-      "title": "Object Orientated Software Engineering",
+      "title": "Object Orientated Software Engineering  - COMPSCI2008",
       "company": "University of Glasgow",
       "startDate": "2024-01",
       "detail": "A follow on from the Intro to OOP course. I really liked this course. It focussed mainly on object orientated design patterns which I found incredibly interesting.\n\nThe coursework went very well - we were given a problem and told to use design patterns to implement our solution. A lot of my programming ability can be attributed to this course.",
@@ -352,27 +352,75 @@
         "url": "https://www.gla.ac.uk/coursecatalogue/course/?code=COMPSCI2008",
         "label": "Course Specification"
       }
+    },
+    {
+      "id": "compsci-2021",
+      "title": "Web Application Development - COMPSCI2021",
+      "company": "University of Glasgow",
+      "startDate": "2024-01",
+      "detail": "My joint best grade so far at university - this course was definitely not my favourite in terms of what we were taught (it was quite outdated) but the team project that accompanied it was very good. \n\nWe built a site to aid users in making the most of their time in Glasgow. I particularly focused on building a scheduling system which allowed users to plan out their days with events and activities we had on the site. \n\nI also designed the site and wrote most of the styling. We also had to create a video presentation which turned into a frantic last minute submission (I'd rather not get into that), but despite submitting 8 minutes before the deadline - we got an excellent grade.",
+      "skills": [
+        "Leadership",
+        "JavaScript",
+        "Presenting",
+        "Django",
+        "Teamwork",
+        "Communication",
+        "PowerPoint"
+      ],
+      "type": "education",
+      "category": "Education",
+      "endDate": "2024-05",
+      "dateRange": "Grade: A2",
+      "relevance": 2,
+      "link": {
+        "url": "https://github.com/calilak/explore_glasgow_project",
+        "label": "Project GitHub"
+      }
+    },
+    {
+      "id": "compsci-2024",
+      "title": "Networks & Operating Systems Essentials",
+      "company": "University of Glasgow",
+      "startDate": "2023-09",
+      "detail": "In a strange way this is one of my lowest grades at university so far despite now being two of my strongest subject areas. In brutal honesty, this course was a mess at the time. Trying to cram two of the biggest areas of computing into 11 short weeks was a recipe for disaster.\n\nAfter the course, this was when I reached out to my lecturer for the networks side of the course who agreed with the flaws I had pointed out. I then proceeded to work with him throughout the Summer of 2024 to improve and enhance both the course content and material.\n\nIn doing so, I actually gained a lot more understanding in networked systems and I am now planning on doing my fifth year dissertation on something within the subject.",
+      "skills": [
+        "Sockets Programming",
+        "Technical Problem Solving",
+        "Python"
+      ],
+      "type": "education",
+      "category": "Education",
+      "endDate": "2023-12",
+      "dateRange": "Grade: C3",
+      "relevance": 2,
+      "link": {
+        "url": "https://www.gla.ac.uk/coursecatalogue/course/?code=COMPSCI2024",
+        "label": "Course Specification"
+      }
+    },
+    {
+      "id": "compsci-4009",
+      "title": "Algorithmics I - COMPSCI4009",
+      "company": "University of Glasgow",
+      "startDate": "2024-09",
+      "detail": "An academic comeback for me. After a really disappointing result in my ADS course in 2nd year, I was determined to ensure this went well. I put a lot of time into studying this course - and this was helped by having one of the best lecturers at Glasgow, Gethin. \n\nI was delighted with this grade. The course itself was very interesting: we studied graphing algorithms, string matching algorithms, NP completness and finally Automata and Turing Machines. Definitely challenging but satisfying to gradually improve at.",
+      "skills": [
+        "Java",
+        "Technical Problem Solving"
+      ],
+      "type": "education",
+      "category": "Education",
+      "endDate": "2024-12",
+      "dateRange": "Grade: A4",
+      "relevance": 3,
+      "link": {
+        "url": "https://www.gla.ac.uk/coursecatalogue/course/?code=COMPSCI4009",
+        "label": "Course Specification"
+      }
     }
   ],
   "about": [
-    {
-      "id": "about-me",
-      "title": "About Me",
-      "company": "Ollie",
-      "startDate": "2004-11",
-      "endDate": null,
-      "detail": "Hello! I'm delighted you have taken the time to visit my website. My name is Ollie Livingston and I am a 4th year Software Engineering student at the University of Glasgow, Scotland.\n\nCurrently, I am completing a year-long placement at JPMorganChase - a huge life change for me, and honestly one I am still getting used to.\n\nOutside of the office, I am very into my sport. If I'm not playing one of football, tennis, or badminton, I will likely be in the pub watching them. I am an avid cook - check out the Cooking page for some of my recommendations.\n\nI am unfortunately a West Ham fan which has only really resulted in one brief season of joy in my life so far - but I'm sure they've got one or two left in them!\n\nIn a brief summary of myself, I always push myself to be outgoing and friendly. I love meeting new people, hearing different perspectives, and exploring the world. Next destination for me is Hong Kong in January!\n\nI'm happy for a chat with anyone, work or non-work related - please feel free to reach out at oliverlivingston@iCloud.com or via LinkedIn.",
-      "skills": [
-        "Software Engineering",
-        "Cooking",
-        "Football",
-        "Tennis",
-        "Badminton"
-      ],
-      "type": "about",
-      "category": "About",
-      "relevance": 5
-    },
     {
       "id": "cooking",
       "title": "Cooking",
