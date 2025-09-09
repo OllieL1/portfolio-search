@@ -97,10 +97,17 @@ const EducationPage: React.FC<EducationPageProps> = ({ onItemClick, onSkillClick
 
   // Helper function to determine which year a course belongs to
   const getCourseYear = (startDate: string, endDate: string): string | null => {
-    if (!startDate || !endDate) return null;
+    if (!startDate) return null;
     
     const start = new Date(startDate);
-    const end = new Date(endDate);
+    const cutoffDate = new Date('2022-08-01');
+    
+    // If start date is before August 2022, it's high school
+    if (start < cutoffDate) {
+      return 'highschool';
+    }
+    
+    const end = endDate ? new Date(endDate) : new Date();
     
     // University year periods (Sep to May)
     const yearPeriods = [
@@ -146,10 +153,15 @@ const EducationPage: React.FC<EducationPageProps> = ({ onItemClick, onSkillClick
     { key: 'first', title: 'First Year (Sep 2022 - May 2023)', courses: [] }
   ];
 
+  // Separate high school courses
+  const highSchoolCourses: EducationItem[] = [];
+
   // Dynamically sort education data into year sections
   educationData.forEach((course: EducationItem) => {
     const courseYear = getCourseYear(course.startDate, course.endDate);
-    if (courseYear) {
+    if (courseYear === 'highschool') {
+      highSchoolCourses.push(course);
+    } else if (courseYear) {
       const yearSection = yearSections.find(section => section.key === courseYear);
       if (yearSection) {
         yearSection.courses.push(course);
@@ -160,6 +172,13 @@ const EducationPage: React.FC<EducationPageProps> = ({ onItemClick, onSkillClick
   // Sort courses within each year by relevance (highest first)
   yearSections.forEach(section => {
     section.courses.sort((a, b) => (b.relevance || 0) - (a.relevance || 0));
+  });
+
+  // Sort high school courses chronologically (most recent first)
+  highSchoolCourses.sort((a, b) => {
+    const dateA = a.startDate ? new Date(a.startDate).getTime() : 0;
+    const dateB = b.startDate ? new Date(b.startDate).getTime() : 0;
+    return dateB - dateA;
   });
 
   // Function to render empty year message with special case for 4th year
@@ -182,6 +201,66 @@ const EducationPage: React.FC<EducationPageProps> = ({ onItemClick, onSkillClick
       <EmptyYearMessage>
         <p>No courses recorded for this year yet</p>
       </EmptyYearMessage>
+    );
+  };
+
+  // Function to render course card
+  const renderCourseCard = (course: EducationItem, sectionColor: string) => {
+    const { displayed: displayedSkills, hasMore } = getDisplayedSkills(course.skills);
+    
+    return (
+      <TimelineItem key={course.id}>
+        <TimelineDot $color={sectionColor} />
+        <CourseCard onClick={() => onItemClick(course.id)}>
+          <CourseHeader>
+            <CourseTitle>{course.title}</CourseTitle>
+            <GradeTag>{course.dateRange}</GradeTag>
+          </CourseHeader>
+          
+          {/* Only show description on desktop */}
+          {!isMobile && (
+            <CourseDescription>{course.detail}</CourseDescription>
+          )}
+          
+          <SkillsContainer>
+            {displayedSkills.map((skill: string) => (
+              <SkillTag 
+                key={skill} 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onSkillClick(skill);
+                }}
+              >
+                {skill}
+              </SkillTag>
+            ))}
+            {hasMore && (
+              <SkillTag style={{ 
+                background: '#f1f3f4', 
+                color: '#5f6368',
+                cursor: 'default'
+              }}>
+                +{course.skills.length - 3} more
+              </SkillTag>
+            )}
+          </SkillsContainer>
+          
+          {/* Only show external link on desktop */}
+          {!isMobile && course.link && (
+            <ExternalLinkContainer>
+              <a 
+                href={course.link.url} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <ExternalLink size={16} />
+                {course.link.label}
+              </a>
+            </ExternalLinkContainer>
+          )}
+        </CourseCard>
+      </TimelineItem>
     );
   };
 
@@ -217,64 +296,9 @@ const EducationPage: React.FC<EducationPageProps> = ({ onItemClick, onSkillClick
             <YearSection key={yearSection.key}>
               <h3>{yearSection.title}</h3>
               {yearSection.courses.length > 0 ? (
-                yearSection.courses.map((course: EducationItem) => {
-                  const { displayed: displayedSkills, hasMore } = getDisplayedSkills(course.skills);
-                  
-                  return (
-                    <TimelineItem key={course.id}>
-                      <TimelineDot $color={activeSection === 'university' ? '#1a73e8' : '#5f6368'} />
-                      <CourseCard onClick={() => onItemClick(course.id)}>
-                        <CourseHeader>
-                          <CourseTitle>{course.title}</CourseTitle>
-                          <GradeTag>{course.dateRange}</GradeTag>
-                        </CourseHeader>
-                        
-                        {/* Only show description on desktop */}
-                        {!isMobile && (
-                          <CourseDescription>{course.detail}</CourseDescription>
-                        )}
-                        
-                        <SkillsContainer>
-                          {displayedSkills.map((skill: string) => (
-                            <SkillTag 
-                              key={skill} 
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                onSkillClick(skill);
-                              }}
-                            >
-                              {skill}
-                            </SkillTag>
-                          ))}
-                          {hasMore && (
-                            <SkillTag style={{ 
-                              background: '#f1f3f4', 
-                              color: '#5f6368',
-                              cursor: 'default'
-                            }}>
-                              +{course.skills.length - 3} more
-                            </SkillTag>
-                          )}
-                        </SkillsContainer>
-                        
-                        {/* Only show external link on desktop */}
-                        {!isMobile && course.link && (
-                          <ExternalLinkContainer>
-                            <a 
-                              href={course.link.url} 
-                              target="_blank" 
-                              rel="noopener noreferrer"
-                              onClick={(e) => e.stopPropagation()}
-                            >
-                              <ExternalLink size={16} />
-                              {course.link.label}
-                            </a>
-                          </ExternalLinkContainer>
-                        )}
-                      </CourseCard>
-                    </TimelineItem>
-                  );
-                })
+                yearSection.courses.map((course: EducationItem) => 
+                  renderCourseCard(course, activeSection === 'university' ? '#1a73e8' : '#5f6368')
+                )
               ) : (
                 renderEmptyYearMessage(yearSection.key)
               )}
@@ -287,9 +311,16 @@ const EducationPage: React.FC<EducationPageProps> = ({ onItemClick, onSkillClick
             <School size={28} className="icon" />
             <h2>High School</h2>
           </SectionHeader>
-          <EmptyYearMessage>
-            <p>High school achievements and qualifications will be added here</p>
-          </EmptyYearMessage>
+          
+          {highSchoolCourses.length > 0 ? (
+            highSchoolCourses.map((course: EducationItem) => 
+              renderCourseCard(course, activeSection === 'highschool' ? '#34a853' : '#5f6368')
+            )
+          ) : (
+            <EmptyYearMessage>
+              <p>High school achievements and qualifications will be added here</p>
+            </EmptyYearMessage>
+          )}
         </Section>
       </TimelineContainer>
     </Container>

@@ -33,10 +33,28 @@ import {
 // Types
 interface SellingPoint {
   id: string;
-  icon: React.ReactNode;
+  icon: string;
   title: string;
   description: string;
   highlight: string;
+}
+
+interface PageContent {
+  title: string;
+  subtitle: string;
+  noteTitle: string;
+  noteParagraph1: string;
+  noteParagraph2: string;
+  excitementTitle: string;
+  excitementParagraph1: string;
+  excitementParagraph2: string;
+  excitementParagraph3: string;
+  fitTitle: string;
+  fitParagraph1: string;
+  fitParagraph2: string;
+  fitParagraph3: string;
+  teamTitle: string;
+  sellingPoints: SellingPoint[];
 }
 
 const SecretPage: React.FC = () => {
@@ -45,14 +63,41 @@ const SecretPage: React.FC = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [content, setContent] = useState<PageContent | null>(null);
 
   const requiredPassword = process.env.NEXT_PUBLIC_SECRET_PASSWORD;
+
+  // Function to get icon component from string
+  const getIconComponent = (iconName: string) => {
+    const iconMap: { [key: string]: React.ReactNode } = {
+      'Code': <Code size={24} />,
+      'Target': <Target size={24} />,
+      'Zap': <Zap size={24} />,
+      'Users': <Users size={24} />,
+      'Lightbulb': <Lightbulb size={24} />,
+      'Heart': <Heart size={24} />
+    };
+    return iconMap[iconName] || <Code size={24} />;
+  };
+
+  // Function to load content from environment variables
+  const loadContent = async (): Promise<PageContent> => {
+    // Make an API call to get the content from server-side environment variables
+    const response = await fetch('/api/secret-content');
+    if (!response.ok) {
+      throw new Error('Failed to load content');
+    }
+    const data = await response.json();
+    return data;
+  };
 
   useEffect(() => {
     // Check if already authenticated in session
     const authStatus = sessionStorage.getItem('secret-auth');
     if (authStatus === 'true') {
       setIsAuthenticated(true);
+      // Load content when authenticated
+      loadContent().then(setContent).catch(console.error);
     }
   }, []);
 
@@ -66,6 +111,8 @@ const SecretPage: React.FC = () => {
       if (password === requiredPassword) {
         setIsAuthenticated(true);
         sessionStorage.setItem('secret-auth', 'true');
+        // Load content after successful authentication
+        loadContent().then(setContent).catch(console.error);
       } else {
         setError('Incorrect access code');
         setPassword('');
@@ -73,51 +120,6 @@ const SecretPage: React.FC = () => {
       setIsLoading(false);
     }, 800);
   };
-
-  const sellingPoints: SellingPoint[] = [
-    {
-      id: 'technical-excellence',
-      icon: <Code size={24} />,
-      title: 'Technical Excellence',
-      highlight: 'Full-stack expertise with modern technologies',
-      description: 'Experienced in React, TypeScript, Python, and cloud technologies. Currently working at JP Morgan on large-scale financial applications, delivering production-ready solutions.'
-    },
-    {
-      id: 'product-mindset',
-      icon: <Target size={24} />,
-      title: 'Product-Focused Thinking',
-      highlight: 'User-centric approach to building solutions',
-      description: 'Led university team project that won top award among 400 students. Experience working directly with stakeholders to translate requirements into intuitive user experiences.'
-    },
-    {
-      id: 'rapid-learning',
-      icon: <Zap size={24} />,
-      title: 'Rapid Adaptability',
-      highlight: 'Quick to master new technologies and domains',
-      description: 'Transitioned from student to professional environment seamlessly. Helped modernize university course content and adapted to changing requirements in dynamic environments.'
-    },
-    {
-      id: 'collaboration',
-      icon: <Users size={24} />,
-      title: 'Strong Collaborator',
-      highlight: 'Thrives in team environments',
-      description: 'Worked with diverse teams across hospitality, academia, and finance. Excellent communication skills and experience mentoring peers through complex technical challenges.'
-    },
-    {
-      id: 'innovation',
-      icon: <Lightbulb size={24} />,
-      title: 'Creative Problem Solver',
-      highlight: 'Builds elegant solutions to complex challenges',
-      description: 'Developed AI-powered map generation tool and modernized legacy systems. Approaches problems with fresh perspective and finds efficient, scalable solutions.'
-    },
-    {
-      id: 'passion',
-      icon: <Heart size={24} />,
-      title: 'Genuine Enthusiasm',
-      highlight: 'Passionate about building products people love',
-      description: 'Believes in creating tools that genuinely improve people\'s workflows. Excited about the intersection of design, technology, and human productivity.'
-    }
-  ];
 
   if (!isAuthenticated) {
     return (
@@ -157,6 +159,21 @@ const SecretPage: React.FC = () => {
     );
   }
 
+  if (!content) {
+    return (
+      <>
+        <GlobalStyle />
+        <TabManager>
+          <Container>
+            <Content>
+              <p>Loading...</p>
+            </Content>
+          </Container>
+        </TabManager>
+      </>
+    );
+  }
+
   return (
     <>
       <GlobalStyle />
@@ -164,60 +181,42 @@ const SecretPage: React.FC = () => {
         <Container>
           <Content>
             <Header>
-              <Title>Notion</Title>
-              <Subtitle>Software Engineer Intern Summer 2026 Application</Subtitle>
+              <Title>{content.title}</Title>
+              <Subtitle>{content.subtitle}</Subtitle>
             </Header>
 
             <Section>
-              <SectionTitle>A Note From Me</SectionTitle>
+              <SectionTitle>{content.noteTitle}</SectionTitle>
               <TextContent>
-                <p>
-                  If you are viewing this page, then I would hope you have only got in via the password on my CV. It is a delight to welcome you to my website. My name is Ollie Livingston and I am applying to the Notion Software Engineer Summer 2026 Internship.
-                  You guys probably get this a lot, so I do apologise if this is cliche but working with Notion is undoubtedly by dream role. I have been an avid user of your platform for the last seven years - I was within the first million users. To watch the way you have grown, how the application has improved and the userbase has exploded has been so satisfying.
-                </p>
-                <p>
-                  Please make use of the site to help you inform your hiring choices, it is built to be a search engine - a sort of wikipedia about me. You can find the shortcuts on the Home Page which all have custom built pages to add more detail to my CV. If you are looking for specific skills/info, the global search of all pages is particularly powerful and sorts the results by relevance. 
-                  Please do enjoy the site and good luck with your hiring! I&apos;ll be hoping to hear from you!
-                </p>
+                <p>{content.noteParagraph1}</p>
+                <p>{content.noteParagraph2}</p>
               </TextContent>
             </Section>
 
             <Section>
-              <SectionTitle>Why This Opportunity Excites Me</SectionTitle>
+              <SectionTitle>{content.excitementTitle}</SectionTitle>
               <TextContent>
-                <p>
-                  Throughout my career, I&apos;ve been drawn to companies that don&apos;t just build software—they craft experiences that fundamentally change how people work and think. The intersection of elegant design and powerful functionality represents everything I&apos;m passionate about in technology.
-                </p>
-                <p>
-                  What captivates me most is the mission of democratizing powerful tools. Having worked in both academic and enterprise environments, I&apos;ve seen how the right platform can transform scattered thoughts into actionable insights, and fragmented workflows into seamless productivity systems.
-                </p>
-                <p>
-                  The opportunity to contribute to a platform that millions rely on daily to organize their thoughts, collaborate with teams, and build knowledge bases represents the kind of meaningful impact I want to have in my career.
-                </p>
+                <p>{content.excitementParagraph1}</p>
+                <p>{content.excitementParagraph2}</p>
+                <p>{content.excitementParagraph3}</p>
               </TextContent>
             </Section>
 
             <Section>
-              <SectionTitle>Why I&apos;m the Right Fit</SectionTitle>
+              <SectionTitle>{content.fitTitle}</SectionTitle>
               <TextContent>
-                <p>
-                  My experience spans the full spectrum of product development—from understanding user needs as a Product Owner, to implementing complex technical solutions, to working directly with stakeholders in fast-paced environments.
-                </p>
-                <p>
-                  At JP Morgan, I&apos;ve learned to balance innovation with reliability, building user interfaces that handle complex financial data while remaining intuitive. This mirrors the challenge of creating powerful productivity tools that don&apos;t overwhelm users with complexity.
-                </p>
-                <p>
-                  My collaborative approach, combined with technical versatility and genuine enthusiasm for creating products that people love, aligns perfectly with building tools that enhance human creativity and productivity.
-                </p>
+                <p>{content.fitParagraph1}</p>
+                <p>{content.fitParagraph2}</p>
+                <p>{content.fitParagraph3}</p>
               </TextContent>
             </Section>
 
             <Section>
-              <SectionTitle>What I Bring to the Team</SectionTitle>
+              <SectionTitle>{content.teamTitle}</SectionTitle>
               <CardsGrid>
-                {sellingPoints.map((point) => (
+                {content.sellingPoints.map((point) => (
                   <Card key={point.id}>
-                    <CardIcon>{point.icon}</CardIcon>
+                    <CardIcon>{getIconComponent(point.icon)}</CardIcon>
                     <CardTitle>{point.title}</CardTitle>
                     <CardHighlight>{point.highlight}</CardHighlight>
                     <CardDescription>{point.description}</CardDescription>
