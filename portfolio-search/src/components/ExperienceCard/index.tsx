@@ -1,5 +1,6 @@
-import React from 'react';
-import { ExternalLink } from 'lucide-react';
+import React, { useState } from 'react';
+import { ExternalLink, Camera } from 'lucide-react';
+import PhotoGallery from '../PhotoGallery';
 import {
   CardContainer,
   CardHeader,
@@ -13,8 +14,14 @@ import {
   SkillsSection,
   SkillsContainer,
   SkillTag,
-  ExternalLinkButton
+  ExternalLinkButton,
+  PhotoGalleryButton
 } from './styles';
+
+interface PhotoGalleryItem {
+  caption: string;
+  filename: string;
+}
 
 interface ExperienceCardProps {
   title: string;
@@ -26,6 +33,8 @@ interface ExperienceCardProps {
     url: string;
     label: string;
   };
+  photos?: PhotoGalleryItem[];
+  contentId?: string;
   onSkillClick?: (skill: string) => void;
 }
 
@@ -36,8 +45,12 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
   detail,
   skills,
   link,
+  photos,
+  contentId,
   onSkillClick
 }) => {
+  const [showGallery, setShowGallery] = useState(false);
+
   const handleSkillClick = (skill: string) => {
     if (onSkillClick) {
       onSkillClick(skill);
@@ -56,6 +69,25 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
     ));
   };
 
+  const handleOpenGallery = () => {
+    setShowGallery(true);
+  };
+
+  const handleCloseGallery = () => {
+    setShowGallery(false);
+  };
+
+  if (showGallery && photos && contentId) {
+    return (
+      <PhotoGallery
+        photos={photos}
+        contentId={contentId}
+        title={title}
+        onBack={handleCloseGallery}
+      />
+    );
+  }
+
   return (
     <CardContainer>
       <CardHeader>
@@ -63,16 +95,24 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
         <Company>{company}</Company>
         <HeaderBottom>
           {dateRange && <DateRange>{dateRange}</DateRange>}
-          {link && (
-            <ExternalLinkButton
-              href={link.url}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {link.label}
-              <ExternalLink size={14} className="icon" />
-            </ExternalLinkButton>
-          )}
+          <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', flexWrap: 'wrap' }}>
+            {photos && photos.length > 0 && (
+              <PhotoGalleryButton onClick={handleOpenGallery}>
+                <Camera size={14} className="icon" />
+                View Photos ({photos.length})
+              </PhotoGalleryButton>
+            )}
+            {link && (
+              <ExternalLinkButton
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {link.label}
+                <ExternalLink size={14} className="icon" />
+              </ExternalLinkButton>
+            )}
+          </div>
         </HeaderBottom>
       </CardHeader>
 
@@ -85,8 +125,8 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
         <SectionTitle>Skills Gained</SectionTitle>
         <SkillsContainer>
           {skills.map((skill, index) => (
-            <SkillTag 
-              key={index} 
+            <SkillTag
+              key={index}
               onClick={() => handleSkillClick(skill)}
             >
               {skill}

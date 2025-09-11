@@ -1,7 +1,7 @@
 import React from 'react';
 import { getContentById } from '../../utils/contentUtils';
 import PageLayout from '../PageLayout';
-import ExperienceCard from '../ExperienceCard'; 
+import ExperienceCard from '../ExperienceCard';
 
 interface ContentPageProps {
   contentId: string;
@@ -13,27 +13,26 @@ interface ContentPageProps {
 const formatDateRange = (startDate: string | null, endDate: string | null | undefined): string => {
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr);
-    return date.toLocaleDateString('en-US', { 
-      year: 'numeric', 
-      month: 'short' 
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short'
     });
   };
-  
+
   // Handle case where startDate is null
   if (!startDate) {
     return '';
   }
-  
+
   const start = formatDate(startDate);
   const end = endDate ? formatDate(endDate) : 'Present';
-  
   return `${start} - ${end}`;
 };
 
-const ContentPage: React.FC<ContentPageProps> = ({ 
-  contentId, 
-  onBack, 
-  onSkillClick 
+const ContentPage: React.FC<ContentPageProps> = ({
+  contentId,
+  onBack,
+  onSkillClick
 }) => {
   const content = getContentById(contentId);
 
@@ -69,7 +68,6 @@ const ContentPage: React.FC<ContentPageProps> = ({
     if (content.dateRange && content.dateRange.trim() !== '') {
       return content.dateRange;
     }
-    
     // Otherwise, format the startDate and endDate
     return formatDateRange(content.startDate, content.endDate);
   };
@@ -85,6 +83,8 @@ const ContentPage: React.FC<ContentPageProps> = ({
         detail={content.detail}
         skills={content.skills}
         link={content.link}
+        photos={content.photos}
+        contentId={contentId}
         onSkillClick={handleSkillClick}
       />
     </PageLayout>

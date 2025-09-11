@@ -141,7 +141,7 @@ export const MoreSkills = styled.span`
   padding: 0.25rem 0.5rem;
   font-size: 0.75rem;
   cursor: pointer;
-  font-style: italic;
+  font-weight: 500;
 `;
 
 export const SkillTag = styled.span`
@@ -151,7 +151,7 @@ export const SkillTag = styled.span`
   border-radius: 12px;
   padding: 0.25rem 0.5rem;
   font-size: 0.75rem;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.2s;
   
@@ -167,7 +167,7 @@ export const AwardBadge = styled.div`
   align-items: center;
   gap: 0.25rem;
   background: linear-gradient(45deg, #ffd700, #ffed4e);
-  color: #b8860b;
+  color: #7f5f0fff;
   padding: 0.25rem 0.75rem;
   border-radius: 16px;
   font-size: 0.8rem;

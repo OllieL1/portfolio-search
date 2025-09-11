@@ -14,6 +14,7 @@ export interface ContentItem {
   relevance?: number;
   type: string;
   category: string;
+  photos?: PhotoGalleryItem[];
 }
 
 export interface ContentData {
@@ -24,3 +25,8 @@ export interface ContentData {
 }
 
 export type ContentType = 'experiences' | 'projects' | 'education' | 'about';
+
+interface PhotoGalleryItem {
+  caption: string;
+  filename: string; // just the filename, directory will be inferred
+}
