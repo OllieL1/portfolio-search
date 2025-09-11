@@ -19,7 +19,6 @@ import {
   PreviewText,
   SkillsPreview,
   SkillChip,
-  EmptyState,
   ProfileImage,
   ProfileImageContainer
 } from './styles';
@@ -30,14 +29,10 @@ interface AboutPageProps {
 }
 
 const AboutPage: React.FC<AboutPageProps> = ({ onItemClick, onSkillClick }) => {
-  // Get about content, sorted by relevance
-  const aboutContent = getContentByType('about').sort((a, b) => (b.relevance || 0) - (a.relevance || 0));
-  
-  // Find the main "About Me" content (highest relevance)
-  const mainAbout = aboutContent.find(item => item.id === 'about-me') || aboutContent[0];
-  
-  // Get other about content for preview cards
-  const otherAboutContent = aboutContent.filter(item => item.id !== mainAbout?.id);
+  // Get about content from JSON for additional sections (excluding main about-me)
+  const aboutContent = getContentByType('about')
+    .filter(item => item.id !== 'about-me') // Exclude main about-me since we're hardcoding it
+    .sort((a, b) => (b.relevance || 0) - (a.relevance || 0));
   
   // Helper function to create preview text
   const createPreviewText = (text: string, maxLength: number = 120): string => {
@@ -58,16 +53,16 @@ const AboutPage: React.FC<AboutPageProps> = ({ onItemClick, onSkillClick }) => {
     }
   };
 
-  if (!mainAbout) {
-    return (
-      <AboutContainer>
-        <EmptyState>
-          <h2>About content not found</h2>
-          <p>About me information will appear here once added.</p>
-        </EmptyState>
-      </AboutContainer>
-    );
-  }
+  // Format the main about content with proper line breaks
+  const formatAboutText = (text: string) => {
+    return text.split('\\n\\n').map((paragraph, index) => (
+      <p key={index} style={{ marginBottom: '1rem' }}>
+        {paragraph}
+      </p>
+    ));
+  };
+
+  const mainAboutText = "Hello! I'm delighted you have taken the time to visit my website. My name is Ollie Livingston and I am a 4th year Software Engineering student at the University of Glasgow, Scotland.\\n\\nCurrently, I am completing a year-long placement at JPMorganChase - a huge life change for me, and honestly one I am still getting used to.\\n\\nOutside of the office, I am very into my sport. If I'm not playing one of football, tennis, or badminton, I will likely be in the pub watching them. I am an avid cook - check out the Cooking page for some of my recommendations.\\n\\nI am unfortunately a West Ham fan which has only really resulted in one brief season of joy in my life so far - but I'm sure they've got one or two left in them!\\n\\nIn a brief summary of myself, I always push myself to be outgoing and friendly. I love meeting new people, hearing different perspectives, and exploring the world. Next destination for me is Hong Kong in January!\\n\\nI'm happy for a chat with anyone, work or non-work related - please feel free to reach out at oliverlivingston@iCloud.com or via LinkedIn.";
 
   return (
     <AboutContainer>
@@ -87,7 +82,9 @@ const AboutPage: React.FC<AboutPageProps> = ({ onItemClick, onSkillClick }) => {
               4th Year Software Engineering Student & Industrial Placement Software Engineer
             </MainSubtitle>
             
-            <div>{mainAbout.detail}</div>
+            <div style={{ lineHeight: '1.6' }}>
+              {formatAboutText(mainAboutText)}
+            </div>
             
             <ContactInfo>
               <ContactItem>
@@ -118,12 +115,12 @@ const AboutPage: React.FC<AboutPageProps> = ({ onItemClick, onSkillClick }) => {
         </MainCardContent>
       </MainAboutCard>
 
-      {/* Other About Content */}
-      {otherAboutContent.length > 0 && (
+      {/* Other About Content from JSON */}
+      {aboutContent.length > 0 && (
         <>
           <SectionTitle>More About Me</SectionTitle>
           <PreviewCardsGrid>
-            {otherAboutContent.map((item) => (
+            {aboutContent.map((item) => (
               <PreviewCard 
                 key={item.id}
                 onClick={() => onItemClick(item.id)}

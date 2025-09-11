@@ -418,6 +418,235 @@
         "url": "https://www.gla.ac.uk/coursecatalogue/course/?code=COMPSCI4009",
         "label": "Course Specification"
       }
+    },
+    {
+      "id": "compsci-4011",
+      "title": "Operating Systems - COMPSCI4011",
+      "company": "University of Glasgow",
+      "startDate": "2025-01",
+      "detail": "This course was genuinely really interesting. Despite the 2 hour Monday 9am lectures, the lecturer Paul Harvey was engaging and taught the content well. The coursework was not very well defined, but turned out to be one of the most satisfying pieces.\n\nWe implemented a multithreaded signals processing systems for creating child processes from parent processes and signalling to communicate between them. I ended up doing very well in this despite spending over 40 hours on an assignment that was supposed to take me 10.",
+      "skills": [
+        "C",
+        "Technical Problem Solving"
+      ],
+      "type": "education",
+      "category": "Education",
+      "endDate": "2025-05",
+      "dateRange": "Grade: A3",
+      "relevance": 3,
+      "link": {
+        "url": "https://www.gla.ac.uk/coursecatalogue/course/?code=COMPSCI4011",
+        "label": "Course Specification"
+      }
+    },
+    {
+      "id": "compsci-4012",
+      "title": "Networked Systems - COMPSCI4012",
+      "company": "University of Glasgow",
+      "startDate": "2025-01",
+      "detail": "A thoroughly interesting course and taught in great depth by our lecturer, Colin Perkins. This course was tough and was marked harshly but is definitely an area of computing I have a lot of interest in. \n\nI plan to do my final year dissertation next year on some area of Networked Systems - potentially investigating TCP congestion control or the politics of the network. \n\nI was very happy with my B1 but I know from seeing my grade breakdown that I was one mark off an A which is a little gutting.",
+      "skills": [
+        "Sockets Programming",
+        "Networked Systems",
+        "Python",
+        "Technical Problem Solving"
+      ],
+      "type": "education",
+      "category": "Education",
+      "endDate": "2025-05",
+      "dateRange": "Grade: B1",
+      "relevance": 3,
+      "link": {
+        "url": "https://www.gla.ac.uk/coursecatalogue/course/?code=COMPSCI4012",
+        "label": "Course Specification"
+      }
+    },
+    {
+      "id": "compsci-4014",
+      "title": "Human Centred Systems, Design & Evaluation - COMPSCI4014",
+      "company": "University of Glasgow",
+      "startDate": "2024-09",
+      "detail": "The less said here the better. Not my favourite course at university by a long shot. Very dull content with very dull material. I probably should have done better in the course but I think I focused too much of my effort on succeeding in Algorithmics. \n\nWe did do two team projects as part of the coursework which were actually pretty decent. I learnt Figma for the first time, conducted semi structured interviews, created user surveys and we designed a proof of concept for an app to help students to manage their time. I excelled in the coursework but the exam did not go so well...",
+      "skills": [
+        "Design",
+        "Figma",
+        "Teamwork",
+        "Presenting"
+      ],
+      "type": "education",
+      "category": "Education",
+      "endDate": "2024-12",
+      "dateRange": "Grade: C1",
+      "relevance": 3,
+      "link": {
+        "url": "https://www.gla.ac.uk/coursecatalogue/course/?code=COMPSCI4014",
+        "label": "Course Specification"
+      }
+    },
+    {
+      "id": "compsci-4015",
+      "title": "Professional Software Development - COMPSCI4015",
+      "company": "University of Glasgow",
+      "startDate": "2024-09",
+      "detail": "Definitely not the highest standard of course material and I think our lecturer wouldn't object to me saying that, but PSD was still a solid course. We were taught Version Control, Project Management, Requirements Gathering, CI/CD, Software Architecture, Infrastructure as Code and Start Up Growth Engineering. \n\nAs you can see, some very meaty topics. I spoke to our lecturer after the course who agreed that it needs to be split up more and perhaps the software design content should be extracted into its own course.\n\nRegardless, the course was pretty good and I see myself using parts of it in my daily job.",
+      "skills": [
+        "Agile",
+        "Project Management",
+        "Docker",
+        "Teamwork",
+        "Software Engineering"
+      ],
+      "type": "education",
+      "category": "Education",
+      "endDate": "2025-05",
+      "dateRange": "Grade: A5",
+      "relevance": 3,
+      "link": {
+        "url": "https://www.gla.ac.uk/coursecatalogue/course/?code=COMPSCI4015",
+        "label": "Course Specification"
+      }
+    },
+    {
+      "id": "compsci-4016",
+      "title": "Programming Languages - COMPSCI4016",
+      "company": "University of Glasgow",
+      "startDate": "2025-01",
+      "detail": "This was a really interesting course. Very different to some of the other things I had done - it looked at what makes up a programming languages and how you can build one. It was taught by one of the best Computing lecturers at Glasgow, Simon Fowler who was always willing to answer questions and simplify tricky concepts. \n\nThe lecturers followed a linear structure where we essentially kept building upon a simple programming language eventually reaching topics like typechecking and recursion. I definitely enjoyed this course and will be sure to take Functional Programming in fifth year.",
+      "skills": [
+        "Technical Problem Solving",
+        "Java"
+      ],
+      "type": "education",
+      "category": "Education",
+      "endDate": "2025-05",
+      "dateRange": "Grade: B1",
+      "relevance": 3,
+      "link": {
+        "url": "https://www.gla.ac.uk/coursecatalogue/course/?code=COMPSCI4016",
+        "label": "Course Specification"
+      }
+    },
+    {
+      "id": "compsci-4047",
+      "title": "Team Project - COMPSCI4047",
+      "company": "University of Glasgow",
+      "startDate": "2024-09",
+      "detail": "My biggest academic achievement to date so far - I can't really point a flaw in the team project course. Back in September 2024, we were put into teams and selected preferences from a sheet of potential clients. My team began working with Thales UK on an AI-powered GIS Map Generation app. \n\nWe dealt with changing requirements, illness within the team, and fully new technologies to us. I was privileged to work with 5 fantastic teammates and collectively we delivered an application that we could be very proud of. It went above and beyond our clients expectations and also gave us a great grade in the course. \n\nWithin the team, I operated as our Product Owner and took leadership of quality assurance, requirements gathering and ticket management. On the coding side, I owned the QGIS component of our app including automating the opening and rendering of the map in QGIS, offline map downloads and handling styling of the map. \n\nEssentially all the work I did was entirely new to me. The course has been incredibly helpful since I have started at JPMorgan. I think my manager was pretty surprised that I was competent with Git and Jira. \n\nThe problem solving involved with the QGIS integration was very satisfying - I particularly enjoyed using sockets programming to communicate from QGIS to our front end to receive a request to generate an offline map. Our client was not sure if the offline map feature was possible but the team and I took it from an idea to a delivered feature.\n\nIn reward of our efforts, the team and I won the award for the highest grade in Team Project for our yeargroup (out of 40 teams). It was a delight to work with the team and I cannot thank them enough for their hard work throughout.",
+      "skills": [
+        "Communication",
+        "Teamwork",
+        "Software Engineering",
+        "Agile",
+        "Project Management",
+        "Docker",
+        "TypeScript",
+        "Presenting",
+        "Node.js",
+        "Python",
+        "Sockets Programming",
+        "Adaptive",
+        "Figma",
+        "React"
+      ],
+      "type": "education",
+      "category": "Education",
+      "endDate": "2025-04",
+      "dateRange": "Grade: A2",
+      "relevance": 4,
+      "link": {
+        "url": "https://www.gla.ac.uk/coursecatalogue/course/?code=COMPSCI4047",
+        "label": "Course Specification"
+      }
+    },
+    {
+      "id": "compsci-4062",
+      "title": "Cyber Security Fundamentals - COMPSCI4062",
+      "company": "University of Glasgow",
+      "startDate": "2025-01",
+      "detail": "This was another pretty solid course. We learnt about Intrusion Detection Systems, Firewalls, Cryptography and Password Protection. It turned out to be a lot more maths heavy than I expected but it was still a very interesting course.",
+      "skills": [
+        "Technical Problem Solving"
+      ],
+      "type": "education",
+      "category": "Education",
+      "endDate": "2025-05",
+      "dateRange": "Grade: A4",
+      "relevance": 3,
+      "link": {
+        "url": "https://www.gla.ac.uk/coursecatalogue/course/?code=COMPSCI4062",
+        "label": "Course Specification"
+      }
+    },
+    {
+      "id": "compsci-4073",
+      "title": "Data Fundamentals - COMPSCI4073",
+      "company": "University of Glasgow",
+      "startDate": "2024-09",
+      "detail": "The most challenging course I've done so far academically. The course was very interesting but so so difficult. When tracking my revision, I did double the amount of revision for DF than I did for my second most revised course. \n\nThe course essentially was a mathsy problem solving course in a computing context. It covered with floating point, visualising data, linear algebra, optimisation, probability and finally time series and signals. \n\nA great course but I am happy to see it behind me.",
+      "skills": [
+        "Technical Problem Solving",
+        "Python"
+      ],
+      "type": "education",
+      "category": "Education",
+      "endDate": "2024-12",
+      "dateRange": "Grade: B2",
+      "relevance": 3,
+      "link": {
+        "url": "https://www.gla.ac.uk/coursecatalogue/course/?code=COMPSCI4073",
+        "label": "Course Specification"
+      }
+    },
+    {
+      "id": "compsci-4081",
+      "title": "Systems Programming - COMPSCI4081",
+      "company": "University of Glasgow",
+      "startDate": "2025-01",
+      "detail": "A fairly self explanatory course. This explored low level programming. We were first taught C and pointers followed by multithreading and concurrency using C++. \n\nI definitely enjoyed this course and I enjoy the problem solving behind low level, performant languages. I look forward to the follow on to this course which delves into Rust.",
+      "skills": [
+        "C",
+        "C++",
+        "Technical Problem Solving"
+      ],
+      "type": "education",
+      "category": "Education",
+      "endDate": "2025-05",
+      "dateRange": "Grade: A3",
+      "relevance": 3,
+      "link": {
+        "url": "https://www.gla.ac.uk/coursecatalogue/course/?code=COMPSCI4081",
+        "label": "Course Specification"
+      }
+    },
+    {
+      "id": "sqa-advh-maths",
+      "title": "SQA Advanced Higher Maths",
+      "company": "Boroughmuir High School",
+      "startDate": "2021-08",
+      "detail": "Probably when I peaked at Maths. Advanced Higher was really solid for teaching a lot of the core concepts I use in computing. Having a strong foundation in Calculus has been especially useful. \n\nMaths is hard though. Respect to anyone who did it as a degree.",
+      "skills": [
+        "Resilience"
+      ],
+      "type": "education",
+      "category": "Education",
+      "endDate": "2022-05",
+      "dateRange": "Grade: A2",
+      "relevance": 1
+    },
+    {
+      "id": "sqa-advh-physics",
+      "title": "SQA Advanced Higher Physics",
+      "company": "Boroughmuir High School",
+      "startDate": "2021-08",
+      "detail": "Physics always really interested in me and if it had been taught slightly better at Glasgow Uni, I probably would have stuck with it longer. I had a fantastic teacher at High School and I wasn't the most naturally gifted Physicist but I made up for it with a lot of hard work. \n\nI was delighted in the end to get the A in Physics. Shame it didn't carry over into uni.",
+      "skills": [
+        "Resilience"
+      ],
+      "type": "education",
+      "category": "Education",
+      "endDate": "2022-05",
+      "dateRange": "Grade: A2",
+      "relevance": 1
     }
   ],
   "about": [
