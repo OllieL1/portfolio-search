@@ -19,7 +19,6 @@ import {
   PreviewText,
   SkillsPreview,
   SkillChip,
-  EmptyState,
   ProfileImage,
   ProfileImageContainer
 } from './styles';
