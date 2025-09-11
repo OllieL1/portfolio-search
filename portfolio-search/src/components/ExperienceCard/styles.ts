@@ -150,3 +150,44 @@ export const ExternalLinkButton = styled.a`
     padding: 0.4rem 0.8rem;
   }
 `;
+
+export const PhotoGalleryButton = styled.button`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #34a853;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  font-family: 'Roboto Slab', serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 1px 4px rgba(52, 168, 83, 0.2);
+  white-space: nowrap;
+  
+  &:hover {
+    background: #2e7d32;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(52, 168, 83, 0.3);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+  
+  .icon {
+    transition: transform 0.2s;
+  }
+  
+  &:hover .icon {
+    transform: scale(1.1);
+  }
+  
+  @media (max-width: 768px) {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+  }
+`;

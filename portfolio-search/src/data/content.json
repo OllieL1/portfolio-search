@@ -114,6 +114,24 @@
       "category": "Work Experience",
       "endDate": "2021-02",
       "relevance": 1
+    },
+    {
+      "id": "comp-club",
+      "title": "Computing Club Leader",
+      "company": "Boroughmuir High School",
+      "startDate": "2021-08",
+      "detail": "In our final year of high school, our Computing class ran a lunchtime Computing Club for first years as part of our Young STEM Leader awards. \n\nWe taught the kids basic Python programming, taught them how to make their first websites and really brought a buzz around computing for them. Our attendance throughout the year of the club never dropped below what it started - in fact the club only seemed to grow!\n\nWe had a lot of fun running the club and seeing how enthusiastic the kids were. To be able to inspire them and kickstart their learning in programming was and still is very special to me. \n\nTwo years later, my computing teacher reached out to share that Computer Science enrollment hit a record high the year members from our club were choosing their courses. I was delighted to have played a role in encouraging more young people into Computing - and hopefully they retained some of the fundamentals we taught them!\n\nIn the end, I also received my Young STEM Leader award as part of my efforts in organising and leading the club.",
+      "skills": [
+        "Leadership",
+        "Teamwork",
+        "PowerPoint",
+        "Presenting",
+        "Communication"
+      ],
+      "type": "experience",
+      "category": "Work Experience",
+      "endDate": "2022-04",
+      "relevance": 4
     }
   ],
   "projects": [
@@ -662,7 +680,25 @@
       ],
       "type": "about",
       "category": "About",
-      "relevance": 3
+      "relevance": 3,
+      "photos": [
+        {
+          "caption": "Kung Pao Chicken",
+          "filename": "kung-pao.jpg"
+        },
+        {
+          "caption": "Chicken Pasta Bake",
+          "filename": "chicken-pasta-bake.jpg"
+        },
+        {
+          "caption": "Sticky Pork Belly",
+          "filename": "pork-belly.jpg"
+        },
+        {
+          "caption": "Chorizo and Feta Bake",
+          "filename": "chorizo-bake.jpeg"
+        }
+      ]
     }
   ]
 }
