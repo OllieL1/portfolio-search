@@ -238,7 +238,6 @@ const HomePage: React.FC = () => {
         text: skill,
         type: 'skill',
         icon: <Tag size={16} />,
-        subtitle: `View ${skill} projects & experience`,
         action: () => navigateToSkill(skill)
       });
     });

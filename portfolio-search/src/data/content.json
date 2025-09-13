@@ -199,6 +199,60 @@
         "url": "https://github.com/calilak/explore_glasgow_project",
         "label": "GitHub Link"
       }
+    },
+    {
+      "id": "snippet",
+      "title": "Snippet",
+      "company": "Personal",
+      "startDate": "2024-08",
+      "detail": "Along with one of my good mates in Engineering, we are trying to combine our skillset and make a small display that plugs into your PC and displays snapshots of info that you can toggle between using the hardware.\n\nThese include media playing, system diagnostics, battery life, reminders and upcoming calendar events. \n\nI have been working on the software end of this - teaching myself more Rust as I go as well as how to establish a connection and communicate with a microcontroller. \n\nProgress has definitely been slow and steady but I have already learnt so much about Rust and I am learning more about the hardware as we go. You can keep up with our progress on our GitHub! Once I finish this portfolio site, we are resuming work on this so hopefully we will have something to show for it sometime soon!",
+      "skills": [
+        "Rust",
+        "Technical Problem Solving",
+        "Teamwork",
+        "Project Management",
+        "Agile"
+      ],
+      "type": "project",
+      "category": "Projects",
+      "relevance": 3,
+      "link": {
+        "url": "www.github.com/OllieL1/Snippet",
+        "label": "GitHub Link"
+      }
+    },
+    {
+      "id": "music-player",
+      "title": "Music Player",
+      "company": "Personal",
+      "startDate": "2021-11",
+      "detail": "When I was first taught the doubly linked list data structure I immediately likened it to how music queues work on the likes of Spotify. \n\nI built a simple music player in Python using the Pygame library for the UI. You could play, pause, skip forward, skip back, queue new songs and shuffle. It was all built around the use of doubly linked lists.\n\nI am particularly fond of this project because it was probably the first time I was able to make a connection between something I learnt in school and actual application.\n\nUnfortunately, the source code for this also sits on the locked USB (see my Cereal Webscraping Project) - it would have been really cool to see the principles I adopted back then.",
+      "skills": [
+        "Python",
+        "Technical Problem Solving",
+        "UI/UX"
+      ],
+      "type": "project",
+      "category": "Projects",
+      "endDate": "2021-12",
+      "relevance": 2
+    },
+    {
+      "id": "study-tracker",
+      "title": "Study Tracker",
+      "company": "Personal",
+      "startDate": "2025-04",
+      "detail": "I love this project because it was built by me, for me. Before I started revision for my third year exams, I dedicated a weekend to building out a study tracker that was tailored for what I needed. \n\nIt featured splitting tasks by subjects which each had their own percentage trackers and all compounded at the top to make an overall percentage tracker. I built a study mode - a simple click of a button started a Study Session - which when I finished, I could input what subject I studied and a description. \n\nThis made tracking my progress really easy. I could see how far long I was with each course as well as how much studying I was doing per day. There was a daily logs page where I could see my daily average and how each individual day was being spent.\n\nI also added a Subject logs page which showed an overview of the progress for each subject, the time spent, how long till the exam and how much work left to do.\n\nI honestly believe that without this tracker, I wouldn't have been able to do as well as I did in the exams. \n\nA few of my mates really liked the idea and now a friend and I are taking it on to build out a fully fledged app that is deployed for everyone to use. Watch this space!",
+      "skills": [
+        "Adaptive",
+        "Design",
+        "JavaScript",
+        "Technical Problem Solving",
+        "UI/UX"
+      ],
+      "type": "project",
+      "category": "Projects",
+      "relevance": 4
     }
   ],
   "education": [
