@@ -5,7 +5,7 @@ import { Search } from 'lucide-react';
 // Types
 interface AutocompleteItem {
   text: string;
-  type: 'page' | 'external';
+  type: 'page' | 'external' | 'skill';
   icon?: React.ReactNode;
   subtitle?: string;
   action: () => void;
@@ -122,6 +122,8 @@ const AutocompleteText = styled.span`
 const AutocompleteSubtitle = styled.span`
   color: #999;
   font-size: 0.85rem;
+  text-align: right;
+  margin-left: auto;
 `;
 
 // Component

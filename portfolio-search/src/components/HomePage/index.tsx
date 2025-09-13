@@ -3,19 +3,20 @@
 import React, { useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import styled from 'styled-components';
-import { Code, Briefcase, GraduationCap, User, Linkedin, Github } from 'lucide-react';
-import { searchContent } from '../../utils/contentUtils';
-import { useIsClient } from '../../hooks/useWindow'; // Import the custom hook
+import { Code, Briefcase, GraduationCap, User, Linkedin, Github, Tag } from 'lucide-react';
+import { useIsClient } from '../../hooks/useWindow';
 import { GlobalStyle } from './GlobalStyles';
 import AnimatedLogo from './AnimatedLogo';
 import SearchBar from './SearchBar';
 import Shortcuts from './Shortcuts';
 import TabManager from '../TabManager';
+import contentData from '../../data/content.json';
+import { ContentItem } from '../../types/content'; // Import the type
 
 // Types
 interface AutocompleteItem {
   text: string;
-  type: 'page' | 'external';
+  type: 'page' | 'external' | 'skill';
   icon?: React.ReactNode;
   subtitle?: string;
   action: () => void;
@@ -56,13 +57,10 @@ const HomePage: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [showAutocomplete, setShowAutocomplete] = useState<boolean>(false);
   
-  // Use custom hook for client-side detection
   const isClient = useIsClient();
-
-  // Environment variables for secret page
   const secretTrigger = process.env.NEXT_PUBLIC_SECRET_TRIGGER;
 
-  // Navigation functions using Next.js router
+  // Navigation functions
   const navigateToContent = (contentId: string) => {
     router.push(`/content/${contentId}`);
     setShowAutocomplete(false);
@@ -94,7 +92,11 @@ const HomePage: React.FC = () => {
     setShowAutocomplete(false);
   };
 
-  // Safe window.open function
+  const navigateToSkill = (skill: string) => {
+    router.push(`/skills/${encodeURIComponent(skill)}`);
+    setShowAutocomplete(false);
+  };
+
   const safeWindowOpen = (url: string) => {
     if (isClient) {
       window.open(url, '_blank');
@@ -102,7 +104,61 @@ const HomePage: React.FC = () => {
     setShowAutocomplete(false);
   };
 
-  // Shortcuts that navigate to different routes
+  // Helper function to get all unique skills from content data
+  const getAllSkills = () => {
+    const skillsSet = new Set<string>();
+    
+    // Get skills from all content categories
+    const allContentArrays = [
+      contentData.experiences,
+      contentData.projects,
+      contentData.education,
+      contentData.about
+    ];
+
+    allContentArrays.forEach(contentArray => {
+      contentArray.forEach(content => {
+        if (content.skills) {
+          content.skills.forEach(skill => skillsSet.add(skill));
+        }
+      });
+    });
+    
+    return Array.from(skillsSet);
+  };
+
+  // Custom search function that only searches title and company
+  const searchContentTitleAndCompany = (query: string): ContentItem[] => {
+    const allContentArrays = [
+      contentData.experiences,
+      contentData.projects,
+      contentData.education,
+      contentData.about
+    ];
+
+    const results: ContentItem[] = [];
+    const queryLower = query.toLowerCase();
+
+    allContentArrays.forEach(contentArray => {
+      contentArray.forEach(content => {
+        const titleMatch = content.title.toLowerCase().includes(queryLower);
+        const companyMatch = content.company?.toLowerCase().includes(queryLower);
+        
+        if (titleMatch || companyMatch) {
+          results.push(content);
+        }
+      });
+    });
+
+    // Sort by relevance if available, otherwise keep original order
+    return results.sort((a, b) => {
+      const relevanceA = a.relevance || 0;
+      const relevanceB = b.relevance || 0;
+      return relevanceB - relevanceA;
+    });
+  };
+
+  // Shortcuts
   const shortcuts: ShortcutItem[] = [
     { 
       name: 'Projects', 
@@ -126,94 +182,117 @@ const HomePage: React.FC = () => {
     }
   ];
 
-  // Autocomplete suggestions
+  // Improved autocomplete suggestions
   const autocompleteItems: AutocompleteItem[] = useMemo(() => {
     if (!searchQuery.trim()) return [];
 
     const items: AutocompleteItem[] = [];
+    const query = searchQuery.toLowerCase();
 
-    // Check for secret page trigger (exact match, case insensitive)
-    if (secretTrigger && searchQuery.toLowerCase() === secretTrigger.toLowerCase()) {
+    // Check for secret page trigger
+    if (secretTrigger && query === secretTrigger.toLowerCase()) {
       items.push({
         text: 'Special Access',
         type: 'page',
         subtitle: 'Restricted content',
         action: navigateToSecret
       });
+      return items; // Return early for secret trigger
     }
 
-    // Only add other suggestions if it's not the secret trigger
-    if (searchQuery.toLowerCase() !== secretTrigger?.toLowerCase()) {
-      // Add content matches from JSON data
-      const contentMatches = searchContent(searchQuery);
-      contentMatches.slice(0, 3).forEach(content => {
+    // Add high-relevance content matches (relevance 4 or 5) - search only title and company
+    const contentMatches = searchContentTitleAndCompany(searchQuery);
+    const highRelevanceMatches = contentMatches.filter(content => 
+      content.relevance && content.relevance >= 4
+    );
+    
+    highRelevanceMatches.slice(0, 2).forEach(content => {
+      items.push({
+        text: content.title,
+        type: 'page',
+        subtitle: content.company || content.category,
+        action: () => navigateToContent(content.id)
+      });
+    });
+
+    // Add skill matches - navigate to dedicated skill page
+    const allSkills = getAllSkills();
+    const matchingSkills = allSkills.filter(skill => 
+      skill.toLowerCase().includes(query) && query.length >= 2
+    );
+    
+    // Sort skills by relevance (exact match first, then starts with, then contains)
+    matchingSkills.sort((a, b) => {
+      const aLower = a.toLowerCase();
+      const bLower = b.toLowerCase();
+      
+      if (aLower === query) return -1;
+      if (bLower === query) return 1;
+      if (aLower.startsWith(query) && !bLower.startsWith(query)) return -1;
+      if (bLower.startsWith(query) && !aLower.startsWith(query)) return 1;
+      return a.localeCompare(b);
+    });
+    
+    matchingSkills.slice(0, 2).forEach(skill => {
+      items.push({
+        text: skill,
+        type: 'skill',
+        icon: <Tag size={16} />,
+        subtitle: `View ${skill} projects & experience`,
+        action: () => navigateToSkill(skill)
+      });
+    });
+
+    // Add static page matches (only if they match)
+    const staticPages = [
+      { name: 'Projects', action: navigateToProjects },
+      { name: 'Experience', action: navigateToExperience },
+      { name: 'Education', action: navigateToEducation },
+      { name: 'About Me', action: navigateToAbout }
+    ];
+    
+    staticPages.forEach(page => {
+      if (page.name.toLowerCase().includes(query) && 
+          !items.some(item => item.text === page.name)) {
         items.push({
-          text: content.title,
+          text: page.name,
           type: 'page',
           action: () => {
-            navigateToContent(content.id);
+            page.action();
+            setShowAutocomplete(false);
           }
         });
-      });
+      }
+    });
 
-      // Add static page matches
-      const staticPages = [
-        { name: 'Projects', action: navigateToProjects },
-        { name: 'Experience', action: navigateToExperience },
-        { name: 'Education', action: navigateToEducation },
-        { name: 'About Me', action: navigateToAbout }
-      ];
-      
-      staticPages.forEach(page => {
-        if (page.name.toLowerCase().includes(searchQuery.toLowerCase()) && 
-            !items.some(item => item.text === page.name)) {
-          items.push({
-            text: page.name,
-            type: 'page',
-            action: () => {
-              page.action();
-              setShowAutocomplete(false);
-            }
-          });
-        }
-      });
-
-      // Add external links with partial matching
-      const query = searchQuery.toLowerCase();
-      
-      // LinkedIn - matches "link", "linkedin", "in", etc.
-      if ('linkedin'.includes(query) && query.length >= 2) {
+    // Add external links (only for longer queries to reduce noise)
+    if (query.length >= 3) {
+      if ('linkedin'.includes(query)) {
         items.push({
           text: 'LinkedIn',
           type: 'external',
           icon: <Linkedin size={16} />,
           subtitle: 'Open in LinkedIn',
-          action: () => {
-            safeWindowOpen('https://linkedin.com/in/your-profile');
-          }
+          action: () => safeWindowOpen('https://linkedin.com/in/ollie-wl')
         });
       }
 
-      // GitHub - matches "git", "github", "hub", etc.
-      if ('github'.includes(query) && query.length >= 2) {
+      if ('github'.includes(query)) {
         items.push({
           text: 'GitHub',
           type: 'external',
           icon: <Github size={16} />,
           subtitle: 'Open in GitHub',
-          action: () => {
-            safeWindowOpen('https://github.com/your-username');
-          }
+          action: () => safeWindowOpen('https://github.com/OllieL1')
         });
       }
     }
 
-    return items.slice(0, 5);
+    return items.slice(0, 5); // Limit to 5 items max
   }, [searchQuery, secretTrigger, isClient]);
 
   const handleSearch = () => {
     if (searchQuery.trim()) {
-      // Check if it's the secret trigger first
       if (secretTrigger && searchQuery.toLowerCase() === secretTrigger.toLowerCase()) {
         navigateToSecret();
       } else {
@@ -227,11 +306,9 @@ const HomePage: React.FC = () => {
   };
 
   const handleBlur = () => {
-    // Delay hiding autocomplete to allow for clicks
     setTimeout(() => setShowAutocomplete(false), 200);
   };
 
-  // Home page only renders the search interface
   return (
     <>
       <GlobalStyle />
