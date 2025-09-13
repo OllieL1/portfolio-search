@@ -95,7 +95,7 @@ export const searchContent = (query: string): ContentItem[] => {
   });
 };
 
-// Get content by skill with relevance sorting
+// Get content by skill with exact matches only
 export const getContentBySkill = (skill: string): ContentItem[] => {
   if (!skill.trim()) return [];
   
@@ -103,17 +103,16 @@ export const getContentBySkill = (skill: string): ContentItem[] => {
   const skillLower = skill.toLowerCase();
   
   const resultsWithScore = allContent.filter(item =>
-    item.skills.some(s => s.toLowerCase().includes(skillLower))
+    // Change from includes() to exact match using ===
+    item.skills.some(s => s.toLowerCase() === skillLower)
   ).map(item => {
     let score = 0;
     
-    // Score based on exact vs partial skill matches
+    // Score based on exact skill matches (all matches are exact now)
     item.skills.forEach(itemSkill => {
       const itemSkillLower = itemSkill.toLowerCase();
       if (itemSkillLower === skillLower) {
         score += 10; // Exact match
-      } else if (itemSkillLower.includes(skillLower)) {
-        score += 5; // Partial match
       }
     });
     

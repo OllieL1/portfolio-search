@@ -49,13 +49,30 @@ const formatDateRange = (startDate: string | null, endDate: string | null | unde
   return `${start} - ${end}`;
 };
 
+// Helper function to get sort date for projects
+const getSortDate = (project: any): Date => {
+  // Use startDate if available, otherwise use a very old date to put at the end
+  if (project.startDate) {
+    return new Date(project.startDate);
+  }
+  // Return a very old date so items without dates appear last
+  return new Date('1900-01-01');
+};
+
 const ProjectsPage: React.FC<ProjectsPageProps> = ({ onItemClick, onSkillClick }) => {
   // Use custom hook for window detection
   const { isMobile } = useWindow();
   
-  // Get all project content
+  // Get all project content and sort by date (most recent first)
   const allContent = getAllContent();
-  const projects = allContent.filter(item => item.type === 'project');
+  const projects = allContent
+    .filter(item => item.type === 'project')
+    .sort((a, b) => {
+      const dateA = getSortDate(a);
+      const dateB = getSortDate(b);
+      // Sort in descending order (most recent first)
+      return dateB.getTime() - dateA.getTime();
+    });
 
   // Helper function to render skills with responsive truncation
   const renderSkills = (skills: string[]) => {
@@ -87,7 +104,7 @@ const ProjectsPage: React.FC<ProjectsPageProps> = ({ onItemClick, onSkillClick }
       <Header>
         <Title>Projects</Title>
         <Subtitle>
-          {projects.length} project{projects.length !== 1 ? 's' : ''}
+          {projects.length} project{projects.length !== 1 ? 's' : ''} • Sorted by date
         </Subtitle>
       </Header>
 
