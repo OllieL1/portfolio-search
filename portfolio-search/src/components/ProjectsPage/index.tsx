@@ -1,6 +1,7 @@
 import React from 'react';
 import { Calendar, Award } from 'lucide-react';
 import { getAllContent } from '../../utils/contentUtils';
+import { ContentItem } from '../../types/content';
 import { useWindow } from '../../hooks/useWindow'; // Import the custom hook
 import {
   Container,
@@ -50,7 +51,7 @@ const formatDateRange = (startDate: string | null, endDate: string | null | unde
 };
 
 // Helper function to get sort date for projects
-const getSortDate = (project: any): Date => {
+const getSortDate = (project: ContentItem): Date => {
   // Use startDate if available, otherwise use a very old date to put at the end
   if (project.startDate) {
     return new Date(project.startDate);

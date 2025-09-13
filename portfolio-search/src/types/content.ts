@@ -3,7 +3,7 @@ export interface ContentItem {
   title: string;
   company: string;
   startDate: string | null;  // Allow null
-  endDate: string | null;    // Allow null
+  endDate?: string | null;    // Allow null
   dateRange?: string;        // Keep optional
   detail: string;
   skills: string[];
