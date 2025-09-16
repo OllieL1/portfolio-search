@@ -4,8 +4,6 @@ import { Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { searchContent } from '../../utils/contentUtils';
 import SearchResults from '../../components/SearchResults';
-import TabManager from '../../components/TabManager';
-import { GlobalStyle } from '../../components/HomePage/GlobalStyles';
 
 function SearchContent() {
   const router = useRouter();
@@ -36,12 +34,9 @@ function SearchContent() {
 export default function Search() {
   return (
     <>
-      <GlobalStyle />
-      <TabManager>
         <Suspense fallback={<div>Loading search results...</div>}>
           <SearchContent />
         </Suspense>
-      </TabManager>
     </>
   );
 }

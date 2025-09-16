@@ -1,10 +1,31 @@
+"use client";
+
 import React, { useState, useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
-import { X, Search, Briefcase, GraduationCap, Code, User, Hash } from 'lucide-react';
+import { X, Search, Briefcase, GraduationCap, Code, User, Hash, ChevronRight, Home, Pin, PinOff } from 'lucide-react';
 import { getContentById } from '../../utils/contentUtils';
-import { useIsClient } from '../../hooks/useWindow'; // Import the custom hook
+import { useIsClient } from '../../hooks/useWindow';
 import { Tab } from './types';
-import { TabsContainer, Tab as TabElement, TabTitle, CloseButton, ContentWrapper, NewSearchButton, ScrollableTabs } from './styles';
+import {
+  SidebarContainer,
+  SidebarTrigger,
+  SidebarHoverArea,
+  SidebarHeader,
+  NewSearchContainer,
+  SearchInput,
+  HomeButton,
+  PinButton,
+  SectionContainer,
+  SectionHeader,
+  TabsList,
+  TabItem,
+  DesktopContent,
+  MobileTabsContainer,
+  MobileTabsList,
+  MobileNewSearchButton,
+  MobileTabItem,
+  MobileContent
+} from './styles';
 
 interface TabManagerProps {
   children: React.ReactNode;
@@ -38,6 +59,28 @@ const loadTabsFromStorage = (): Tab[] => {
   return [];
 };
 
+const saveSidebarState = (pinned: boolean) => {
+  if (typeof window !== 'undefined') {
+    try {
+      sessionStorage.setItem('sidebar-pinned', JSON.stringify(pinned));
+    } catch (error) {
+      console.warn('Failed to save sidebar state:', error);
+    }
+  }
+};
+
+const loadSidebarState = (): boolean => {
+  if (typeof window !== 'undefined') {
+    try {
+      const stored = sessionStorage.getItem('sidebar-pinned');
+      return stored ? JSON.parse(stored) : false;
+    } catch (error) {
+      console.warn('Failed to load sidebar state:', error);
+    }
+  }
+  return false;
+};
+
 // Helper function to get search params safely
 const getSearchParams = (): URLSearchParams => {
   if (typeof window !== 'undefined') {
@@ -62,18 +105,41 @@ const getTabIcon = (type: Tab['type']) => {
     case 'skills':
       return <Hash size={14} />;
     case 'content':
-      return null; // No icon for content tabs
+      return null;
     default:
       return null;
   }
 };
 
-// Helper function to create tab from current route
-const createTabFromRoute = (pathname: string, searchParams?: URLSearchParams): Tab | null => {
+// Helper function to get section icon
+const getSectionIcon = (section: string) => {
+  switch (section) {
+    case 'Experience':
+      return <Briefcase size={16} />;
+    case 'Education':
+      return <GraduationCap size={16} />;
+    case 'Projects':
+      return <Code size={16} />;
+    case 'About Me':
+      return <User size={16} />;
+    default:
+      return null;
+  }
+};
+
+// Helper function to create tab from current route - includes main section pages on mobile
+const createTabFromRoute = (pathname: string, searchParams?: URLSearchParams, isMobile: boolean = false): Tab | null => {
   const timestamp = Date.now();
   
+  // On desktop, don't create tabs for main section pages
+  // On mobile, do create tabs for main section pages
+  if (!isMobile && (pathname === '/' || pathname === '/experience' || pathname === '/projects' || 
+      pathname === '/education' || pathname === '/about')) {
+    return null;
+  }
+  
   if (pathname === '/') {
-    return null; // Home doesn't create a tab
+    return null; // Never create tab for home page
   }
   
   if (pathname === '/experience') {
@@ -117,13 +183,11 @@ const createTabFromRoute = (pathname: string, searchParams?: URLSearchParams): T
   }
   
   if (pathname === '/search') {
-    // Handle search tabs more robustly
     let query = '';
     
     if (searchParams) {
       query = searchParams.get('q') || '';
     } else {
-      // Fallback to safe search params getter
       const urlParams = getSearchParams();
       query = urlParams.get('q') || '';
     }
@@ -139,7 +203,6 @@ const createTabFromRoute = (pathname: string, searchParams?: URLSearchParams): T
       };
     }
     
-    // If no query, don't create a tab (this prevents the flicker)
     return null;
   }
   
@@ -182,17 +245,26 @@ const TabManager: React.FC<TabManagerProps> = ({ children }) => {
   const router = useRouter();
   const pathname = usePathname();
   const [tabs, setTabs] = useState<Tab[]>([]);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarPinned, setSidebarPinned] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   
-  // Use custom hook for client-side detection
   const isClient = useIsClient();
 
-  // Load tabs from session storage on mount
+  // Load tabs and sidebar state from session storage on mount
   useEffect(() => {
     if (!isClient) return;
     
     const storedTabs = loadTabsFromStorage();
     if (storedTabs.length > 0) {
       setTabs(storedTabs);
+      // Auto-pin sidebar if tabs exist
+      setSidebarPinned(true);
+      setSidebarOpen(true);
+    } else {
+      const pinnedState = loadSidebarState();
+      setSidebarPinned(pinnedState);
+      setSidebarOpen(pinnedState);
     }
   }, [isClient]);
 
@@ -201,25 +273,29 @@ const TabManager: React.FC<TabManagerProps> = ({ children }) => {
     if (!isClient) return;
     
     const searchParams = getSearchParams();
-    const currentTab = createTabFromRoute(pathname, searchParams);
+    const isMobile = window.innerWidth <= 768;
+    const currentTab = createTabFromRoute(pathname, searchParams, isMobile);
     
     if (currentTab) {
       setTabs(prevTabs => {
-        // Check if tab already exists
         const existingTabIndex = prevTabs.findIndex(tab => tab.id === currentTab.id);
         let newTabs;
         
         if (existingTabIndex >= 0) {
-          // Update existing tab timestamp
           newTabs = [...prevTabs];
           newTabs[existingTabIndex] = { ...newTabs[existingTabIndex], timestamp: Date.now() };
         } else {
-          // Add new tab, limit to 10 tabs
           newTabs = [...prevTabs, currentTab];
           if (newTabs.length > 10) {
-            // Remove oldest tab
             newTabs.sort((a, b) => a.timestamp - b.timestamp);
             newTabs = newTabs.slice(1);
+          }
+          
+          // Auto-pin sidebar on first tab creation
+          if (prevTabs.length === 0) {
+            setSidebarPinned(true);
+            setSidebarOpen(true);
+            saveSidebarState(true);
           }
         }
         
@@ -233,8 +309,33 @@ const TabManager: React.FC<TabManagerProps> = ({ children }) => {
     router.push(tab.url);
   };
 
-  const handleNewSearchClick = () => {
+  const handleHomeClick = () => {
     router.push('/');
+  };
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+      setSearchQuery('');
+    }
+  };
+
+  const handleSectionClick = (section: string) => {
+    // Don't allow clicking on "Other" section
+    if (section === 'Other') return;
+    
+    const routes: Record<string, string> = {
+      'Experience': '/experience',
+      'Education': '/education', 
+      'Projects': '/projects',
+      'About Me': '/about'
+    };
+    
+    const route = routes[section];
+    if (route) {
+      router.push(route);
+    }
   };
 
   const handleCloseTab = (e: React.MouseEvent, tabId: string) => {
@@ -246,31 +347,66 @@ const TabManager: React.FC<TabManagerProps> = ({ children }) => {
       return newTabs;
     });
     
-    // If we're closing the currently active tab, navigate to home
     const activeTabId = getActiveTabId();
     if (activeTabId === tabId) {
       router.push('/');
     }
   };
 
-  // Find the currently active tab based on pathname
-  const getActiveTabId = (): string => {
-    // New Search is ONLY active on home page
-    if (pathname === '/') {
-      return 'new-search';
+  const handlePinToggle = () => {
+    const newPinnedState = !sidebarPinned;
+    setSidebarPinned(newPinnedState);
+    setSidebarOpen(newPinnedState);
+    saveSidebarState(newPinnedState);
+  };
+
+  const handleSidebarMouseEnter = () => {
+    if (!sidebarPinned) {
+      setSidebarOpen(true);
     }
-    
-    // For all other pages, find the matching tab
+  };
+
+  const handleSidebarMouseLeave = () => {
+    if (!sidebarPinned) {
+      setSidebarOpen(false);
+    }
+  };
+
+  const getActiveTabId = (): string => {
     const searchParams = getSearchParams();
-    const currentTab = createTabFromRoute(pathname, searchParams);
-    
-    // If we can't find a matching tab, don't highlight anything (not even New Search)
+    const isMobile = window.innerWidth <= 768;
+    const currentTab = createTabFromRoute(pathname, searchParams, isMobile);
     return currentTab ? currentTab.id : '';
   };
 
-  // Only calculate active tab on client side
+  // Check if current page is a main section page
+  const getActiveSectionId = (): string => {
+    if (pathname === '/experience') return 'Experience';
+    if (pathname === '/education') return 'Education';
+    if (pathname === '/projects') return 'Projects';
+    if (pathname === '/about') return 'About Me';
+    return '';
+  };
+
   const activeTabId = isClient ? getActiveTabId() : '';
+  const activeSectionId = isClient ? getActiveSectionId() : '';
   const shouldShowTabs = tabs.length > 0 || pathname !== '/';
+
+  // Group tabs by section (no sorting - maintain original order)
+  const groupedTabs = {
+    'Experience': tabs.filter(tab => tab.type === 'experience' || 
+      (tab.type === 'content' && getContentById(tab.contentId!)?.category === 'Work Experience')),
+    'Education': tabs.filter(tab => tab.type === 'education' || 
+      (tab.type === 'content' && getContentById(tab.contentId!)?.category === 'Education')),
+    'Projects': tabs.filter(tab => tab.type === 'projects' || 
+      (tab.type === 'content' && getContentById(tab.contentId!)?.category === 'Projects')),
+    'About Me': tabs.filter(tab => tab.type === 'about' || 
+      (tab.type === 'content' && getContentById(tab.contentId!)?.category === 'About')),
+    'Other': tabs.filter(tab => 
+      !['experience', 'education', 'projects', 'about', 'content'].includes(tab.type) ||
+      (tab.type === 'content' && !['Work Experience', 'Education', 'Projects', 'About'].includes(getContentById(tab.contentId!)?.category || ''))
+    )
+  };
 
   if (!shouldShowTabs) {
     return <>{children}</>;
@@ -278,37 +414,138 @@ const TabManager: React.FC<TabManagerProps> = ({ children }) => {
 
   return (
     <>
-      <TabsContainer>
-        {/* New Search Button - pinned on mobile */}
-        <NewSearchButton
-          $active={activeTabId === 'new-search'}
-          onClick={handleNewSearchClick}
-        >
-          <Search size={14} />
-          <TabTitle className="desktop-only">New Search</TabTitle>
-        </NewSearchButton>
+      {/* Desktop Sidebar Hover Area - expanded hover zone */}
+      {!sidebarOpen && (
+        <SidebarHoverArea onMouseEnter={handleSidebarMouseEnter}>
+          <SidebarTrigger>
+            <Search size={16} />
+          </SidebarTrigger>
+        </SidebarHoverArea>
+      )}
 
-        {/* Scrollable tabs container */}
-        <ScrollableTabs>
-          {tabs.map(tab => (
-            <TabElement
-              key={tab.id}
-              $active={activeTabId === tab.id}
-              onClick={() => handleTabClick(tab)}
-            >
-              {getTabIcon(tab.type)}
-              <TabTitle title={tab.title}>{tab.title}</TabTitle>
-              <CloseButton onClick={(e) => handleCloseTab(e, tab.id)}>
-                <X size={12} />
-              </CloseButton>
-            </TabElement>
-          ))}
-        </ScrollableTabs>
-      </TabsContainer>
+      {/* Desktop Sidebar */}
+      <SidebarContainer 
+        $open={sidebarOpen}
+        $pinned={sidebarPinned}
+        onMouseEnter={handleSidebarMouseEnter}
+        onMouseLeave={handleSidebarMouseLeave}
+      >
+        {/* Sidebar Header */}
+        <SidebarHeader>
+          <NewSearchContainer>
+            <form onSubmit={handleSearchSubmit} style={{ display: 'flex', gap: '8px', flex: 1 }}>
+              <SearchInput
+                type="text"
+                placeholder="Search..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                $open={sidebarOpen}
+              />
+              {sidebarOpen && (
+                <HomeButton onClick={handleHomeClick} type="button">
+                  <Home size={16} />
+                </HomeButton>
+              )}
+            </form>
+          </NewSearchContainer>
+          
+          {sidebarOpen && (
+            <PinButton onClick={handlePinToggle} $pinned={sidebarPinned}>
+              {sidebarPinned ? <PinOff size={16} /> : <Pin size={16} />}
+            </PinButton>
+          )}
+        </SidebarHeader>
 
-      <ContentWrapper>
+        {/* Sections */}
+        <div style={{ paddingLeft: '16px', paddingRight: '16px' }}>
+          {Object.entries(groupedTabs).map(([section, sectionTabs]) => {
+            if (sectionTabs.length === 0 && section === 'Other') return null;
+            
+            return (
+              <SectionContainer key={section}>
+                {/* Section Header */}
+                <SectionHeader 
+                  $open={sidebarOpen}
+                  $active={activeSectionId === section}
+                  $clickable={section !== 'Other'}
+                  onClick={() => handleSectionClick(section)}
+                >
+                  {getSectionIcon(section)}
+                  <span className="section-title">{section}</span>
+                  {section !== 'Other' && <ChevronRight size={14} className="chevron" />}
+                </SectionHeader>
+
+                {/* Section Tabs */}
+                <TabsList $open={sidebarOpen}>
+                  {sectionTabs.map(tab => (
+                    <TabItem
+                      key={tab.id}
+                      $active={activeTabId === tab.id}
+                      onClick={() => handleTabClick(tab)}
+                    >
+                      {getTabIcon(tab.type)}
+                      <span className="tab-title" title={tab.title}>
+                        {tab.title}
+                      </span>
+                      <button
+                        className="close-button"
+                        onClick={(e) => handleCloseTab(e, tab.id)}
+                      >
+                        <X size={12} />
+                      </button>
+                    </TabItem>
+                  ))}
+                </TabsList>
+              </SectionContainer>
+            );
+          })}
+        </div>
+      </SidebarContainer>
+
+      {/* Desktop Content with sidebar spacing */}
+      <DesktopContent $sidebarOpen={sidebarOpen}>
         {children}
-      </ContentWrapper>
+      </DesktopContent>
+
+      {/* Mobile Bottom Tabs */}
+      <MobileTabsContainer>
+        <MobileTabsList>
+          {/* New Search Button - pinned to left */}
+          <MobileNewSearchButton
+            $active={pathname === '/'}
+            onClick={handleHomeClick}
+          >
+            <Search size={18} />
+          </MobileNewSearchButton>
+
+          {/* Scrollable Tabs */}
+          <div style={{ display: 'flex', gap: '0.5rem', overflowX: 'auto', scrollbarWidth: 'none', flex: 1 }}>
+            {tabs.slice().reverse().map(tab => (
+              <MobileTabItem
+                key={tab.id}
+                $active={activeTabId === tab.id}
+                onClick={() => handleTabClick(tab)}
+              >
+                {getTabIcon(tab.type)}
+                <span className="tab-title">
+                  {tab.title}
+                </span>
+                <button
+                  className="close-button"
+                  onClick={(e) => handleCloseTab(e, tab.id)}
+                >
+                  <X size={12} />
+                </button>
+              </MobileTabItem>
+            ))}
+          </div>
+        </MobileTabsList>
+      </MobileTabsContainer>
+
+      {/* Mobile Content with bottom spacing */}
+      <MobileContent>
+        {children}
+      </MobileContent>
     </>
   );
 };

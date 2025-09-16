@@ -1,5 +1,5 @@
-// src/app/layout.tsx
-import './globals.css'
+import TabManager from '../components/TabManager';
+import { GlobalStyle } from '../components/HomePage/GlobalStyles';
 
 export default function RootLayout({
   children,
@@ -14,7 +14,12 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet" />
         <title>Ollie Livingston</title>
       </head>
-      <body>{children}</body>
+      <body>
+        <GlobalStyle />
+        <TabManager>
+          {children}
+        </TabManager>
+      </body>
     </html>
   )
 }
