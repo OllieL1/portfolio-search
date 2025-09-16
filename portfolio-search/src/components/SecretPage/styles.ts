@@ -126,19 +126,7 @@ export const Card = styled.div`
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
     border-color: #4285f4;
   }
-  
-  &::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 4px;
-    background: #4285f4;
-    border-radius: 4px 0 0 4px;
-    opacity: 0;
-    transition: opacity 0.2s;
-  }
+
   
   &:hover::before {
     opacity: 1;
