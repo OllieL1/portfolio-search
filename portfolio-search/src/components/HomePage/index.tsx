@@ -9,9 +9,8 @@ import { GlobalStyle } from './GlobalStyles';
 import AnimatedLogo from './AnimatedLogo';
 import SearchBar from './SearchBar';
 import Shortcuts from './Shortcuts';
-import TabManager from '../TabManager';
 import contentData from '../../data/content.json';
-import { ContentItem } from '../../types/content'; // Import the type
+import { ContentItem } from '../../types/content';
 
 // Types
 interface AutocompleteItem {
@@ -311,23 +310,21 @@ const HomePage: React.FC = () => {
   return (
     <>
       <GlobalStyle />
-      <TabManager>
-        <Container>
-          <SearchSection>
-            <AnimatedLogo />
-            <SearchBar
-              searchQuery={searchQuery}
-              onSearchChange={setSearchQuery}
-              onSearch={handleSearch}
-              autocompleteItems={autocompleteItems}
-              showAutocomplete={showAutocomplete}
-              onFocus={handleFocus}
-              onBlur={handleBlur}
-            />
-            <Shortcuts shortcuts={shortcuts} />
-          </SearchSection>
-        </Container>
-      </TabManager>
+      <Container>
+        <SearchSection>
+          <AnimatedLogo />
+          <SearchBar
+            searchQuery={searchQuery}
+            onSearchChange={setSearchQuery}
+            onSearch={handleSearch}
+            autocompleteItems={autocompleteItems}
+            showAutocomplete={showAutocomplete}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+          />
+          <Shortcuts shortcuts={shortcuts} />
+        </SearchSection>
+      </Container>
     </>
   );
 };

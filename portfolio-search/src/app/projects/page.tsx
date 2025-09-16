@@ -2,8 +2,6 @@
 
 import { useRouter } from 'next/navigation';
 import ProjectsPage from '../../components/ProjectsPage';
-import TabManager from '../../components/TabManager';
-import { GlobalStyle } from '../../components/HomePage/GlobalStyles';
 
 export default function Projects() {
   const router = useRouter();
@@ -18,13 +16,10 @@ export default function Projects() {
 
   return (
     <>
-      <GlobalStyle />
-      <TabManager>
         <ProjectsPage 
           onItemClick={handleItemClick} 
           onSkillClick={handleSkillClick}
         />
-      </TabManager>
     </>
   );
 }

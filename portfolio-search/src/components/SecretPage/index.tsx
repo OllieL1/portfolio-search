@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import { Eye, EyeOff, Lock, Heart, Zap, Target, Users, Code, Lightbulb } from 'lucide-react';
 import { GlobalStyle } from '../../components/HomePage/GlobalStyles';
-import TabManager from '../../components/TabManager';
 import {
   Container,
   Content,
@@ -162,22 +161,17 @@ const SecretPage: React.FC = () => {
   if (!content) {
     return (
       <>
-        <GlobalStyle />
-        <TabManager>
           <Container>
             <Content>
               <p>Loading...</p>
             </Content>
           </Container>
-        </TabManager>
       </>
     );
   }
 
   return (
     <>
-      <GlobalStyle />
-      <TabManager>
         <Container>
           <Content>
             <Header>
@@ -226,7 +220,6 @@ const SecretPage: React.FC = () => {
             </Section>
           </Content>
         </Container>
-      </TabManager>
     </>
   );
 };

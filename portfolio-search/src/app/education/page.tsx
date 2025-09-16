@@ -2,8 +2,6 @@
 
 import { useRouter } from 'next/navigation';
 import EducationPage from '../../components/EducationPage';
-import TabManager from '../../components/TabManager';
-import { GlobalStyle } from '../../components/HomePage/GlobalStyles';
 
 export default function Education() {
   const router = useRouter();
@@ -18,13 +16,10 @@ export default function Education() {
 
   return (
     <>
-      <GlobalStyle />
-      <TabManager>
-        <EducationPage 
-          onItemClick={handleItemClick} 
-          onSkillClick={handleSkillClick}
-        />
-      </TabManager>
+      <EducationPage 
+        onItemClick={handleItemClick} 
+        onSkillClick={handleSkillClick}
+      />
     </>
   );
 }
