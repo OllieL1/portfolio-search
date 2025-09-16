@@ -3,9 +3,8 @@
 import React, { useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import styled from 'styled-components';
-import { Code, Briefcase, GraduationCap, User, Linkedin, Github, Tag } from 'lucide-react';
+import { Code, Briefcase, GraduationCap, User, Linkedin, Github, Tag, Shuffle } from 'lucide-react';
 import { useIsClient } from '../../hooks/useWindow';
-import { GlobalStyle } from './GlobalStyles';
 import AnimatedLogo from './AnimatedLogo';
 import SearchBar from './SearchBar';
 import Shortcuts from './Shortcuts';
@@ -48,6 +47,37 @@ const SearchSection = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 2rem;
+`;
+
+const SurpriseMeButton = styled.button`
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 0.75rem 2rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+  
+  @media (max-width: 768px) {
+    padding: 0.6rem 1.5rem;
+    font-size: 0.85rem;
+  }
 `;
 
 // Main component
@@ -94,6 +124,22 @@ const HomePage: React.FC = () => {
   const navigateToSkill = (skill: string) => {
     router.push(`/skills/${encodeURIComponent(skill)}`);
     setShowAutocomplete(false);
+  };
+
+  const navigateToRandomContent = () => {
+    // Get all content items from all categories
+    const allContent = [
+      ...contentData.experiences,
+      ...contentData.projects,
+      ...contentData.education,
+      ...contentData.about
+    ];
+    
+    if (allContent.length > 0) {
+      const randomIndex = Math.floor(Math.random() * allContent.length);
+      const randomContent = allContent[randomIndex];
+      navigateToContent(randomContent.id);
+    }
   };
 
   const safeWindowOpen = (url: string) => {
@@ -309,7 +355,6 @@ const HomePage: React.FC = () => {
 
   return (
     <>
-      <GlobalStyle />
       <Container>
         <SearchSection>
           <AnimatedLogo />
@@ -323,6 +368,10 @@ const HomePage: React.FC = () => {
             onBlur={handleBlur}
           />
           <Shortcuts shortcuts={shortcuts} />
+          <SurpriseMeButton onClick={navigateToRandomContent}>
+            <Shuffle size={16} />
+            Surprise Me
+          </SurpriseMeButton>
         </SearchSection>
       </Container>
     </>

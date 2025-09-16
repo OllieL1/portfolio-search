@@ -5,7 +5,7 @@ export const SidebarHoverArea = styled.div`
   position: fixed;
   left: 0;
   top: 0;
-  width: 60px;
+  width: 80px;
   height: 100vh;
   z-index: 45;
   display: flex;
@@ -52,7 +52,7 @@ export const SidebarContainer = styled.div<{ $open: boolean; $pinned: boolean }>
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 50;
   width: ${props => props.$open ? '320px' : '0px'};
-  overflow: hidden;
+  overflow-x:auto;
   
   @media (max-width: 768px) {
     display: none;
@@ -64,7 +64,6 @@ export const SidebarHeader = styled.div`
   align-items: center;
   gap: 0.5rem;
   padding: 1rem;
-  border-bottom: 1px solid #e5e7eb;
 `;
 
 export const NewSearchContainer = styled.div`
@@ -237,14 +236,15 @@ export const DesktopContent = styled.div<{ $sidebarOpen: boolean }>`
 
 // Mobile Bottom Tabs Styles
 // Mobile Bottom Tabs Styles
+// Mobile Bottom Tabs Styles
 export const MobileTabsContainer = styled.div`
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(20px);
-  border-top: 1px solid rgba(229, 231, 235, 0.5);
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(30px);
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
   padding: 1rem;
   z-index: 50;
   
@@ -272,16 +272,17 @@ export const MobileNewSearchButton = styled.button<{ $active: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.3);
   cursor: pointer;
   transition: all 0.2s ease;
-  background: ${props => props.$active ? '#3b82f6' : 'rgba(249, 250, 251, 0.8)'};
+  background: ${props => props.$active ? 'rgba(59, 130, 246, 0.9)' : 'rgba(255, 255, 255, 0.3)'};
   color: ${props => props.$active ? 'white' : '#374151'};
-  box-shadow: ${props => props.$active ? '0 8px 20px -3px rgba(59, 130, 246, 0.3)' : 'none'};
-  backdrop-filter: blur(10px);
+  box-shadow: ${props => props.$active ? '0 8px 20px -3px rgba(59, 130, 246, 0.4)' : '0 4px 12px rgba(0, 0, 0, 0.1)'};
+  backdrop-filter: blur(15px);
   
   &:hover {
     transform: translateY(-1px);
+    background: ${props => props.$active ? 'rgba(59, 130, 246, 1)' : 'rgba(255, 255, 255, 0.4)'};
   }
 `;
 
@@ -292,12 +293,17 @@ export const MobileTabItem = styled.div<{ $active: boolean }>`
   gap: 0.5rem;
   padding: 0.5rem 1rem;
   border-radius: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
   cursor: pointer;
   transition: all 0.2s ease;
-  background: ${props => props.$active ? '#3b82f6' : 'rgba(249, 250, 251, 0.8)'};
+  background: ${props => props.$active ? 'rgba(59, 130, 246, 0.9)' : 'rgba(255, 255, 255, 0.3)'};
   color: ${props => props.$active ? 'white' : '#374151'};
-  box-shadow: ${props => props.$active ? '0 8px 20px -3px rgba(59, 130, 246, 0.3)' : 'none'};
-  backdrop-filter: blur(10px);
+  box-shadow: ${props => props.$active ? '0 8px 20px -3px rgba(59, 130, 246, 0.4)' : '0 4px 12px rgba(0, 0, 0, 0.1)'};
+  backdrop-filter: blur(15px);
+  
+  &:hover {
+    background: ${props => props.$active ? 'rgba(59, 130, 246, 1)' : 'rgba(255, 255, 255, 0.4)'};
+  }
   
   .tab-title {
     font-size: 0.875rem;
