@@ -253,6 +253,29 @@
       "type": "project",
       "category": "Projects",
       "relevance": 4
+    },
+    {
+      "id": "diary-gen-project",
+      "title": "Weekly Diaries Generator",
+      "company": "Personal for Uni",
+      "startDate": "2026-02",
+      "detail": "I built a simple web app to help automate the creation and formatting of my weekly diaries that were required by uni during my placement at JPMorgan. I had been writing weekly updates to my recruiter during my placement and the content of these aligned quite closely with the expected content of my uni weekly diaries.\n\nI built a web app where I could batch uploads photos of my these weekly updates to my recruiter - these would then be passed to and processed by the Anthropic SDK before being returned back to me to check over and edit on the UI.\n\nIf any of the necessary sections were missing, the model would tailor its response so that I could highlight what was missing and what could be added. \n\nThen I had buttons allowing me to download each month worth of diaries so that I could upload them for uni. A short and sweet project but very very useful automation for myself (who was 26 weeks behind in diary completion...)",
+      "skills": [
+        "TypeScript",
+        "Node.js",
+        "React",
+        "Technical Problem Solving",
+        "Prompt Engineering",
+        "Adaptive"
+      ],
+      "type": "project",
+      "category": "Projects",
+      "endDate": "2026-02",
+      "relevance": 3,
+      "link": {
+        "url": "https://github.com/OllieL1/diaries-generator",
+        "label": "Github Link"
+      }
     }
   ],
   "education": [
