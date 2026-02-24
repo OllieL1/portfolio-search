@@ -24,10 +24,11 @@
       "company": "JP Morgan Chase",
       "startDate": "2025-06",
       "endDate": "2026-06",
-      "detail": "As part of my degree, I have been part of a year-long placement at the Glasgow Technology Centre of JPMorganChase. I could not have hoped for more in my learning.\n\nMy main project so far has been migrating a legacy file upload system for financial documents to the cloud. I own the UI portion of the project and so far I have designed, implemented, and deployed modernised screens that are now in the hands of business users.\n\nI have worked closely with stakeholders, adapted designs to changing requirements, and created feature-rich pages with powerful tools to visualise and filter data.\n\nThis role has been a complete change to my life - I have taken up much more sport, got into an actual cooking routine, and learned to appreciate free time a lot more. I am grateful to JP for all their efforts in making settling in a lot easier than I thought it would be.\n\nI have worked with a wonderful group of 12 IPs and going through this journey with them has made it all the more enjoyable.",
+      "detail": "As part of my degree, I have been part of a year-long placement at the Glasgow Technology Centre of JPMorganChase. I could not have hoped for more in my learning.\n\nMy main project so far has been migrating a legacy file upload system for financial documents to the cloud. I own the UI service of our project and I have designed, implemented, and deployed modernised screens that are now in the hands of business users.\n\nI have worked closely with stakeholders, adapted designs to changing requirements, and created feature-rich pages with powerful tools to visualise and filter large amounts of data.\n\nI got drafted into another project due to the design work I had done on the first. I was a core part of the team in taking an internal mobile app from the design stage to production in just over three months - a remarkable achievement and the first application of its kind within our LOB.\n\nIt has not just been frontend work though. In order to improve our user experience, I built in websocket functionality into our application providing our users with live updates on the state of their file uploads. I implemented a singleton token manager that is global across our backend service ensuring that the token refreshes effectively. This change improved our site loading times by ~3 seconds per request.\n\nI took on the entire end to end design of a new “module management” screen allowing our users to create new types of file uploads on the UI. This was a monumental feature needed for our application and we are as of now gaining huge traction within teams across JPMorgan.\n\nAway from my desk, I have spoken at panel events for future early careers, volunteered at student hackathons, played football weekly with JPMorgan since July and been a member of the SEP Committee (the grad program events organisers). As an off-cycle intern, I have worked across two different committees, so my role was to ensure a smooth handover and to be a point of contact for any questions. Being able to step up and take on this responsiblity for this was a big step for me, especially being the youngest person in the committee.\n\nAll in all, the experience at JPMorgan has been fantastic for me. I am grateful to JP for the support they have given me in the transition from university to the corporate world. It has been so enjoyable to be in a small cohort of other placement interns going through the same motions as me and this has really given me the perfect environment to prosper.",
       "skills": [
         "React",
         "TypeScript",
+        "JavaScript",
         "Python",
         "AWS",
         "Databricks",
@@ -40,7 +41,12 @@
         "Technical Problem Solving",
         "Teamwork",
         "Communication",
-        "Adaptive"
+        "Adaptive",
+        "Leadership",
+        "Agile",
+        "Object Oriented Programming",
+        "Presenting",
+        "Resilience"
       ],
       "type": "experience",
       "category": "Work Experience",
@@ -253,6 +259,30 @@
       "type": "project",
       "category": "Projects",
       "relevance": 4
+    },
+    {
+      "id": "diary-gen-project",
+      "title": "Weekly Diaries Generator",
+      "company": "Personal for Uni",
+      "startDate": "2026-02",
+      "detail": "I built a simple web app to help automate the creation and formatting of my weekly diaries that were required by uni during my placement at JPMorgan. I had been writing weekly updates to my recruiter during my placement and the content of these aligned quite closely with the expected content of my uni weekly diaries.\n\nI built a web app where I could batch uploads photos of my these weekly updates to my recruiter - these would then be passed to and processed by the Anthropic SDK before being returned back to me to check over and edit on the UI.\n\nIf any of the necessary sections were missing, the model would tailor its response so that I could highlight what was missing and what could be added. \n\nThen I had buttons allowing me to download each month worth of diaries so that I could upload them for uni. A short and sweet project but very very useful automation for myself (who was 26 weeks behind in diary completion...)",
+      "skills": [
+        "TypeScript",
+        "Node.js",
+        "React",
+        "Technical Problem Solving",
+        "Prompt Engineering",
+        "Adaptive"
+      ],
+      "type": "project",
+      "category": "Projects",
+      "endDate": "2026-02",
+      "relevance": 3,
+      "link": {
+        "url": "https://github.com/OllieL1/diaries-generator",
+        "label": "GitHub Link"
+      },
+      "video": "weekly-diaries-demo.mp4"
     }
   ],
   "education": [
@@ -751,6 +781,54 @@
         {
           "caption": "Chorizo and Feta Bake",
           "filename": "chorizo-bake.jpeg"
+        }
+      ]
+    },
+    {
+      "id": "travels",
+      "title": "Travels",
+      "company": "Ollie",
+      "startDate": null,
+      "endDate": null,
+      "detail": "Travelling is a major continuous goal of mine and a massive driver in my motivation to succeed. I have been lucky enough to be well travelled at my age and to have seen some incredibly diverse and exciting parts of the world.\n\nI kicked off 2026 with an amazing trip to Hong Kong - easily the best city I have ever been too. 2025 started with going to Japan with one of my best mates - that was my first time in Asia and as you can see was not the last.\n\nDuring my placement at JP, I have been able to get away on short weekend breaks to Amsterdam, Prague, Manchester (football) and London (football again). It's been really nice to get away during the full time work and makes me much more grateful to have the opportunity to do so.",
+      "skills": [
+        "Adaptive"
+      ],
+      "type": "about",
+      "category": "About",
+      "relevance": 1,
+      "photos": [
+        {
+          "caption": "Sicily, Italy",
+          "filename": "sicily.jpeg"
+        },
+        {
+          "caption": "Kyoto, Japan",
+          "filename": "kyoto.jpeg"
+        },
+        {
+          "caption": "Loch Rannoch, Scotland",
+          "filename": "rannoch.jpeg"
+        },
+        {
+          "caption": "Sorrento, Italy",
+          "filename": "sorrento.jpeg"
+        },
+        {
+          "caption": "Interrailing, Europe",
+          "filename": "interrailing.jpeg"
+        },
+        {
+          "caption": "Hong Kong",
+          "filename": "hong-kong.jpeg"
+        },
+        {
+          "caption": "Los Alcazares, Spain",
+          "filename": "spain.jpeg"
+        },
+        {
+          "caption": "West Ham!",
+          "filename": "west-ham.jpeg"
         }
       ]
     }
