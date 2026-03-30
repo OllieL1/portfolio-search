@@ -19,12 +19,12 @@ const ShortcutsContainer = styled.div`
   gap: 1rem;
   width: 100%;
   max-width: 320px;
-  
+
   @media (max-width: 768px) {
     gap: 0.75rem;
     max-width: 280px;
   }
-  
+
   @media (max-width: 480px) {
     grid-template-columns: repeat(2, 1fr);
     max-width: 200px;
@@ -32,8 +32,8 @@ const ShortcutsContainer = styled.div`
 `;
 
 const ShortcutButton = styled.button`
-  background: white;
-  border: 1px solid #e0e0e0;
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
   border-radius: 12px;
   padding: 1rem 0.75rem;
   cursor: pointer;
@@ -41,32 +41,32 @@ const ShortcutButton = styled.button`
   font-size: 0.75rem;
   font-family: 'Roboto Slab', serif;
   font-weight: 300;
-  color: #333;
+  color: var(--text-primary);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.6rem;
   width: 80px;
   height: 80px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+  box-shadow: var(--shadow-sm);
   justify-self: center;
-  
+
   &:hover {
-    background: #fafafa;
-    border-color: #4285f4;
+    background: var(--bg-hover);
+    border-color: var(--accent-primary);
     box-shadow: 0 4px 12px rgba(66, 133, 244, 0.12);
     transform: translateY(-2px);
-    
+
     .shortcut-icon {
-      color: #4285f4;
+      color: var(--accent-primary);
       transform: scale(1.15);
     }
   }
-  
+
   &:active {
     transform: translateY(-1px);
   }
-  
+
   @media (max-width: 768px) {
     width: 72px;
     height: 72px;
@@ -77,7 +77,7 @@ const ShortcutButton = styled.button`
 `;
 
 const ShortcutIcon = styled.div`
-  color: #666;
+  color: var(--text-secondary);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 `;
 

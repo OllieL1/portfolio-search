@@ -45,9 +45,9 @@ const Logo = styled.h1`
   font-size: 4rem;
   font-weight: 400;
   margin-bottom: 2rem;
-  color: #333;
+  color: var(--text-primary);
   text-align: center;
-  
+
   @media (max-width: 768px) {
     font-size: 3rem;
   }

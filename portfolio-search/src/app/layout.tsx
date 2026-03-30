@@ -1,5 +1,8 @@
+import StyledComponentsRegistry from '../lib/registry';
 import TabManager from '../components/TabManager';
 import { GlobalStyle } from '../components/HomePage/GlobalStyles';
+import { ThemeScript } from '../theme/ThemeScript';
+import { ThemeProvider } from '../theme/ThemeContext';
 
 export default function RootLayout({
   children,
@@ -7,7 +10,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
@@ -15,10 +18,15 @@ export default function RootLayout({
         <title>Ollie Livingston</title>
       </head>
       <body>
-        <GlobalStyle />
-        <TabManager>
-          {children}
-        </TabManager>
+        <ThemeScript />
+        <StyledComponentsRegistry>
+          <ThemeProvider>
+            <GlobalStyle />
+            <TabManager>
+              {children}
+            </TabManager>
+          </ThemeProvider>
+        </StyledComponentsRegistry>
       </body>
     </html>
   )

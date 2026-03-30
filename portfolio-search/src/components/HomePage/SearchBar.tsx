@@ -30,21 +30,21 @@ const SearchContainer = styled.div`
 const SearchInput = styled.input`
   width: 100%;
   padding: 1rem 3rem 1rem 1rem;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-default);
   border-radius: 24px;
   font-size: 1rem;
   outline: none;
   transition: all 0.2s;
-  background: white;
-  color: black;
-  
+  background: var(--bg-input);
+  color: var(--text-primary);
+
   &:focus {
-    border-color: #4285f4;
+    border-color: var(--accent-primary);
     box-shadow: 0 4px 12px rgba(66, 133, 244, 0.1);
   }
-  
+
   &::placeholder {
-    color: #999;
+    color: var(--text-tertiary);
   }
 `;
 
@@ -56,13 +56,13 @@ const SearchButton = styled.button`
   background: none;
   border: none;
   cursor: pointer;
-  color: #666;
+  color: var(--text-secondary);
   padding: 0.5rem;
   border-radius: 50%;
   transition: all 0.2s;
-  
+
   &:hover {
-    color: #4285f4;
+    color: var(--accent-primary);
     background: rgba(66, 133, 244, 0.1);
   }
 `;
@@ -72,10 +72,10 @@ const AutocompleteContainer = styled.div`
   top: 100%;
   left: 0;
   right: 0;
-  background: white;
-  border: 1px solid #ddd;
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-md);
   max-height: 300px;
   overflow-y: auto;
   z-index: 50;
@@ -85,23 +85,23 @@ const AutocompleteContainer = styled.div`
 const AutocompleteItem = styled.div`
   padding: 0.75rem 1rem;
   cursor: pointer;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--border-light);
   transition: background 0.2s;
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  
+
   &:hover {
-    background: #f8f9fa;
+    background: var(--bg-hover);
   }
-  
+
   &:last-child {
     border-bottom: none;
   }
 `;
 
 const AutocompleteIcon = styled.div`
-  color: #666;
+  color: var(--text-secondary);
   display: flex;
   align-items: center;
   flex-shrink: 0;
@@ -115,12 +115,12 @@ const AutocompleteContent = styled.div`
 `;
 
 const AutocompleteText = styled.span`
-  color: #333;
+  color: var(--text-primary);
   font-weight: 500;
 `;
 
 const AutocompleteSubtitle = styled.span`
-  color: #999;
+  color: var(--text-tertiary);
   font-size: 0.85rem;
   text-align: right;
   margin-left: auto;

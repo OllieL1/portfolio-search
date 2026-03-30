@@ -50,8 +50,8 @@ const SearchSection = styled.div`
 `;
 
 const SurpriseMeButton = styled.button`
-  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-  color: white;
+  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-primary-hover) 100%);
+  color: var(--text-on-accent);
   border: none;
   border-radius: 25px;
   padding: 0.75rem 2rem;
@@ -62,18 +62,17 @@ const SurpriseMeButton = styled.button`
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
-  
+  box-shadow: var(--shadow-accent);
+
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
-    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+    box-shadow: var(--shadow-accent-hover);
   }
-  
+
   &:active {
     transform: translateY(0);
   }
-  
+
   @media (max-width: 768px) {
     padding: 0.6rem 1.5rem;
     font-size: 0.85rem;

@@ -1,10 +1,16 @@
 "use client";
 
+import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import ExperiencePage from '../../components/ExperiencePage';
 
 export default function Experience() {
   const router = useRouter();
+
+  useEffect(() => {
+    router.prefetch('/content/placeholder');
+    router.prefetch('/skills/placeholder');
+  }, [router]);
 
   const handleItemClick = (contentId: string) => {
     router.push(`/content/${contentId}`);
@@ -16,8 +22,8 @@ export default function Experience() {
 
   return (
     <>
-      <ExperiencePage 
-        onItemClick={handleItemClick} 
+      <ExperiencePage
+        onItemClick={handleItemClick}
         onSkillClick={handleSkillClick}
       />
     </>
