@@ -62,8 +62,8 @@ const AboutPage: React.FC<AboutPageProps> = ({ onItemClick, onSkillClick }) => {
     ));
   };
 
-  const mainAboutText = "Hello! I'm delighted you have taken the time to visit my website. My name is Ollie Livingston and I am a 4th year Software Engineering student at the University of Glasgow, Scotland.\\n\\nCurrently, I am completing a year-long placement at JPMorganChase - a huge life change for me, and honestly one I am still getting used to.\\n\\nOutside of the office, I am very into my sport. If I'm not playing one of football, tennis, or badminton, I will likely be in the pub watching them. I am an avid cook - check out the Cooking page for some of my recommendations.\\n\\nI am unfortunately a West Ham fan which has only really resulted in one brief season of joy in my life so far - but I'm sure they've got one or two left in them!\\n\\nIn a brief summary of myself, I always push myself to be outgoing and friendly. I love meeting new people, hearing different perspectives, and exploring the world. Next destination for me is Hong Kong in January!\\n\\nI'm happy for a chat with anyone, work or non-work related - please feel free to reach out at oliverlivingston@iCloud.com or via LinkedIn.";
-
+  const mainAboutText = "Hello! I'm delighted you have taken the time to visit my website. My name is Ollie Livingston and I am a 4th year Software Engineering student at the University of Glasgow, Scotland.\\n\\nCurrently, I am completing a year-long placement at JPMorganChase - this has been an incredibly different experience to anything I have done before and I am thoroughly enjoying it.\\n\\nAway from work, I am very much into my sport. If I'm not playing one of football, tennis, or badminton, I will likely be in the pub watching them. I am an avid cook - check out the Cooking section below for some of my favourites.\\n\\nUnfortunately, I happen to be a West Ham fan which has only really resulted in one brief season of joy in my life so far - but I'm sure they've got one or two left in them!\\n\\nIn a brief summary of myself, I always push myself to be outgoing and friendly. I love meeting new people, hearing different perspectives, and exploring different cultures. I am currently working out my next destination so hoping to have a big trip at the end of the summer.\\n\\nI'm happy for a chat with anyone, work or non-work related - please feel free to reach out at oliverlivingston@iCloud.com or via LinkedIn.";
+  
   return (
     <AboutContainer>
       {/* Main About Me Card */}
@@ -97,7 +97,7 @@ const AboutPage: React.FC<AboutPageProps> = ({ onItemClick, onSkillClick }) => {
               </ContactItem>
               <ContactItem>
                 <Calendar size={18} />
-                Available for Summer 2026 opportunities
+                Interested in 2027 Graduate Roles
               </ContactItem>
             </ContactInfo>
             

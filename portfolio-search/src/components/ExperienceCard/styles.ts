@@ -67,6 +67,24 @@ export const DetailText = styled.div`
   margin-bottom: 1.5rem;
 `;
 
+export const VideoSection = styled.section`
+  margin-bottom: 2rem;
+`;
+
+export const VideoPlayer = styled.video`
+  width: 100%;
+  max-width: 720px;
+  border-radius: 8px;
+  border: 1px solid var(--border-default);
+  display: block;
+  background: #000;
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+    border-radius: 6px;
+  }
+`;
+
 export const SkillsSection = styled.section`
   margin-top: 2rem;
 `;

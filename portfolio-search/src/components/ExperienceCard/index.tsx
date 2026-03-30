@@ -11,6 +11,8 @@ import {
   DetailSection,
   SectionTitle,
   DetailText,
+  VideoSection,
+  VideoPlayer,
   SkillsSection,
   SkillsContainer,
   SkillTag,
@@ -34,6 +36,7 @@ interface ExperienceCardProps {
     label: string;
   };
   photos?: PhotoGalleryItem[];
+  video?: string;
   contentId?: string;
   onSkillClick?: (skill: string) => void;
 }
@@ -46,6 +49,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
   skills,
   link,
   photos,
+  video,
   contentId,
   onSkillClick
 }) => {
@@ -120,6 +124,18 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
         <SectionTitle>About the Role</SectionTitle>
         <DetailText>{renderTextWithLineBreaks(detail)}</DetailText>
       </DetailSection>
+
+      {video && (
+        <VideoSection>
+          <SectionTitle>Demo</SectionTitle>
+          <VideoPlayer
+            controls
+            playsInline
+            preload="metadata"
+            src={`/content/videos/${video}`}
+          />
+        </VideoSection>
+      )}
 
       <SkillsSection>
         <SectionTitle>Skills Gained</SectionTitle>

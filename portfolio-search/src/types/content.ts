@@ -15,6 +15,7 @@ export interface ContentItem {
   type: string;
   category: string;
   photos?: PhotoGalleryItem[];
+  video?: string; // filename in public/content/videos/
 }
 
 export interface ContentData {
