@@ -2,19 +2,20 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
-import { X, Search, Briefcase, GraduationCap, Code, User, Hash, ChevronRight, Home, Pin, PinOff } from 'lucide-react';
+import { X, Search, Briefcase, GraduationCap, Code, User, Hash, ChevronRight, Home, Pin, PinOff, Sun, Moon, Monitor } from 'lucide-react';
 import { getContentById } from '../../utils/contentUtils';
 import { useIsClient } from '../../hooks/useWindow';
+import { useTheme } from '../../theme';
 import { Tab } from './types';
 import {
   SidebarContainer,
   SidebarTrigger,
   SidebarHoverArea,
   SidebarHeader,
-  NewSearchContainer,
   SearchInput,
   HomeButton,
   PinButton,
+  ThemeToggle,
   SectionContainer,
   SectionHeader,
   TabsList,
@@ -23,6 +24,7 @@ import {
   MobileTabsContainer,
   MobileTabsList,
   MobileNewSearchButton,
+  MobileThemeToggle,
   MobileTabItem,
   MobileContent
 } from './styles';
@@ -248,8 +250,17 @@ const TabManager: React.FC<TabManagerProps> = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [sidebarPinned, setSidebarPinned] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  
+
   const isClient = useIsClient();
+  const { theme, resolvedTheme, setTheme } = useTheme();
+
+  const cycleTheme = () => {
+    const next = theme === 'system' ? 'light' : theme === 'light' ? 'dark' : 'system';
+    setTheme(next);
+  };
+
+  const themeIcon = theme === 'system' ? <Monitor size={16} /> : resolvedTheme === 'dark' ? <Moon size={16} /> : <Sun size={16} />;
+  const mobileThemeIcon = theme === 'system' ? <Monitor size={18} /> : resolvedTheme === 'dark' ? <Moon size={18} /> : <Sun size={18} />;
 
   // Load tabs and sidebar state from session storage on mount
   useEffect(() => {
@@ -409,7 +420,19 @@ const TabManager: React.FC<TabManagerProps> = ({ children }) => {
   };
 
   if (!shouldShowTabs) {
-    return <>{children}</>;
+    return (
+      <>
+        {children}
+        {/* Floating theme toggle when no tab UI is visible */}
+        <MobileThemeToggle
+          onClick={cycleTheme}
+          title={`Theme: ${theme}`}
+          style={{ position: 'fixed', bottom: '1.5rem', right: '1.5rem', zIndex: 50 }}
+        >
+          {mobileThemeIcon}
+        </MobileThemeToggle>
+      </>
+    );
   }
 
   return (
@@ -432,27 +455,28 @@ const TabManager: React.FC<TabManagerProps> = ({ children }) => {
       >
         {/* Sidebar Header */}
         <SidebarHeader>
-          <NewSearchContainer>
-            <form onSubmit={handleSearchSubmit} style={{ display: 'flex', gap: '8px', flex: 1 }}>
-              <SearchInput
-                type="text"
-                placeholder="Search..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                $open={sidebarOpen}
-              />
-              {sidebarOpen && (
-                <HomeButton onClick={handleHomeClick} type="button">
-                  <Home size={16} />
-                </HomeButton>
-              )}
-            </form>
-          </NewSearchContainer>
-          
+          <form onSubmit={handleSearchSubmit} style={{ flex: 1, minWidth: 0 }}>
+            <SearchInput
+              type="text"
+              placeholder="Search..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              $open={sidebarOpen}
+            />
+          </form>
+
           {sidebarOpen && (
-            <PinButton onClick={handlePinToggle} $pinned={sidebarPinned}>
-              {sidebarPinned ? <PinOff size={16} /> : <Pin size={16} />}
-            </PinButton>
+            <>
+              <HomeButton onClick={handleHomeClick} type="button">
+                <Home size={16} />
+              </HomeButton>
+              <ThemeToggle onClick={cycleTheme} title={`Theme: ${theme}`}>
+                {themeIcon}
+              </ThemeToggle>
+              <PinButton onClick={handlePinToggle} $pinned={sidebarPinned}>
+                {sidebarPinned ? <PinOff size={16} /> : <Pin size={16} />}
+              </PinButton>
+            </>
           )}
         </SidebarHeader>
 
@@ -510,6 +534,11 @@ const TabManager: React.FC<TabManagerProps> = ({ children }) => {
       {/* Mobile Bottom Tabs */}
       <MobileTabsContainer>
         <MobileTabsList>
+          {/* Theme Toggle */}
+          <MobileThemeToggle onClick={cycleTheme} title={`Theme: ${theme}`}>
+            {mobileThemeIcon}
+          </MobileThemeToggle>
+
           {/* New Search Button - pinned to left */}
           <MobileNewSearchButton
             $active={pathname === '/'}
