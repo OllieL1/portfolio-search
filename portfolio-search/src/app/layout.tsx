@@ -1,5 +1,6 @@
 import StyledComponentsRegistry from '../lib/registry';
 import TabManager from '../components/TabManager';
+import SpotlightSearch from '../components/SpotlightSearch';
 import { GlobalStyle } from '../components/HomePage/GlobalStyles';
 import { ThemeScript } from '../theme/ThemeScript';
 import { ThemeProvider } from '../theme/ThemeContext';
@@ -25,6 +26,7 @@ export default function RootLayout({
             <TabManager>
               {children}
             </TabManager>
+            <SpotlightSearch />
           </ThemeProvider>
         </StyledComponentsRegistry>
       </body>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Search } from 'lucide-react';
 
@@ -65,6 +65,35 @@ const SearchButton = styled.button`
     color: var(--accent-primary);
     background: rgba(66, 133, 244, 0.1);
   }
+`;
+
+const ShortcutBadge = styled.div<{ $visible: boolean }>`
+  position: absolute;
+  right: 3.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  pointer-events: none;
+  opacity: ${({ $visible }) => ($visible ? 0.7 : 0)};
+  transition: opacity 0.2s;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+`;
+
+const Kbd = styled.kbd`
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-default);
+  border-radius: 5px;
+  padding: 0.2rem 0.45rem;
+  font-size: 0.7rem;
+  font-family: inherit;
+  color: var(--text-tertiary);
+  line-height: 1;
+  font-weight: 500;
 `;
 
 const AutocompleteContainer = styled.div`
@@ -136,11 +165,30 @@ const SearchBar: React.FC<SearchBarProps> = ({
   onFocus,
   onBlur
 }) => {
+  const [isFocused, setIsFocused] = useState(false);
+  const [isMac, setIsMac] = useState(false);
+
+  useEffect(() => {
+    setIsMac(/Mac|iPod|iPhone|iPad/.test(navigator.platform));
+  }, []);
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       onSearch();
     }
   };
+
+  const handleFocus = () => {
+    setIsFocused(true);
+    onFocus();
+  };
+
+  const handleBlur = () => {
+    setIsFocused(false);
+    onBlur();
+  };
+
+  const showBadge = !isFocused && !searchQuery;
 
   return (
     <SearchContainer>
@@ -149,10 +197,15 @@ const SearchBar: React.FC<SearchBarProps> = ({
         placeholder="Search my portfolio..."
         value={searchQuery}
         onChange={(e) => onSearchChange(e.target.value)}
-        onFocus={onFocus}
-        onBlur={onBlur}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
         onKeyDown={handleKeyDown}
+        data-home-search
       />
+      <ShortcutBadge $visible={showBadge}>
+        <Kbd>{isMac ? '⌘' : 'Ctrl'}</Kbd>
+        <Kbd>K</Kbd>
+      </ShortcutBadge>
       <SearchButton onClick={onSearch}>
         <Search size={20} />
       </SearchButton>
