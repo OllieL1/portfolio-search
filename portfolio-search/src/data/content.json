@@ -269,7 +269,7 @@
       "title": "Snippet",
       "company": "Personal",
       "startDate": "2024-08",
-      "detail": "Along with one of my good mates in Engineering, we are trying to combine our skillset and make a small display that plugs into your PC and displays snapshots of info that you can toggle between using the hardware.\n\nThese include media playing, system diagnostics, battery life, reminders and upcoming calendar events. \n\nI have been working on the software end of this - teaching myself more Rust as I go as well as how to establish a connection and communicate with a microcontroller. \n\nProgress has definitely been slow and steady but I have already learnt so much about Rust and I am learning more about the hardware as we go. You can keep up with our progress on our GitHub! Once I finish this portfolio site, we are resuming work on this so hopefully we will have something to show for it sometime soon!",
+      "detail": "Along with one of my good mates in Engineering, we are trying to combine our skillset and make a small display that plugs into your PC and displays snapshots of info that you can toggle between using the hardware.\n\nThese include media playing, system diagnostics, battery life, reminders and upcoming calendar events. \n\nI have been working on the software end of this - teaching myself more Rust as I go as well as how to establish a connection and communicate with a microcontroller. \n\nIt has been a very long standing project as we have picked it up and dropped it consistently but we are close to sending off the PCB and the protocol is built for the microcontroller to communicate bidirectionally with the computer it is plugged into. \n\nHopefully I can put an end date on this project soon.",
       "skills": [
         "Rust",
         "Technical Problem Solving",
@@ -281,7 +281,7 @@
       "category": "Projects",
       "relevance": 3,
       "link": {
-        "url": "www.github.com/OllieL1/Snippet",
+        "url": "https://github.com/Project-Snippet",
         "label": "GitHub Link"
       }
     },
@@ -306,7 +306,7 @@
       "title": "Study Tracker",
       "company": "Personal",
       "startDate": "2025-04",
-      "detail": "I love this project because it was built by me, for me. Before I started revision for my third year exams, I dedicated a weekend to building out a study tracker that was tailored for what I needed. \n\nIt featured splitting tasks by subjects which each had their own percentage trackers and all compounded at the top to make an overall percentage tracker. I built a study mode - a simple click of a button started a Study Session - which when I finished, I could input what subject I studied and a description. \n\nThis made tracking my progress really easy. I could see how far long I was with each course as well as how much studying I was doing per day. There was a daily logs page where I could see my daily average and how each individual day was being spent.\n\nI also added a Subject logs page which showed an overview of the progress for each subject, the time spent, how long till the exam and how much work left to do.\n\nI honestly believe that without this tracker, I wouldn't have been able to do as well as I did in the exams. \n\nA few of my mates really liked the idea and now a friend and I are taking it on to build out a fully fledged app that is deployed for everyone to use. Watch this space!",
+      "detail": "I love this project because it was built by me, for me. Before I started revision for my third year exams, I dedicated a weekend to building out a study tracker that was tailored for what I needed. \n\nIt featured splitting tasks by subjects which each had their own percentage trackers and all compounded at the top to make an overall percentage tracker. I built a study mode - a simple click of a button started a Study Session - which when I finished, I could input what subject I studied and a description. \n\nThis made tracking my progress really easy. I could see how far long I was with each course as well as how much studying I was doing per day. There was a daily logs page where I could see my daily average and how each individual day was being spent.\n\nI also added a Subject logs page which showed an overview of the progress for each subject, the time spent, how long till the exam and how much work left to do.\n\nI honestly believe that without this tracker, I wouldn't have been able to do as well as I did in the exams.",
       "skills": [
         "Adaptive",
         "Design",
@@ -316,7 +316,8 @@
       ],
       "type": "project",
       "category": "Projects",
-      "relevance": 4
+      "relevance": 2,
+      "endDate": "2025-06"
     },
     {
       "id": "diary-gen-project",
@@ -347,7 +348,7 @@
       "title": "MSci Project: Improving the Reviewability of Pull Requests in the era of AI agents",
       "company": "University of Glasgow",
       "startDate": "2026-08",
-      "detail": "Since I first learnt about their role in the software development process, code reviews have always really interested me. They have a lot of benefits that are not really talked about. I have found I learn a lot from code reviews - you can pick up peoples coding patterns, learn about functions they use that you'd never heard of and it is a great way to start understanding a large codebase.\\n\\nDuring my time at JPMC, we probably saw the biggest change in the strength and usefulness of AI models for programming. This of course led to a much faster churn in features but at the expense of many more reviews needing to be done. Since the diff size of pull requests was getting larger, reviews tended to be glossed over or the amount of open PRs stocked up. Given the primary purpose of the code review is to be a quality assurance mechanism, this was the main problem I wanted to address with my project.\\n\\nThe vision of the project is to build a fast, intelligent CLI tool (currently named Whittle) that aids the developer through the code creation stage in creating a change request that is small in size (where possible), detailed for the reviewer and also leverages GitHubs new stacked PRs capability. \\n\\nI'm looking to create it to be generalised to any model the user wishes to plug in, work effectively with Git but specialise in use of stacked PRs with GitHub and be easily pluggable into agentic workflows via skills or similar.\\n\\nAs of writing this (Oct 2026), the project is still in the early stages. The user journey is relatively ironed out and I am exploring what different commands I wish to build. Currently the repo is private as I haven't decided what license I will put on it but if I do make it public, I will add it here.",
+      "detail": "Since I first learnt about their role in the software development process, code reviews have always really interested me. They have a lot of benefits that are not really talked about. I have found I learn a lot from code reviews - you can pick up peoples coding patterns, learn about functions they use that you'd never heard of and it is a great way to start understanding a large codebase.\n\nDuring my time at JPMC, we probably saw the biggest change in the strength and usefulness of AI models for programming. This of course led to a much faster churn in features but at the expense of many more reviews needing to be done. Since the diff size of pull requests was getting larger, reviews tended to be glossed over or the amount of open PRs stocked up. Given the primary purpose of the code review is to be a quality assurance mechanism, this was the main problem I wanted to address with my project.\n\nThe vision of the project is to build a fast, intelligent CLI tool (currently named Whittle) that aids the developer through the code creation stage in creating a change request that is small in size (where possible), detailed for the reviewer and also leverages GitHubs new stacked PRs capability. \n\nI'm looking to create it to be generalised to any model the user wishes to plug in, work effectively with Git but specialise in use of stacked PRs with GitHub and be easily pluggable into agentic workflows via skills or similar.\n\nAs of writing this (Oct 2026), the project is still in the early stages. The user journey is relatively ironed out and I am exploring what different commands I wish to build. Currently the repo is private as I haven't decided what license I will put on it but if I do make it public, I will add it here.",
       "skills": [
         "Rust",
         "Prompt Engineering",
@@ -356,6 +357,26 @@
       "type": "project",
       "category": "Projects",
       "relevance": 4
+    },
+    {
+      "id": "studio",
+      "title": "Studio",
+      "company": "Personal",
+      "startDate": "2026-09",
+      "detail": "Studio is a brand new version of my Study Planner from last year but with a much more comprehensive feature set. I get a lot of satisfaction in tracking my studying. The core idea was to track my study sessions so I get full analytics at the end of the year and this morphed into a centralised study management portal for me. The stick runs (nearly) entirely offline from a memory stick that I can use between my laptop and home PC, and it backs up after every tracked session to the device it is plugged into. \n\nFeature wise, I've provided a demo video below of a quick walkthrough of the site. I have:\n\n1. Session tracking - all mapped to subject, location and paired with my Spotify to provide music analytics (hence the necessary internet)\n2. Courses - these possess all their relevant tasks, coursework, lectures, labs and deadlines. All have their own individual progress metrics.\n3. Lectures - a dedicated view of all lectures, my own live markdown editor catered to me, (bulk) PDF export of chained lectures.\n4. Project - a dedicated page for my project, complete with a bibliography manager, GitHub integration to my project repo, a notes gallery, intelligent meeting capabilities where I can draft agendas from recent work I've done and pull incomplete action items forward to prep for the next meeting. \n5. Dashboard - all this unified in a home page dashboard displaying key metrics, today's tasks, overdue items, upcoming weighty coursework and course progress. \n\nAlmost everything on the site is exportable to PDF to make it very easy to share with others (I also just love PDFs). \n\nStudio has already proven to be integral for my success this year and is used every day without fail. I love building software that has immediate benefit and what better a target market than myself. I am still finding bugs in Studio but I hope to iron them out over the year. \n\nThe aim is to create a downloadable version of the software that others may use locally with minimal setup. I do not intend to host it anywhere. Please feel free to check it out and fork it if you would like. I will tidy the README at some point and provide a useful setup guide.",
+      "skills": [
+        "UI/UX",
+        "React",
+        "Design",
+        "TypeScript"
+      ],
+      "type": "project",
+      "category": "Projects",
+      "link": {
+        "url": "https://github.com/OllieL1/studio",
+        "label": "GitHub Link"
+      },
+      "relevance": 3
     }
   ],
   "education": [
