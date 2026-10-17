@@ -341,6 +341,21 @@
         "label": "GitHub Link"
       },
       "video": "weekly-diaries-demo.mp4"
+    },
+    {
+      "id": "msci-project",
+      "title": "MSci Project: Improving the Reviewability of Pull Requests in the era of AI agents",
+      "company": "University of Glasgow",
+      "startDate": "2026-08",
+      "detail": "Since I first learnt about their role in the software development process, code reviews have always really interested me. They have a lot of benefits that are not really talked about. I have found I learn a lot from code reviews - you can pick up peoples coding patterns, learn about functions they use that you'd never heard of and it is a great way to start understanding a large codebase.\\n\\nDuring my time at JPMC, we probably saw the biggest change in the strength and usefulness of AI models for programming. This of course led to a much faster churn in features but at the expense of many more reviews needing to be done. Since the diff size of pull requests was getting larger, reviews tended to be glossed over or the amount of open PRs stocked up. Given the primary purpose of the code review is to be a quality assurance mechanism, this was the main problem I wanted to address with my project.\\n\\nThe vision of the project is to build a fast, intelligent CLI tool (currently named Whittle) that aids the developer through the code creation stage in creating a change request that is small in size (where possible), detailed for the reviewer and also leverages GitHubs new stacked PRs capability. \\n\\nI'm looking to create it to be generalised to any model the user wishes to plug in, work effectively with Git but specialise in use of stacked PRs with GitHub and be easily pluggable into agentic workflows via skills or similar.\\n\\nAs of writing this (Oct 2026), the project is still in the early stages. The user journey is relatively ironed out and I am exploring what different commands I wish to build. Currently the repo is private as I haven't decided what license I will put on it but if I do make it public, I will add it here.",
+      "skills": [
+        "Rust",
+        "Prompt Engineering",
+        "Technical Problem Solving"
+      ],
+      "type": "project",
+      "category": "Projects",
+      "relevance": 4
     }
   ],
   "education": [
