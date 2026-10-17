@@ -58,7 +58,7 @@ class ContentJSONManager:
         # Data storage
         self.content_data = {"experiences": [], "projects": [], "education": [], "about": []}
         self.all_skills = set()
-        self.file_path = "content.json"
+        self.file_path = "src/data/content.json"
         
         # Load existing data
         self.load_existing_data()
