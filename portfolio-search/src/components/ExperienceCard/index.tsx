@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ExternalLink, Camera } from 'lucide-react';
 import PhotoGallery from '../PhotoGallery';
+import Markdown from '../Markdown';
 import {
   CardContainer,
   CardHeader,
@@ -63,16 +64,6 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
     }
   };
 
-  // Function to render text with line breaks
-  const renderTextWithLineBreaks = (text: string) => {
-    return text.split('\n').map((line, index, array) => (
-      <React.Fragment key={index}>
-        {line}
-        {index < array.length - 1 && <br />}
-      </React.Fragment>
-    ));
-  };
-
   const handleOpenGallery = () => {
     setShowGallery(true);
   };
@@ -122,7 +113,9 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
 
       <DetailSection>
         <SectionTitle>About the Role</SectionTitle>
-        <DetailText>{renderTextWithLineBreaks(detail)}</DetailText>
+        <DetailText>
+          <Markdown>{detail}</Markdown>
+        </DetailText>
       </DetailSection>
 
       {video && (
