@@ -22,6 +22,7 @@ import {
   NoResultsText,
   BackButton
 } from './styles';
+import { stripMarkdown } from '../../utils/contentUtils';
 
 interface SkillsResultsProps {
   skill: string;
@@ -100,7 +101,7 @@ const SkillsResults: React.FC<SkillsResultsProps> = ({
               </CardTop>
               
               <CardDescription>
-                {createShortDescription(result.detail)}
+                {createShortDescription(stripMarkdown(result.detail))}
               </CardDescription>
             </SkillResultCard>
           ))}

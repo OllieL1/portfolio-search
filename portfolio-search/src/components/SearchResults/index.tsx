@@ -23,6 +23,7 @@ import {
   NoResultsText,
   BackButton
 } from './styles';
+import { stripMarkdown } from '../../utils/contentUtils';
 
 interface SearchResultsProps {
   query: string;
@@ -136,7 +137,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({
 
               <ResultSnippet
                 dangerouslySetInnerHTML={{
-                  __html: highlightText(createSnippet(result.detail, query), query)
+                  __html: highlightText(createSnippet(stripMarkdown(result.detail), query), query)
                 }}
               />
 

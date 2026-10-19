@@ -22,6 +22,7 @@ import {
   ProfileImage,
   ProfileImageContainer
 } from './styles';
+import { stripMarkdown } from '../../utils/contentUtils';
 
 interface AboutPageProps {
   onItemClick: (contentId: string) => void;
@@ -127,7 +128,7 @@ const AboutPage: React.FC<AboutPageProps> = ({ onItemClick, onSkillClick }) => {
               >
                 <PreviewTitle>{item.title}</PreviewTitle>
                 <PreviewText>
-                  {createPreviewText(item.detail)}
+                  {createPreviewText(stripMarkdown(item.detail))}
                 </PreviewText>
                 
                 {item.skills && item.skills.length > 0 && (

@@ -24,6 +24,7 @@ import {
   ExternalLinkContainer,
   EmptyYearMessage
 } from './styles';
+import { stripMarkdown } from '../../utils/contentUtils';
 
 interface EducationItem {
   id: string;
@@ -219,7 +220,7 @@ const EducationPage: React.FC<EducationPageProps> = ({ onItemClick, onSkillClick
           
           {/* Only show description on desktop */}
           {!isMobile && (
-            <CourseDescription>{course.detail}</CourseDescription>
+            <CourseDescription>{stripMarkdown(course.detail)}</CourseDescription>
           )}
           
           <SkillsContainer>

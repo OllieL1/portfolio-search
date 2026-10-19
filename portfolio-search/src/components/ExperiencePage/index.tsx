@@ -25,6 +25,7 @@ import {
   EmptyStateTitle,
   EmptyStateText
 } from './styles';
+import { stripMarkdown } from '../../utils/contentUtils';
 
 interface ExperiencePageProps {
   onItemClick: (contentId: string) => void;
@@ -199,7 +200,7 @@ const ExperiencePage: React.FC<ExperiencePageProps> = ({ onItemClick, onSkillCli
                   </CardDateSection>
                 </CardHeader>
                 
-                <CardDescription>{experience.detail}</CardDescription>
+                <CardDescription>{stripMarkdown(experience.detail)}</CardDescription>
                 
                 <CardSkills>
                   {renderSkills(experience.skills)}

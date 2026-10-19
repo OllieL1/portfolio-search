@@ -22,6 +22,7 @@ import {
   AwardBadge,
   EmptyState
 } from './styles';
+import { stripMarkdown } from '../../utils/contentUtils';
 
 // Props interface
 interface ProjectsPageProps {
@@ -131,7 +132,7 @@ const ProjectsPage: React.FC<ProjectsPageProps> = ({ onItemClick, onSkillClick }
                 </DateRange>
               </ProjectHeader>
 
-              <Description>{project.detail}</Description>
+              <Description>{stripMarkdown(project.detail)}</Description>
 
               {/* Award badge for special achievements */}
               {project.id === 'team-project' && (
