@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowLeft, X } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
+import Lightbox from '../Lightbox';
 import {
   GalleryContainer,
   Header,
@@ -10,15 +11,7 @@ import {
   PhotoItem,
   PhotoImage,
   PhotoOverlay,
-  MobileCaption,
-  Lightbox,
-  LightboxOverlay,
-  LightboxContent,
-  LightboxImage,
-  LightboxCaption,
-  CloseButton,
-  PrevButton,
-  NextButton
+  MobileCaption
 } from './styles';
 
 interface PhotoGalleryItem {
@@ -84,47 +77,8 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({
     return dims?.orientation || 'square';
   };
 
-  const openLightbox = (index: number) => {
-    setLightboxIndex(index);
-  };
-
-  const closeLightbox = () => {
-    setLightboxIndex(null);
-  };
-
-  const goToPrevious = () => {
-    if (lightboxIndex !== null) {
-      const newIndex = lightboxIndex > 0 ? lightboxIndex - 1 : photos.length - 1;
-      setLightboxIndex(newIndex);
-    }
-  };
-
-  const goToNext = () => {
-    if (lightboxIndex !== null) {
-      const newIndex = lightboxIndex < photos.length - 1 ? lightboxIndex + 1 : 0;
-      setLightboxIndex(newIndex);
-    }
-  };
-
-  // Handle keyboard navigation
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (lightboxIndex !== null) {
-      switch (e.key) {
-        case 'Escape':
-          closeLightbox();
-          break;
-        case 'ArrowLeft':
-          goToPrevious();
-          break;
-        case 'ArrowRight':
-          goToNext();
-          break;
-      }
-    }
-  };
-
   return (
-    <GalleryContainer onKeyDown={handleKeyDown} tabIndex={0}>
+    <GalleryContainer>
       <Header>
         <BackButton onClick={onBack}>
           <ArrowLeft size={20} />
@@ -138,7 +92,7 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({
 
       <PhotoGrid>
         {photos.map((photo, index) => (
-          <PhotoItem key={index} onClick={() => openLightbox(index)}>
+          <PhotoItem key={index} onClick={() => setLightboxIndex(index)}>
             <PhotoImage
               src={getImagePath(photo.filename)}
               alt={photo.caption}
@@ -155,33 +109,12 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({
       </PhotoGrid>
 
       {lightboxIndex !== null && (
-        <Lightbox>
-          <LightboxOverlay onClick={closeLightbox} />
-          <LightboxContent>
-            <CloseButton onClick={closeLightbox}>
-              <X size={24} />
-            </CloseButton>
-            
-            {photos.length > 1 && (
-              <>
-                <PrevButton onClick={goToPrevious}>
-                  <ArrowLeft size={24} />
-                </PrevButton>
-                <NextButton onClick={goToNext}>
-                  <ArrowLeft size={24} style={{ transform: 'rotate(180deg)' }} />
-                </NextButton>
-              </>
-            )}
-
-            <LightboxImage
-              src={getImagePath(photos[lightboxIndex].filename)}
-              alt={photos[lightboxIndex].caption}
-            />
-            <LightboxCaption>
-              {photos[lightboxIndex].caption}
-            </LightboxCaption>
-          </LightboxContent>
-        </Lightbox>
+        <Lightbox
+          items={photos.map(photo => ({ src: getImagePath(photo.filename), caption: photo.caption }))}
+          index={lightboxIndex}
+          onClose={() => setLightboxIndex(null)}
+          onIndexChange={setLightboxIndex}
+        />
       )}
     </GalleryContainer>
   );
