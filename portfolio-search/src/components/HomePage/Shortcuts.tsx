@@ -39,7 +39,7 @@ const ShortcutButton = styled.button`
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   font-size: 0.75rem;
-  font-family: 'Roboto Slab', serif;
+  font-family: inherit;
   font-weight: 300;
   color: var(--text-primary);
   display: flex;

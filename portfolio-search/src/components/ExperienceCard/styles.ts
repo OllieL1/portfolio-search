@@ -136,7 +136,7 @@ export const SkillTag = styled.button`
   border: 1px solid var(--border-default);
   border-radius: 20px;
   padding: 0.5rem 1rem;
-  font-family: 'Roboto Slab', serif;
+  font-family: inherit;
   font-size: 0.875rem;
   font-weight: 500;
   color: var(--text-primary);
@@ -176,7 +176,7 @@ export const ExternalLinkButton = styled.a`
   border: none;
   border-radius: 6px;
   padding: 0.5rem 1rem;
-  font-family: 'Roboto Slab', serif;
+  font-family: inherit;
   font-size: 0.875rem;
   font-weight: 500;
   text-decoration: none;
@@ -218,7 +218,7 @@ export const PhotoGalleryButton = styled.button`
   border: none;
   border-radius: 6px;
   padding: 0.5rem 1rem;
-  font-family: 'Roboto Slab', serif;
+  font-family: inherit;
   font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;

@@ -1,3 +1,4 @@
+import { Inter, Roboto_Slab } from 'next/font/google';
 import './globals.css';
 import StyledComponentsRegistry from '../lib/registry';
 import TabManager from '../components/TabManager';
@@ -7,17 +8,17 @@ import { ThemeScript } from '../theme/ThemeScript';
 import { ThemeStyle } from '../theme/ThemeStyle';
 import { ThemeProvider } from '../theme/ThemeContext';
 
+const inter = Inter({ subsets: ['latin'], variable: '--font-body', display: 'swap' });
+const robotoSlab = Roboto_Slab({ subsets: ['latin'], variable: '--font-heading', display: 'swap' });
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className={`${inter.variable} ${robotoSlab.variable}`} suppressHydrationWarning>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet" />
         <ThemeStyle />
         <title>Ollie Livingston</title>
       </head>

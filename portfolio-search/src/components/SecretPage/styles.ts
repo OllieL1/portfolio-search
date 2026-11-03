@@ -237,7 +237,7 @@ export const PasswordInput = styled.input`
   transition: all 0.2s ease;
   background: var(--bg-input);
   color: var(--text-primary);
-  font-family: 'Roboto Slab', serif;
+  font-family: inherit;
 
   &:focus {
     outline: none;
@@ -282,7 +282,7 @@ export const PasswordButton = styled.button`
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
-  font-family: 'Roboto Slab', serif;
+  font-family: inherit;
   box-shadow: 0 2px 8px rgba(66, 133, 244, 0.2);
 
   &:hover:not(:disabled) {

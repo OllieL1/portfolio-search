@@ -182,7 +182,7 @@ export const BackButton = styled.button`
   border-radius: 8px;
   padding: 0.75rem 1.5rem;
   cursor: pointer;
-  font-family: 'Roboto Slab', serif;
+  font-family: inherit;
   font-size: 0.9rem;
   font-weight: 500;
   color: var(--text-primary);

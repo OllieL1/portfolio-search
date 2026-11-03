@@ -170,7 +170,7 @@ export const ExternalLinkButton = styled.a`
   border: none;
   border-radius: 6px;
   padding: 0.5rem 1rem;
-  font-family: 'Roboto Slab', serif;
+  font-family: inherit;
   font-size: 0.875rem;
   font-weight: 500;
   text-decoration: none;
