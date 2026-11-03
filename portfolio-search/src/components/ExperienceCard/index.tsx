@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ExternalLink, Camera } from 'lucide-react';
 import PhotoGallery from '../PhotoGallery';
+import ScreenshotShowcase from '../ScreenshotShowcase';
 import {
   CardContainer,
   CardHeader,
@@ -36,6 +37,7 @@ interface ExperienceCardProps {
     label: string;
   };
   photos?: PhotoGalleryItem[];
+  screenshots?: PhotoGalleryItem[];
   video?: string;
   contentId?: string;
   onSkillClick?: (skill: string) => void;
@@ -49,6 +51,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
   skills,
   link,
   photos,
+  screenshots,
   video,
   contentId,
   onSkillClick
@@ -124,6 +127,13 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
         <SectionTitle>About the Role</SectionTitle>
         <DetailText>{renderTextWithLineBreaks(detail)}</DetailText>
       </DetailSection>
+
+      {screenshots && screenshots.length > 0 && contentId && (
+        <VideoSection>
+          <SectionTitle>Screenshots</SectionTitle>
+          <ScreenshotShowcase screenshots={screenshots} contentId={contentId} />
+        </VideoSection>
+      )}
 
       {video && (
         <VideoSection>

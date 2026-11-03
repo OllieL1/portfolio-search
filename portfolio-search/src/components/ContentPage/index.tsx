@@ -84,6 +84,7 @@ const ContentPage: React.FC<ContentPageProps> = ({
         skills={content.skills}
         link={content.link}
         photos={content.photos}
+        screenshots={content.screenshots}
         video={content.video}
         contentId={contentId}
         onSkillClick={handleSkillClick}
