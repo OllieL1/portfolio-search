@@ -370,6 +370,7 @@ PAGE_HTML = r"""<!doctype html>
               <option value="">—</option>
               <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
             </select>
+            <label style="margin-top:8px; display:flex; gap:6px; align-items:center; font-weight:normal"><input type="checkbox" id="featured" name="featured" style="width:auto"> Featured on home page</label>
           </div>
 
           <div class="full">
@@ -435,7 +436,7 @@ const SECTIONS = ["experiences", "projects", "education", "about"];
 const TYPE_TO_SECTION = { experience: "experiences", project: "projects", education: "education", about: "about" };
 const DEFAULT_CATEGORY = { experience: "Work Experience", project: "Projects", education: "Education", about: "About" };
 // Field order used for brand-new entries (existing entries keep their own order server-side)
-const KEY_ORDER = ["id","title","company","startDate","endDate","dateRange","detail","skills","type","category","link","relevance","photos","screenshots","video"];
+const KEY_ORDER = ["id","title","company","startDate","endDate","dateRange","detail","skills","type","category","link","relevance","featured","photos","screenshots","video"];
 
 let data = {};
 let media = {};
@@ -449,7 +450,7 @@ let activeFilter = "all";
 const $ = (id) => document.getElementById(id);
 const f = {
   id: $("id"), title: $("title"), company: $("company"), type: $("type"), category: $("category"),
-  startDate: $("startDate"), endDate: $("endDate"), dateRange: $("dateRange"), relevance: $("relevance"),
+  startDate: $("startDate"), endDate: $("endDate"), dateRange: $("dateRange"), relevance: $("relevance"), featured: $("featured"),
   detail: $("detail"), linkUrl: $("linkUrl"), linkLabel: $("linkLabel"), video: $("video"),
 };
 
@@ -592,6 +593,7 @@ function loadEntry(entry) {
   f.endDate.value = e.endDate || "";
   f.dateRange.value = e.dateRange || "";
   f.relevance.value = e.relevance != null ? String(e.relevance) : "";
+  f.featured.checked = !!e.featured;
   // Older entries were saved with a literal "\n" instead of a real newline - show them as real line breaks
   f.detail.value = (e.detail || "").replace(/\\n/g, "\n");
   f.linkUrl.value = (e.link && e.link.url) || "";
@@ -787,6 +789,7 @@ function buildEntry() {
   dateField("endDate");
   if (v(f.dateRange)) e.dateRange = v(f.dateRange);
   if (f.relevance.value) e.relevance = Number(f.relevance.value);
+  if (f.featured.checked) e.featured = true;
   if (v(f.linkUrl) && v(f.linkLabel)) e.link = { url: v(f.linkUrl), label: v(f.linkLabel) };
   if (cleanPhotos.length) e.photos = cleanPhotos;
   if (cleanScreenshots.length) e.screenshots = cleanScreenshots;

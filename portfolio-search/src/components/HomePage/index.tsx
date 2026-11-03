@@ -8,6 +8,8 @@ import { useIsClient } from '../../hooks/useWindow';
 import AnimatedLogo from './AnimatedLogo';
 import SearchBar from './SearchBar';
 import Shortcuts from './Shortcuts';
+import FeaturedWork from './FeaturedWork';
+import { getFeaturedContent } from '../../utils/contentUtils';
 import contentData from '../../data/content.json';
 import { ContentItem } from '../../types/content';
 
@@ -33,7 +35,8 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 2rem;
+  gap: 2.5rem;
+  padding: 2rem 2rem 3rem;
   
   @media (max-width: 768px) {
     padding: 1rem;
@@ -86,6 +89,7 @@ const HomePage: React.FC = () => {
   const [showAutocomplete, setShowAutocomplete] = useState<boolean>(false);
   
   const isClient = useIsClient();
+  const featuredItems = useMemo(() => getFeaturedContent(), []);
   const secretTrigger = process.env.NEXT_PUBLIC_SECRET_TRIGGER;
 
   // Navigation functions
@@ -372,6 +376,7 @@ const HomePage: React.FC = () => {
             Surprise Me
           </SurpriseMeButton>
         </SearchSection>
+        <FeaturedWork items={featuredItems} onSelect={navigateToContent} />
       </Container>
     </>
   );

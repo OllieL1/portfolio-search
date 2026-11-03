@@ -17,6 +17,20 @@ export const getContentById = (id: string): ContentItem | undefined => {
   return getAllContent().find(item => item.id === id);
 };
 
+// First screenshot, else first photo - used as a card cover image
+export const getCoverImage = (item: ContentItem): string | undefined => {
+  const media = item.screenshots?.[0] ?? item.photos?.[0];
+  return media ? `/content/${item.id}/${media.filename}` : undefined;
+};
+
+// Entries flagged `featured: true`: ones with screenshots, then photos, then by relevance
+const mediaRank = (item: ContentItem) => (item.screenshots?.length ? 2 : item.photos?.length ? 1 : 0);
+
+export const getFeaturedContent = (): ContentItem[] =>
+  getAllContent()
+    .filter(item => item.featured)
+    .sort((a, b) => mediaRank(b) - mediaRank(a) || (b.relevance ?? 0) - (a.relevance ?? 0));
+
 // Get content by type
 export const getContentByType = (type: keyof ContentData): ContentItem[] => {
   const data = contentData as ContentData;
