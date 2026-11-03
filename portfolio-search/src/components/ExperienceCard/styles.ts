@@ -5,9 +5,16 @@ export const CardContainer = styled.article`
 `;
 
 export const CardHeader = styled.div`
-  margin-bottom: 1.5rem;
-  padding-bottom: 1rem;
-  border-bottom: 2px solid var(--border-light);
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-default);
+`;
+
+export const ActionRow = styled.div`
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
 `;
 
 export const HeaderBottom = styled.div`
@@ -24,22 +31,26 @@ export const HeaderBottom = styled.div`
 `;
 
 export const Title = styled.h1`
-  font-size: 1.75rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 0.5rem;
-  line-height: 1.3;
-
-  @media (max-width: 768px) {
-    font-size: 1.5rem;
-  }
+  font-family: var(--font-heading);
+  font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.25rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text-heading);
+  margin-bottom: 0.75rem;
+  line-height: 1.2;
+  text-wrap: balance;
 `;
 
 export const Company = styled.h2`
-  font-size: 1.125rem;
-  font-weight: 500;
-  color: var(--accent-primary);
-  margin-bottom: 0.5rem;
+  display: inline-block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--accent-secondary);
+  background: var(--bg-tag);
+  border-radius: 999px;
+  padding: 0.3rem 0.8rem;
+  margin-bottom: 1rem;
 `;
 
 export const DateRange = styled.div`
@@ -54,17 +65,41 @@ export const DetailSection = styled.section`
 `;
 
 export const SectionTitle = styled.h3`
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: var(--text-primary);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
   margin-bottom: 1rem;
 `;
 
 export const DetailText = styled.div`
-  font-size: 1rem;
-  line-height: 1.7;
+  font-size: 1.02rem;
+  line-height: 1.75;
   color: var(--text-detail);
-  margin-bottom: 1.5rem;
+  max-width: 70ch;
+
+  p + p,
+  p + ol,
+  p + ul,
+  ol + p,
+  ul + p {
+    margin-top: 1.1em;
+  }
+
+  ol,
+  ul {
+    margin-top: 0.6em;
+    padding-left: 1.4em;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+  }
+
+  li::marker {
+    color: var(--accent-primary);
+    font-weight: 700;
+  }
 `;
 
 export const VideoSection = styled.section`
@@ -118,6 +153,11 @@ export const SkillTag = styled.button`
 
   &:active {
     transform: translateY(0);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 2px;
   }
 `;
 

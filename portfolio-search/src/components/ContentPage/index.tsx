@@ -87,6 +87,7 @@ const ContentPage: React.FC<ContentPageProps> = ({
         screenshots={content.screenshots}
         video={content.video}
         contentId={contentId}
+        type={content.type}
         onSkillClick={handleSkillClick}
       />
     </PageLayout>
