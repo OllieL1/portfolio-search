@@ -15,6 +15,7 @@ export interface ContentItem {
   type: string;
   category: string;
   photos?: PhotoGalleryItem[];
+  screenshots?: PhotoGalleryItem[]; // files in public/content/<id>/, shown inline as a showcase
   video?: string; // filename in public/content/videos/
 }
 
@@ -27,7 +28,7 @@ export interface ContentData {
 
 export type ContentType = 'experiences' | 'projects' | 'education' | 'about';
 
-interface PhotoGalleryItem {
+export interface PhotoGalleryItem {
   caption: string;
   filename: string; // just the filename, directory will be inferred
 }

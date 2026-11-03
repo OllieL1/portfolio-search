@@ -363,7 +363,7 @@
       "title": "Studio",
       "company": "Personal",
       "startDate": "2026-09",
-      "detail": "Studio is a brand new version of my Study Planner from last year but with a much more comprehensive feature set. I get a lot of satisfaction in tracking my studying. The core idea was to track my study sessions so I get full analytics at the end of the year and this morphed into a centralised study management portal for me. The stick runs (nearly) entirely offline from a memory stick that I can use between my laptop and home PC, and it backs up after every tracked session to the device it is plugged into. \n\nFeature wise, I've provided a demo video below of a quick walkthrough of the site. I have:\n\n1. Session tracking - all mapped to subject, location and paired with my Spotify to provide music analytics (hence the necessary internet)\n2. Courses - these possess all their relevant tasks, coursework, lectures, labs and deadlines. All have their own individual progress metrics.\n3. Lectures - a dedicated view of all lectures, my own live markdown editor catered to me, (bulk) PDF export of chained lectures.\n4. Project - a dedicated page for my project, complete with a bibliography manager, GitHub integration to my project repo, a notes gallery, intelligent meeting capabilities where I can draft agendas from recent work I've done and pull incomplete action items forward to prep for the next meeting. \n5. Dashboard - all this unified in a home page dashboard displaying key metrics, today's tasks, overdue items, upcoming weighty coursework and course progress. \n\nAlmost everything on the site is exportable to PDF to make it very easy to share with others (I also just love PDFs). \n\nStudio has already proven to be integral for my success this year and is used every day without fail. I love building software that has immediate benefit and what better a target market than myself. I am still finding bugs in Studio but I hope to iron them out over the year. \n\nThe aim is to create a downloadable version of the software that others may use locally with minimal setup. I do not intend to host it anywhere. Please feel free to check it out and fork it if you would like. I will tidy the README at some point and provide a useful setup guide.",
+      "detail": "Studio is a brand new version of my Study Planner from last year but with a much more comprehensive feature set. I get a lot of satisfaction in tracking my studying. The core idea was to track my study sessions so I get full analytics at the end of the year and this morphed into a centralised study management portal for me. The stick runs (nearly) entirely offline from a memory stick that I can use between my laptop and home PC, and it backs up after every tracked session to the device it is plugged into. \n\nFeature wise, I've included screenshots below of the main areas of the site. I have:\n\n1. Session tracking - all mapped to subject, location and paired with my Spotify to provide music analytics (hence the necessary internet)\n2. Courses - these possess all their relevant tasks, coursework, lectures, labs and deadlines. All have their own individual progress metrics.\n3. Lectures - a dedicated view of all lectures, my own live markdown editor catered to me, (bulk) PDF export of chained lectures.\n4. Project - a dedicated page for my project, complete with a bibliography manager, GitHub integration to my project repo, a notes gallery, intelligent meeting capabilities where I can draft agendas from recent work I've done and pull incomplete action items forward to prep for the next meeting. \n5. Dashboard - all this unified in a home page dashboard displaying key metrics, today's tasks, overdue items, upcoming weighty coursework and course progress. \n\nAlmost everything on the site is exportable to PDF to make it very easy to share with others (I also just love PDFs). \n\nStudio has already proven to be integral for my success this year and is used every day without fail. I love building software that has immediate benefit and what better a target market than myself. I am still finding bugs in Studio but I hope to iron them out over the year. \n\nThe aim is to create a downloadable version of the software that others may use locally with minimal setup. I do not intend to host it anywhere. Please feel free to check it out and fork it if you would like. I will tidy the README at some point and provide a useful setup guide.",
       "skills": [
         "UI/UX",
         "React",
@@ -376,7 +376,45 @@
         "url": "https://github.com/OllieL1/studio",
         "label": "GitHub Link"
       },
-      "relevance": 3
+      "relevance": 3,
+      "screenshots": [
+        {
+          "caption": "Studio - a study planner that brings everything into one hub",
+          "filename": "title.webp"
+        },
+        {
+          "caption": "Home dashboard - overall progress, focus stats, quick-add and today's plan",
+          "filename": "home.webp"
+        },
+        {
+          "caption": "Calendar - week view of classes, planned blocks, Google events and big deadlines",
+          "filename": "calendar.webp"
+        },
+        {
+          "caption": "Weekly schedule - keyboard-driven day planner with planned hours per course",
+          "filename": "weekly-schedule.webp"
+        },
+        {
+          "caption": "Project - hours against target, meetings, research and a timeline to submission",
+          "filename": "project.webp"
+        },
+        {
+          "caption": "Stats - when I work, by hour and weekday, plus focus analytics",
+          "filename": "stats.webp"
+        },
+        {
+          "caption": "Sessions - every tracked session with focus rating and Spotify listening",
+          "filename": "sessions.webp"
+        },
+        {
+          "caption": "Course - weighted progress breakdown, tasks and assessed work",
+          "filename": "course.webp"
+        },
+        {
+          "caption": "Livio - a companion app for life admin that pulls in live Studio stats",
+          "filename": "livio-home.webp"
+        }
+      ]
     }
   ],
   "education": [
