@@ -21,9 +21,12 @@ const Row = styled.nav`
 
   @media (max-width: 768px) {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.25rem 1rem;
-    justify-items: center;
+    grid-template-columns: repeat(2, auto);
+    justify-content: center;
+    justify-items: start;
+    column-gap: 2.75rem;
+    row-gap: 0.75rem;
+    margin-top: 0.25rem;
   }
 `;
 
