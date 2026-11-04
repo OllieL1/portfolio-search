@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { usePathname } from 'next/navigation';
 import { useAppRouter } from '../../hooks/useAppRouter';
+import { listen, UI_EVENTS } from '../../lib/uiEvents';
 import {
   Search,
   Code,
@@ -80,6 +81,9 @@ const SpotlightSearch: React.FC = () => {
       document.body.style.overflow = '';
     };
   }, [isOpen]);
+
+  // Sidebar search button opens the modal
+  useEffect(() => listen(UI_EVENTS.openSearch, () => setIsOpen(true)), []);
 
   // Global Ctrl+K / Cmd+K listener
   useEffect(() => {

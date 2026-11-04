@@ -14,10 +14,9 @@ import {
   SidebarTrigger,
   SidebarHoverArea,
   SidebarHeader,
-  SearchInput,
+  SidebarIconButton,
   HomeButton,
   PinButton,
-  ThemeToggle,
   SectionContainer,
   SectionHeader,
   TabsList,
@@ -30,7 +29,8 @@ import {
   MobileTabItem,
   MobileContent,
   SidebarSections,
-  SidebarFooter
+  SidebarFooter,
+  SidebarFooterButton
 } from './styles';
 
 interface TabManagerProps {
@@ -253,7 +253,6 @@ const TabManager: React.FC<TabManagerProps> = ({ children }) => {
   const [tabs, setTabs] = useState<Tab[]>([]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [sidebarPinned, setSidebarPinned] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
 
   const isClient = useIsClient();
   const { theme, toggleTheme } = useTheme();
@@ -323,14 +322,6 @@ const TabManager: React.FC<TabManagerProps> = ({ children }) => {
 
   const handleHomeClick = () => {
     router.push('/');
-  };
-
-  const handleSearchSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
-      setSearchQuery('');
-    }
   };
 
   const handleSectionClick = (section: string) => {
@@ -451,24 +442,19 @@ const TabManager: React.FC<TabManagerProps> = ({ children }) => {
       >
         {/* Sidebar Header */}
         <SidebarHeader>
-          <form onSubmit={handleSearchSubmit} style={{ flex: 1, minWidth: 0 }}>
-            <SearchInput
-              type="text"
-              placeholder="Search..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              $open={sidebarOpen}
-            />
-          </form>
-
           {sidebarOpen && (
             <>
-              <HomeButton onClick={handleHomeClick} type="button" title="Home (H)" aria-label="Home">
+              <SidebarIconButton
+                type="button"
+                onClick={() => emit(UI_EVENTS.openSearch)}
+                title="Search (Ctrl/⌘ K)"
+                aria-label="Search"
+              >
+                <Search size={16} />
+              </SidebarIconButton>
+              <SidebarIconButton type="button" onClick={handleHomeClick} title="Home (H)" aria-label="Home">
                 <Home size={16} />
-              </HomeButton>
-              <ThemeToggle onClick={toggleTheme} title={themeLabel} aria-label={themeLabel}>
-                {themeIcon}
-              </ThemeToggle>
+              </SidebarIconButton>
               <PinButton
                 onClick={handlePinToggle}
                 $pinned={sidebarPinned}
@@ -527,8 +513,14 @@ const TabManager: React.FC<TabManagerProps> = ({ children }) => {
         </SidebarSections>
 
         {sidebarOpen && (
-          <SidebarFooter type="button" onClick={() => emit(UI_EVENTS.openShortcuts)}>
-            Press <kbd>?</kbd> for keyboard shortcuts
+          <SidebarFooter>
+            <SidebarFooterButton type="button" onClick={() => emit(UI_EVENTS.openShortcuts)} title="Keyboard shortcuts (?)">
+              <kbd>?</kbd>
+              Keyboard shortcuts
+            </SidebarFooterButton>
+            <SidebarFooterButton type="button" onClick={toggleTheme} title={themeLabel} aria-label={themeLabel}>
+              {themeIcon}
+            </SidebarFooterButton>
           </SidebarFooter>
         )}
       </SidebarContainer>

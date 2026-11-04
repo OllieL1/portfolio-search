@@ -3,6 +3,7 @@
 
 export const UI_EVENTS = {
   openShortcuts: 'ui:open-shortcuts',
+  openSearch: 'ui:open-search',
   toggleSidebar: 'ui:toggle-sidebar',
   navStart: 'ui:nav-start',
 } as const;

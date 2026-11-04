@@ -76,27 +76,6 @@ export const NewSearchContainer = styled.div`
   gap: 0.5rem;
 `;
 
-export const SearchInput = styled.input<{ $open: boolean }>`
-  width: 100%;
-  padding: 0.5rem 0.75rem;
-  border: 1px solid var(--border-subtle);
-  border-radius: 0.5rem;
-  background: var(--bg-input);
-  color: var(--text-primary);
-  font-size: 0.875rem;
-  transition: all 0.2s ease;
-
-  &:focus {
-    outline: none;
-    border-color: var(--accent-primary);
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-primary) 10%, transparent);
-  }
-
-  &::placeholder {
-    color: var(--text-tertiary);
-  }
-`;
-
 export const HomeButton = styled.button`
   flex-shrink: 0;
   padding: 0.5rem;
@@ -116,7 +95,10 @@ export const HomeButton = styled.button`
   }
 `;
 
+export const SidebarIconButton = styled(HomeButton)``;
+
 export const PinButton = styled.button<{ $pinned: boolean }>`
+  margin-left: auto;
   flex-shrink: 0;
   padding: 0.5rem;
   border: 1px solid var(--border-subtle);
@@ -132,25 +114,6 @@ export const PinButton = styled.button<{ $pinned: boolean }>`
   &:hover {
     background: ${props => props.$pinned ? 'var(--accent-primary-hover)' : 'var(--bg-hover)'};
     color: ${props => props.$pinned ? 'var(--text-on-accent)' : 'var(--text-primary)'};
-  }
-`;
-
-export const ThemeToggle = styled.button`
-  flex-shrink: 0;
-  padding: 0.5rem;
-  border: 1px solid var(--border-subtle);
-  border-radius: 0.5rem;
-  background: var(--bg-card);
-  color: var(--text-secondary);
-  cursor: pointer;
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  &:hover {
-    background: var(--bg-hover);
-    color: var(--text-primary);
   }
 `;
 
@@ -391,22 +354,31 @@ export const SidebarSections = styled.div`
   padding: 0 16px;
 `;
 
-export const SidebarFooter = styled.button`
+export const SidebarFooter = styled.div`
   flex-shrink: 0;
   display: flex;
   align-items: center;
-  gap: 0.4rem;
-  margin: 0.5rem 16px 1rem;
-  padding: 0.55rem 0.75rem;
-  border: 1px dashed var(--border-default);
-  border-radius: 10px;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.6rem 12px;
+  border-top: 1px solid var(--border-subtle);
+  white-space: nowrap;
+`;
+
+export const SidebarFooterButton = styled.button`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.45rem 0.55rem;
+  border: none;
+  border-radius: 8px;
   background: none;
   font: inherit;
-  font-size: 0.78rem;
+  font-size: 0.8rem;
+  font-weight: 500;
   color: var(--text-tertiary);
-  white-space: nowrap;
   cursor: pointer;
-  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+  transition: color 0.2s ease, background 0.2s ease;
 
   kbd {
     font-family: inherit;
@@ -423,7 +395,6 @@ export const SidebarFooter = styled.button`
 
   &:hover {
     color: var(--text-heading);
-    border-color: color-mix(in srgb, var(--accent-primary) 40%, var(--border-default));
     background: var(--bg-hover);
   }
 `;
