@@ -51,7 +51,6 @@
       "type": "experience",
       "category": "Work Experience",
       "relevance": 5,
-      "featured": true,
       "photos": [
         {
           "caption": "Day in the life panelist for an Explore Technology event to students",
@@ -357,8 +356,7 @@
       ],
       "type": "project",
       "category": "Projects",
-      "relevance": 4,
-      "featured": true
+      "relevance": 4
     },
     {
       "id": "studio",
@@ -379,7 +377,6 @@
         "label": "GitHub Link"
       },
       "relevance": 3,
-      "featured": true,
       "screenshots": [
         {
           "caption": "Studio - a study planner that brings everything into one hub",

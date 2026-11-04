@@ -420,14 +420,6 @@ const TabManager: React.FC<TabManagerProps> = ({ children }) => {
     return (
       <>
         {children}
-        {/* Floating theme toggle when no tab UI is visible */}
-        <MobileThemeToggle
-          onClick={toggleTheme}
-          title={themeLabel} aria-label={themeLabel}
-          style={{ position: 'fixed', bottom: '1.5rem', right: '1.5rem', zIndex: 50 }}
-        >
-          {mobileThemeIcon}
-        </MobileThemeToggle>
       </>
     );
   }

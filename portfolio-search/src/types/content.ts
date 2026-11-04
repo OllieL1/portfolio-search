@@ -17,7 +17,6 @@ export interface ContentItem {
   photos?: PhotoGalleryItem[];
   screenshots?: PhotoGalleryItem[]; // files in public/content/<id>/, shown inline as a showcase
   video?: string; // filename in public/content/videos/
-  featured?: boolean; // shown in the Featured row on the home page
 }
 
 export interface ContentData {

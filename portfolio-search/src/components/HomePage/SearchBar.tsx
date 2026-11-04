@@ -29,54 +29,70 @@ const SearchContainer = styled.div`
 
 const SearchInput = styled.input`
   width: 100%;
-  padding: 1rem 3rem 1rem 1rem;
+  height: 52px;
+  padding: 0 6.5rem 0 3rem;
   border: 1px solid var(--border-default);
-  border-radius: 24px;
-  font-size: 1rem;
+  border-radius: 999px;
+  font: inherit;
+  font-size: 1.02rem;
+  letter-spacing: -0.005em;
   outline: none;
-  transition: all 0.2s;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
   background: var(--bg-input);
-  color: var(--text-primary);
+  color: var(--text-heading);
+  box-shadow: var(--shadow-sm);
 
-  &:focus {
-    border-color: var(--accent-primary);
-    box-shadow: 0 4px 12px color-mix(in srgb, var(--accent-primary) 10%, transparent);
+  &:hover {
+    box-shadow: var(--shadow-md);
+  }
+
+  &:focus,
+  &:focus-visible {
+    outline: none;
+    border-color: color-mix(in srgb, var(--accent-primary) 55%, var(--border-default));
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent-primary) 12%, transparent), var(--shadow-md);
   }
 
   &::placeholder {
     color: var(--text-tertiary);
+    font-weight: 400;
+  }
+
+  @media (max-width: 768px) {
+    padding-right: 1.25rem;
   }
 `;
 
 const SearchButton = styled.button`
   position: absolute;
-  right: 1rem;
+  left: 0.65rem;
   top: 50%;
   transform: translateY(-50%);
+  display: flex;
   background: none;
   border: none;
   cursor: pointer;
-  color: var(--text-secondary);
-  padding: 0.5rem;
+  color: var(--text-tertiary);
+  padding: 0.45rem;
   border-radius: 50%;
-  transition: all 0.2s;
+  transition: color 0.2s ease, background 0.2s ease;
 
   &:hover {
     color: var(--accent-primary);
-    background: color-mix(in srgb, var(--accent-primary) 10%, transparent);
+    background: color-mix(in srgb, var(--accent-primary) 8%, transparent);
   }
 `;
 
 const ShortcutBadge = styled.div<{ $visible: boolean }>`
   position: absolute;
-  right: 3.25rem;
+  right: 1.1rem;
   top: 50%;
   transform: translateY(-50%);
   display: flex;
   align-items: center;
   gap: 0.2rem;
   pointer-events: none;
-  opacity: ${({ $visible }) => ($visible ? 0.7 : 0)};
+  opacity: ${({ $visible }) => ($visible ? 1 : 0)};
   transition: opacity 0.2s;
 
   @media (max-width: 768px) {
@@ -85,15 +101,18 @@ const ShortcutBadge = styled.div<{ $visible: boolean }>`
 `;
 
 const Kbd = styled.kbd`
+  min-width: 1.5rem;
+  text-align: center;
   background: var(--bg-subtle);
   border: 1px solid var(--border-default);
-  border-radius: 5px;
-  padding: 0.2rem 0.45rem;
+  border-bottom-width: 2px;
+  border-radius: 6px;
+  padding: 0.2rem 0.4rem;
   font-size: 0.7rem;
   font-family: inherit;
-  color: var(--text-tertiary);
-  line-height: 1;
-  font-weight: 500;
+  color: var(--text-secondary);
+  line-height: 1.1;
+  font-weight: 600;
 `;
 
 const AutocompleteContainer = styled.div`
@@ -103,18 +122,19 @@ const AutocompleteContainer = styled.div`
   right: 0;
   background: var(--bg-card);
   border: 1px solid var(--border-default);
-  border-radius: 8px;
-  box-shadow: var(--shadow-md);
-  max-height: 300px;
+  border-radius: 16px;
+  box-shadow: var(--shadow-lg);
+  padding: 0.35rem;
+  max-height: 320px;
   overflow-y: auto;
   z-index: 50;
   margin-top: 0.5rem;
 `;
 
 const AutocompleteItem = styled.div`
-  padding: 0.75rem 1rem;
+  padding: 0.7rem 0.9rem;
   cursor: pointer;
-  border-bottom: 1px solid var(--border-light);
+  border-radius: 10px;
   transition: background 0.2s;
   display: flex;
   align-items: center;
@@ -194,7 +214,8 @@ const SearchBar: React.FC<SearchBarProps> = ({
     <SearchContainer>
       <SearchInput
         type="text"
-        placeholder="Search my portfolio..."
+        placeholder="Search projects, skills, experience…"
+        aria-label="Search portfolio"
         value={searchQuery}
         onChange={(e) => onSearchChange(e.target.value)}
         onFocus={handleFocus}
@@ -206,8 +227,8 @@ const SearchBar: React.FC<SearchBarProps> = ({
         <Kbd>{isMac ? '⌘' : 'Ctrl'}</Kbd>
         <Kbd>K</Kbd>
       </ShortcutBadge>
-      <SearchButton onClick={onSearch}>
-        <Search size={20} />
+      <SearchButton onClick={onSearch} aria-label="Search">
+        <Search size={18} />
       </SearchButton>
       {showAutocomplete && autocompleteItems.length > 0 && (
         <AutocompleteContainer>

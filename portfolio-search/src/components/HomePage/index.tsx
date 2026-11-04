@@ -8,8 +8,7 @@ import { useIsClient } from '../../hooks/useWindow';
 import AnimatedLogo from './AnimatedLogo';
 import SearchBar from './SearchBar';
 import Shortcuts from './Shortcuts';
-import FeaturedWork from './FeaturedWork';
-import { getFeaturedContent } from '../../utils/contentUtils';
+import HomeFooter from './HomeFooter';
 import contentData from '../../data/content.json';
 import { ContentItem } from '../../types/content';
 
@@ -25,21 +24,28 @@ interface AutocompleteItem {
 interface ShortcutItem {
   name: string;
   icon: React.ReactNode;
+  hotkey?: string;
   action: () => void;
 }
 
 // Layout styled components
-const Container = styled.div`
+const Page = styled.div`
   min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+`;
+
+const Container = styled.main`
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 2.5rem;
-  padding: 2rem 2rem 3rem;
-  
+  padding: 2rem 2rem 12vh;
+
   @media (max-width: 768px) {
-    padding: 1rem;
+    padding: 1.5rem 1rem 8vh;
   }
 `;
 
@@ -49,36 +55,43 @@ const SearchSection = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
+  gap: 1.25rem;
 `;
 
 const SurpriseMeButton = styled.button`
-  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-primary-hover) 100%);
-  color: var(--text-on-accent);
-  border: none;
-  border-radius: 25px;
-  padding: 0.75rem 2rem;
-  font-size: 0.9rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
+  margin-top: 0.75rem;
+  display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  box-shadow: var(--shadow-accent);
+  padding: 0.6rem 1.15rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-default);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+
+  svg {
+    transition: transform 0.4s ease;
+  }
 
   &:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-accent-hover);
+    color: var(--text-heading);
+    border-color: color-mix(in srgb, var(--accent-primary) 40%, var(--border-default));
+    box-shadow: var(--shadow-md);
+
+    svg {
+      transform: rotate(180deg);
+      color: var(--accent-primary);
+    }
   }
 
   &:active {
-    transform: translateY(0);
-  }
-
-  @media (max-width: 768px) {
-    padding: 0.6rem 1.5rem;
-    font-size: 0.85rem;
+    transform: scale(0.98);
   }
 `;
 
@@ -89,7 +102,6 @@ const HomePage: React.FC = () => {
   const [showAutocomplete, setShowAutocomplete] = useState<boolean>(false);
   
   const isClient = useIsClient();
-  const featuredItems = useMemo(() => getFeaturedContent(), []);
   const secretTrigger = process.env.NEXT_PUBLIC_SECRET_TRIGGER;
 
   // Navigation functions
@@ -206,28 +218,12 @@ const HomePage: React.FC = () => {
     });
   };
 
-  // Shortcuts
+  // Shortcuts (hotkeys match the global keyboard shortcuts)
   const shortcuts: ShortcutItem[] = [
-    { 
-      name: 'Projects', 
-      icon: <Code size={20} />,
-      action: navigateToProjects
-    },
-    { 
-      name: 'Experience', 
-      icon: <Briefcase size={20} />,
-      action: navigateToExperience
-    },
-    { 
-      name: 'Education', 
-      icon: <GraduationCap size={20} />,
-      action: navigateToEducation
-    },
-    { 
-      name: 'About Me', 
-      icon: <User size={20} />,
-      action: navigateToAbout
-    }
+    { name: 'Projects', icon: <Code size={14} />, hotkey: '1', action: navigateToProjects },
+    { name: 'Experience', icon: <Briefcase size={14} />, hotkey: '2', action: navigateToExperience },
+    { name: 'Education', icon: <GraduationCap size={14} />, hotkey: '3', action: navigateToEducation },
+    { name: 'About', icon: <User size={14} />, hotkey: '4', action: navigateToAbout },
   ];
 
   // Improved autocomplete suggestions
@@ -357,7 +353,7 @@ const HomePage: React.FC = () => {
   };
 
   return (
-    <>
+    <Page>
       <Container>
         <SearchSection>
           <AnimatedLogo />
@@ -372,13 +368,13 @@ const HomePage: React.FC = () => {
           />
           <Shortcuts shortcuts={shortcuts} />
           <SurpriseMeButton onClick={navigateToRandomContent}>
-            <Shuffle size={16} />
-            Surprise Me
+            <Shuffle size={14} />
+            Surprise me
           </SurpriseMeButton>
         </SearchSection>
-        <FeaturedWork items={featuredItems} onSelect={navigateToContent} />
       </Container>
-    </>
+      <HomeFooter />
+    </Page>
   );
 };
 
