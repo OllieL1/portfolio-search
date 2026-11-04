@@ -444,6 +444,9 @@ const TabManager: React.FC<TabManagerProps> = ({ children }) => {
         <SidebarHeader>
           {sidebarOpen && (
             <>
+              <SidebarIconButton type="button" onClick={handleHomeClick} title="Home (H)" aria-label="Home">
+                <Home size={16} />
+              </SidebarIconButton>
               <SidebarIconButton
                 type="button"
                 onClick={() => emit(UI_EVENTS.openSearch)}
@@ -451,9 +454,6 @@ const TabManager: React.FC<TabManagerProps> = ({ children }) => {
                 aria-label="Search"
               >
                 <Search size={16} />
-              </SidebarIconButton>
-              <SidebarIconButton type="button" onClick={handleHomeClick} title="Home (H)" aria-label="Home">
-                <Home size={16} />
               </SidebarIconButton>
               <PinButton
                 onClick={handlePinToggle}
