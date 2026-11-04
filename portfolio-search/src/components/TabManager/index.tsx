@@ -30,7 +30,8 @@ import {
   MobileContent,
   SidebarSections,
   SidebarFooter,
-  SidebarFooterButton
+  SidebarFooterButton,
+  MobileTabsEmpty
 } from './styles';
 
 interface TabManagerProps {
@@ -434,6 +435,9 @@ const TabManager: React.FC<TabManagerProps> = ({ children }) => {
 
         {/* Scrollable Tabs */}
         <div style={{ display: 'flex', gap: '0.5rem', overflowX: 'auto', scrollbarWidth: 'none', flex: 1 }}>
+          {tabs.length === 0 && (
+            <MobileTabsEmpty>Open pages will appear here</MobileTabsEmpty>
+          )}
           {tabs.slice().reverse().map(tab => (
             <MobileTabItem
               key={tab.id}

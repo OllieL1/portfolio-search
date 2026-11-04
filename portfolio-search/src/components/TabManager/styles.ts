@@ -398,3 +398,14 @@ export const SidebarFooterButton = styled.button`
     background: var(--bg-hover);
   }
 `;
+
+export const MobileTabsEmpty = styled.span`
+  align-self: center;
+  padding-left: 0.25rem;
+  font-size: 0.8rem;
+  font-style: italic;
+  color: var(--text-tertiary);
+  opacity: 0.7;
+  white-space: nowrap;
+  user-select: none;
+`;
