@@ -1,91 +1,72 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react';
 
-type ThemePreference = 'light' | 'dark' | 'system';
-type ResolvedTheme = 'light' | 'dark';
+export type Theme = 'light' | 'dark';
 
 interface ThemeContextValue {
-  theme: ThemePreference;
-  resolvedTheme: ResolvedTheme;
-  setTheme: (theme: ThemePreference) => void;
+  theme: Theme;
+  setTheme: (theme: Theme) => void;
+  toggleTheme: () => void;
 }
 
 const ThemeContext = createContext<ThemeContextValue>({
-  theme: 'system',
-  resolvedTheme: 'light',
+  theme: 'light',
   setTheme: () => {},
+  toggleTheme: () => {},
 });
 
-function getSystemTheme(): ResolvedTheme {
+const QUERY = '(prefers-color-scheme: dark)';
+
+function getSystemTheme(): Theme {
   if (typeof window === 'undefined') return 'light';
-  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  return window.matchMedia(QUERY).matches ? 'dark' : 'light';
 }
 
-function getStoredPreference(): ThemePreference {
-  if (typeof window === 'undefined') return 'system';
-  try {
-    const stored = localStorage.getItem('theme');
-    if (stored === 'light' || stored === 'dark' || stored === 'system') return stored;
-  } catch {}
-  return 'system';
+function applyTheme(theme: Theme) {
+  document.documentElement.dataset.theme = theme;
 }
 
-function resolveTheme(preference: ThemePreference): ResolvedTheme {
-  if (preference === 'system') return getSystemTheme();
-  return preference;
-}
-
-function applyTheme(resolved: ResolvedTheme) {
-  document.documentElement.dataset.theme = resolved;
-}
-
+// Starts from the system theme. The user can flip it for the current visit;
+// nothing is persisted, so a reload goes back to the system theme.
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<ThemePreference>('system');
-  const [resolvedTheme, setResolvedTheme] = useState<ResolvedTheme>('light');
+  const [theme, setThemeState] = useState<Theme>('light');
+  const userChose = useRef(false);
 
-  // Initialize from localStorage on mount
   useEffect(() => {
-    const stored = getStoredPreference();
-    const resolved = resolveTheme(stored);
-    setThemeState(stored);
-    setResolvedTheme(resolved);
-    applyTheme(resolved);
-  }, []);
+    const initial = getSystemTheme();
+    setThemeState(initial);
+    applyTheme(initial);
 
-  // Listen for system preference changes
-  useEffect(() => {
-    const mql = window.matchMedia('(prefers-color-scheme: dark)');
-
+    // Follow system changes until the user picks a theme themselves
+    const mql = window.matchMedia(QUERY);
     const handleChange = () => {
-      if (theme === 'system') {
-        const resolved = getSystemTheme();
-        setResolvedTheme(resolved);
-        applyTheme(resolved);
-      }
+      if (userChose.current) return;
+      const next = getSystemTheme();
+      setThemeState(next);
+      applyTheme(next);
     };
-
     mql.addEventListener('change', handleChange);
     return () => mql.removeEventListener('change', handleChange);
-  }, [theme]);
+  }, []);
 
-  const setTheme = useCallback((newTheme: ThemePreference) => {
-    setThemeState(newTheme);
-    const resolved = resolveTheme(newTheme);
-    setResolvedTheme(resolved);
-    applyTheme(resolved);
+  const setTheme = useCallback((next: Theme) => {
+    userChose.current = true;
+    setThemeState(next);
+    applyTheme(next);
+  }, []);
 
-    try {
-      if (newTheme === 'system') {
-        localStorage.removeItem('theme');
-      } else {
-        localStorage.setItem('theme', newTheme);
-      }
-    } catch {}
+  const toggleTheme = useCallback(() => {
+    userChose.current = true;
+    setThemeState(prev => {
+      const next = prev === 'dark' ? 'light' : 'dark';
+      applyTheme(next);
+      return next;
+    });
   }, []);
 
   return (
-    <ThemeContext.Provider value={{ theme, resolvedTheme, setTheme }}>
+    <ThemeContext.Provider value={{ theme, setTheme, toggleTheme }}>
       {children}
     </ThemeContext.Provider>
   );

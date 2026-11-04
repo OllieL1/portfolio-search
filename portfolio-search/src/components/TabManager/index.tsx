@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
-import { X, Search, Briefcase, GraduationCap, Code, User, Hash, ChevronRight, Home, Pin, PinOff, Sun, Moon, Monitor } from 'lucide-react';
+import { X, Search, Briefcase, GraduationCap, Code, User, Hash, ChevronRight, Home, Pin, PinOff, Sun, Moon } from 'lucide-react';
 import { getContentById } from '../../utils/contentUtils';
 import { useIsClient } from '../../hooks/useWindow';
 import { useTheme } from '../../theme';
@@ -252,15 +252,12 @@ const TabManager: React.FC<TabManagerProps> = ({ children }) => {
   const [searchQuery, setSearchQuery] = useState('');
 
   const isClient = useIsClient();
-  const { theme, resolvedTheme, setTheme } = useTheme();
+  const { theme, toggleTheme } = useTheme();
+  const themeLabel = theme === 'dark' ? 'Switch to light mode (T)' : 'Switch to dark mode (T)';
 
-  const cycleTheme = () => {
-    const next = theme === 'system' ? 'light' : theme === 'light' ? 'dark' : 'system';
-    setTheme(next);
-  };
-
-  const themeIcon = theme === 'system' ? <Monitor size={16} /> : resolvedTheme === 'dark' ? <Moon size={16} /> : <Sun size={16} />;
-  const mobileThemeIcon = theme === 'system' ? <Monitor size={18} /> : resolvedTheme === 'dark' ? <Moon size={18} /> : <Sun size={18} />;
+  // Show the theme you'd switch to
+  const themeIcon = theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />;
+  const mobileThemeIcon = theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />;
 
   // Load tabs and sidebar state from session storage on mount
   useEffect(() => {
@@ -425,8 +422,8 @@ const TabManager: React.FC<TabManagerProps> = ({ children }) => {
         {children}
         {/* Floating theme toggle when no tab UI is visible */}
         <MobileThemeToggle
-          onClick={cycleTheme}
-          title={`Theme: ${theme}`}
+          onClick={toggleTheme}
+          title={themeLabel} aria-label={themeLabel}
           style={{ position: 'fixed', bottom: '1.5rem', right: '1.5rem', zIndex: 50 }}
         >
           {mobileThemeIcon}
@@ -470,7 +467,7 @@ const TabManager: React.FC<TabManagerProps> = ({ children }) => {
               <HomeButton onClick={handleHomeClick} type="button">
                 <Home size={16} />
               </HomeButton>
-              <ThemeToggle onClick={cycleTheme} title={`Theme: ${theme}`}>
+              <ThemeToggle onClick={toggleTheme} title={themeLabel} aria-label={themeLabel}>
                 {themeIcon}
               </ThemeToggle>
               <PinButton onClick={handlePinToggle} $pinned={sidebarPinned}>
@@ -535,7 +532,7 @@ const TabManager: React.FC<TabManagerProps> = ({ children }) => {
       <MobileTabsContainer>
         <MobileTabsList>
           {/* Theme Toggle */}
-          <MobileThemeToggle onClick={cycleTheme} title={`Theme: ${theme}`}>
+          <MobileThemeToggle onClick={toggleTheme} title={themeLabel} aria-label={themeLabel}>
             {mobileThemeIcon}
           </MobileThemeToggle>
 
