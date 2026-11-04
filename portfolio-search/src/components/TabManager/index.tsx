@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { useAppRouter } from '../../hooks/useAppRouter';
-import { X, Search, Briefcase, GraduationCap, Code, User, Hash, ChevronRight, Home, Pin, PinOff, Sun, Moon } from 'lucide-react';
+import { X, Search, Briefcase, GraduationCap, Code, User, Hash, ChevronRight, Home, Pin, PinOff, Sun, Moon, PanelLeftOpen } from 'lucide-react';
 import { getContentById } from '../../utils/contentUtils';
 import { useIsClient } from '../../hooks/useWindow';
 import { useTheme } from '../../theme';
@@ -428,8 +428,8 @@ const TabManager: React.FC<TabManagerProps> = ({ children }) => {
       {/* Desktop Sidebar Hover Area - expanded hover zone */}
       {!sidebarOpen && (
         <SidebarHoverArea onMouseEnter={handleSidebarMouseEnter}>
-          <SidebarTrigger>
-            <Search size={16} />
+          <SidebarTrigger aria-label="Open sidebar">
+            <PanelLeftOpen size={16} />
           </SidebarTrigger>
         </SidebarHoverArea>
       )}

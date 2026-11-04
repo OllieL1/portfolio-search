@@ -85,7 +85,7 @@ const SurpriseMeButton = styled.button`
     box-shadow: var(--shadow-md);
 
     svg {
-      transform: rotate(180deg);
+      transform: rotate(360deg);
       color: var(--accent-primary);
     }
   }
