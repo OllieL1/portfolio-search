@@ -31,7 +31,7 @@ import {
   SidebarSections,
   SidebarFooter,
   SidebarFooterButton,
-  MobileTabsEmpty
+  FloatingThemeToggle
 } from './styles';
 
 interface TabManagerProps {
@@ -416,7 +416,7 @@ const TabManager: React.FC<TabManagerProps> = ({ children }) => {
     )
   };
 
-  // Mobile bottom bar - also shown on the home page before any tabs exist
+  // Mobile bottom bar
   const mobileBar = (
     <MobileTabsContainer>
       <MobileTabsList>
@@ -435,9 +435,6 @@ const TabManager: React.FC<TabManagerProps> = ({ children }) => {
 
         {/* Scrollable Tabs */}
         <div style={{ display: 'flex', gap: '0.5rem', overflowX: 'auto', scrollbarWidth: 'none', flex: 1 }}>
-          {tabs.length === 0 && (
-            <MobileTabsEmpty>Open pages will appear here</MobileTabsEmpty>
-          )}
           {tabs.slice().reverse().map(tab => (
             <MobileTabItem
               key={tab.id}
@@ -465,7 +462,11 @@ const TabManager: React.FC<TabManagerProps> = ({ children }) => {
     return (
       <>
         {children}
-        {mobileBar}
+        {/* Home page before any tabs exist: just a floating theme toggle on mobile
+            (desktop has the theme toggle in the home footer) */}
+        <FloatingThemeToggle onClick={toggleTheme} title={themeLabel} aria-label={themeLabel}>
+          {mobileThemeIcon}
+        </FloatingThemeToggle>
       </>
     );
   }

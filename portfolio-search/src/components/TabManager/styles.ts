@@ -399,13 +399,13 @@ export const SidebarFooterButton = styled.button`
   }
 `;
 
-export const MobileTabsEmpty = styled.span`
-  align-self: center;
-  padding-left: 0.25rem;
-  font-size: 0.8rem;
-  font-style: italic;
-  color: var(--text-tertiary);
-  opacity: 0.7;
-  white-space: nowrap;
-  user-select: none;
+export const FloatingThemeToggle = styled(MobileThemeToggle)`
+  position: fixed;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  z-index: 50;
+
+  @media (min-width: 769px) {
+    display: none;
+  }
 `;
