@@ -7,7 +7,7 @@ import { emit, UI_EVENTS } from '../../lib/uiEvents';
 const LINKS = [
   { label: 'GitHub', href: 'https://github.com/OllieL1', icon: <Github size={14} /> },
   { label: 'LinkedIn', href: 'https://linkedin.com/in/ollie-wl', icon: <Linkedin size={14} /> },
-  { label: 'Email', href: 'mailto:oliverlivingston@icloud.com', icon: <Mail size={14} /> },
+  { label: 'Get in touch', href: 'mailto:oliverlivingston@icloud.com', icon: <Mail size={14} /> },
 ];
 
 const Footer = styled.footer`
