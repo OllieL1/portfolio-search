@@ -27,10 +27,9 @@ export function useAppRouter() {
       if (!isCurrentUrl(href)) emit(UI_EVENTS.navStart);
       router.replace(href, options);
     };
-    const back: typeof router.back = () => {
-      emit(UI_EVENTS.navStart);
-      router.back();
-    };
+    // No event here: back() fires popstate, which the progress bar handles itself
+    // (and it can tell whether the previous page is already on screen).
+    const back: typeof router.back = () => router.back();
     return { ...router, push, replace, back };
   }, [router]);
 }
