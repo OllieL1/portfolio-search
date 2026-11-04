@@ -84,7 +84,7 @@ const ScreenshotShowcase: React.FC<ScreenshotShowcaseProps> = ({ screenshots, co
       </CaptionRow>
 
       {count > 1 && (
-        <ThumbStrip ref={stripRef} role="tablist" aria-label="Screenshots">
+        <ThumbStrip ref={stripRef} role="tablist" aria-label="Showcase">
           {items.map((item, i) => (
             <Thumb
               key={item.src}

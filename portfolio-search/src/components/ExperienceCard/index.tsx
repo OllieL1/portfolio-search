@@ -133,7 +133,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
 
       {screenshots && screenshots.length > 0 && contentId && (
         <VideoSection>
-          <SectionTitle>Screenshots</SectionTitle>
+          <SectionTitle>Showcase</SectionTitle>
           <ScreenshotShowcase screenshots={screenshots} contentId={contentId} />
         </VideoSection>
       )}
