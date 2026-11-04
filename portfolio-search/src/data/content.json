@@ -964,5 +964,24 @@
         }
       ]
     }
-  ]
+  ],
+  "profile": {
+    "name": "Ollie Livingston",
+    "subtitle": "4th Year Software Engineering Student & Industrial Placement Software Engineer",
+    "intro": "Hello! I'm delighted you have taken the time to visit my website. My name is Ollie Livingston and I am a 4th year Software Engineering student at the University of Glasgow, Scotland.\n\nCurrently, I am completing a year-long placement at JPMorganChase - this has been an incredibly different experience to anything I have done before and I am thoroughly enjoying it.\n\nAway from work, I am very much into my sport. If I'm not playing one of football, tennis, or badminton, I will likely be in the pub watching them. I am an avid cook - check out the Cooking section below for some of my favourites.\n\nUnfortunately, I happen to be a West Ham fan which has only really resulted in one brief season of joy in my life so far - but I'm sure they've got one or two left in them!\n\nIn a brief summary of myself, I always push myself to be outgoing and friendly. I love meeting new people, hearing different perspectives, and exploring different cultures. I am currently working out my next destination so hoping to have a big trip at the end of the summer.\n\nI'm happy for a chat with anyone, work or non-work related - please feel free to reach out at oliverlivingston@iCloud.com or via LinkedIn.",
+    "image": "portfolio-pfp.jpg",
+    "location": "Glasgow, Scotland",
+    "email": "oliverlivingston@icloud.com",
+    "status": "Interested in 2027 Graduate Roles",
+    "links": [
+      {
+        "label": "LinkedIn",
+        "url": "https://linkedin.com/in/ollie-wl"
+      },
+      {
+        "label": "GitHub",
+        "url": "https://github.com/OllieL1"
+      }
+    ]
+  }
 }

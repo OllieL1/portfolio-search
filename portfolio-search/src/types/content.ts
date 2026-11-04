@@ -19,11 +19,29 @@ export interface ContentItem {
   video?: string; // filename in public/content/videos/
 }
 
+export interface ProfileLink {
+  label: string;
+  url: string;
+}
+
+// The main About Me card (and the contact links on the home page)
+export interface Profile {
+  name: string;
+  subtitle: string;
+  intro: string;      // blank line = new paragraph
+  image?: string;     // file in public/
+  location?: string;
+  email?: string;
+  status?: string;    // e.g. "Interested in 2027 Graduate Roles"
+  links: ProfileLink[];
+}
+
 export interface ContentData {
   experiences: ContentItem[];
   projects: ContentItem[];
   education: ContentItem[];
   about: ContentItem[];
+  profile: Profile;
 }
 
 export type ContentType = 'experiences' | 'projects' | 'education' | 'about';

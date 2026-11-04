@@ -1,13 +1,25 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Github, Linkedin, Mail, Moon, Sun } from 'lucide-react';
+import { ExternalLink, Github, Linkedin, Mail, Moon, Sun } from 'lucide-react';
+import { getProfile } from '../../utils/contentUtils';
 import { useTheme } from '../../theme';
 import { emit, UI_EVENTS } from '../../lib/uiEvents';
 
+const profile = getProfile();
+const linkIcon = (label: string) =>
+  label.toLowerCase().includes('linkedin') ? <Linkedin size={14} />
+    : label.toLowerCase().includes('github') ? <Github size={14} />
+    : <ExternalLink size={14} />;
+
+// GitHub / LinkedIn / Get in touch - sourced from the profile in content.json
 export const CONTACT_LINKS = [
-  { label: 'GitHub', href: 'https://github.com/OllieL1', icon: <Github size={14} /> },
-  { label: 'LinkedIn', href: 'https://linkedin.com/in/ollie-wl', icon: <Linkedin size={14} /> },
-  { label: 'Get in touch', href: 'mailto:oliverlivingston@icloud.com', icon: <Mail size={14} /> },
+  ...[...profile.links]
+    // GitHub first, then LinkedIn, then anything else
+    .sort((a, b) => (/github/i.test(b.label) ? 1 : 0) - (/github/i.test(a.label) ? 1 : 0))
+    .map(link => ({ label: link.label, href: link.url, icon: linkIcon(link.label) })),
+  ...(profile.email
+    ? [{ label: 'Get in touch', href: `mailto:${profile.email}`, icon: <Mail size={14} /> }]
+    : []),
 ];
 
 const Footer = styled.footer`

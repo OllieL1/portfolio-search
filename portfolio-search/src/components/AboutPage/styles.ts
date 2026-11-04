@@ -62,6 +62,10 @@ export const ProfileImage = styled.img`
 `;
 
 export const MainContent = styled.div`
+  .about-intro p + p {
+    margin-top: 1rem;
+  }
+
   flex: 1;
 `;
 

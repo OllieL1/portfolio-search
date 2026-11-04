@@ -1,4 +1,4 @@
-import { ContentData, ContentItem } from '../types/content';
+import { ContentData, ContentItem, ContentType, Profile } from '../types/content';
 import contentData from '../data/content.json';
 
 // Get all content as a flat array for searching
@@ -12,6 +12,9 @@ export const getAllContent = (): ContentItem[] => {
   ];
 };
 
+// The About Me profile (main About card + home page contact links)
+export const getProfile = (): Profile => (contentData as ContentData).profile;
+
 // Get content by ID
 export const getContentById = (id: string): ContentItem | undefined => {
   return getAllContent().find(item => item.id === id);
@@ -24,7 +27,7 @@ export const getCoverImage = (item: ContentItem): string | undefined => {
 };
 
 // Get content by type
-export const getContentByType = (type: keyof ContentData): ContentItem[] => {
+export const getContentByType = (type: ContentType): ContentItem[] => {
   const data = contentData as ContentData;
   return data[type] || [];
 };
