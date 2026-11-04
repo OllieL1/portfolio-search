@@ -1,6 +1,7 @@
 import React from 'react';
-import { MapPin, Mail, Linkedin, Github, Calendar } from 'lucide-react';
-import { getContentByType } from '../../utils/contentUtils';
+import { MapPin, Mail, Linkedin, Github, Calendar, ExternalLink } from 'lucide-react';
+import { getContentByType, getProfile } from '../../utils/contentUtils';
+import RichText from '../ExperienceCard/RichText';
 import {
   AboutContainer,
   MainAboutCard,
@@ -29,9 +30,8 @@ interface AboutPageProps {
 }
 
 const AboutPage: React.FC<AboutPageProps> = ({ onItemClick, onSkillClick }) => {
-  // Get about content from JSON for additional sections (excluding main about-me)
+  // The main card comes from `profile`; these are the extra "More About Me" cards
   const aboutContent = getContentByType('about')
-    .filter(item => item.id !== 'about-me') // Exclude main about-me since we're hardcoding it
     .sort((a, b) => (b.relevance || 0) - (a.relevance || 0));
   
   // Helper function to create preview text
@@ -53,64 +53,66 @@ const AboutPage: React.FC<AboutPageProps> = ({ onItemClick, onSkillClick }) => {
     }
   };
 
-  // Format the main about content with proper line breaks
-  const formatAboutText = (text: string) => {
-    return text.split('\\n\\n').map((paragraph, index) => (
-      <p key={index} style={{ marginBottom: '1rem' }}>
-        {paragraph}
-      </p>
-    ));
+  const profile = getProfile();
+
+  const linkIcon = (label: string) => {
+    const l = label.toLowerCase();
+    if (l.includes('linkedin')) return <Linkedin size={16} />;
+    if (l.includes('github')) return <Github size={16} />;
+    return <ExternalLink size={16} />;
   };
 
-  const mainAboutText = "Hello! I'm delighted you have taken the time to visit my website. My name is Ollie Livingston and I am a 4th year Software Engineering student at the University of Glasgow, Scotland.\\n\\nCurrently, I am completing a year-long placement at JPMorganChase - this has been an incredibly different experience to anything I have done before and I am thoroughly enjoying it.\\n\\nAway from work, I am very much into my sport. If I'm not playing one of football, tennis, or badminton, I will likely be in the pub watching them. I am an avid cook - check out the Cooking section below for some of my favourites.\\n\\nUnfortunately, I happen to be a West Ham fan which has only really resulted in one brief season of joy in my life so far - but I'm sure they've got one or two left in them!\\n\\nIn a brief summary of myself, I always push myself to be outgoing and friendly. I love meeting new people, hearing different perspectives, and exploring different cultures. I am currently working out my next destination so hoping to have a big trip at the end of the summer.\\n\\nI'm happy for a chat with anyone, work or non-work related - please feel free to reach out at oliverlivingston@iCloud.com or via LinkedIn.";
-  
   return (
     <AboutContainer>
       {/* Main About Me Card */}
       <MainAboutCard>
         <MainCardContent>
           <ProfileImageContainer>
-            <ProfileImage 
-              src="/portfolio-pfp.jpg" 
-              alt="Ollie Livingston" 
+            <ProfileImage
+              src={`/${profile.image || 'portfolio-pfp.jpg'}`}
+              alt={profile.name}
             />
           </ProfileImageContainer>
           
           <MainContent>
-            <MainTitle>Ollie Livingston</MainTitle>
-            <MainSubtitle>
-              4th Year Software Engineering Student & Industrial Placement Software Engineer
-            </MainSubtitle>
-            
-            <div style={{ lineHeight: '1.6' }}>
-              {formatAboutText(mainAboutText)}
+            <MainTitle>{profile.name}</MainTitle>
+            <MainSubtitle>{profile.subtitle}</MainSubtitle>
+
+            <div style={{ lineHeight: '1.6' }} className="about-intro">
+              <RichText text={profile.intro} />
             </div>
             
             <ContactInfo>
-              <ContactItem>
-                <MapPin size={18} />
-                Glasgow, Scotland
-              </ContactItem>
-              <ContactItem>
-                <Mail size={18} />
-                oliverlivingston@icloud.com
-              </ContactItem>
-              <ContactItem>
-                <Calendar size={18} />
-                Interested in 2027 Graduate Roles
-              </ContactItem>
+              {profile.location && (
+                <ContactItem>
+                  <MapPin size={18} />
+                  {profile.location}
+                </ContactItem>
+              )}
+              {profile.email && (
+                <ContactItem>
+                  <Mail size={18} />
+                  {profile.email}
+                </ContactItem>
+              )}
+              {profile.status && (
+                <ContactItem>
+                  <Calendar size={18} />
+                  {profile.status}
+                </ContactItem>
+              )}
             </ContactInfo>
-            
-            <SocialLinks>
-              <SocialLink href="https://linkedin.com/in/ollie-wl" target="_blank" rel="noopener noreferrer">
-                <Linkedin size={16} />
-                LinkedIn
-              </SocialLink>
-              <SocialLink href="https://github.com/OllieL1" target="_blank" rel="noopener noreferrer">
-                <Github size={16} />
-                GitHub
-              </SocialLink>
-            </SocialLinks>
+
+            {profile.links.length > 0 && (
+              <SocialLinks>
+                {profile.links.map(link => (
+                  <SocialLink key={link.url} href={link.url} target="_blank" rel="noopener noreferrer">
+                    {linkIcon(link.label)}
+                    {link.label}
+                  </SocialLink>
+                ))}
+              </SocialLinks>
+            )}
           </MainContent>
         </MainCardContent>
       </MainAboutCard>

@@ -7,6 +7,14 @@ import { listen, UI_EVENTS } from '../../lib/uiEvents';
 
 type Phase = 'idle' | 'loading' | 'finishing';
 
+const normalise = (path: string) => {
+  try {
+    return decodeURIComponent(path);
+  } catch {
+    return path;
+  }
+};
+
 const SHOW_DELAY = 120; // fast navigations never show the bar
 const SAFETY_TIMEOUT = 8000;
 
@@ -51,6 +59,8 @@ const NavigationProgress: React.FC = () => {
   const phaseRef = useRef<Phase>('idle');
   const pending = useRef(false);
   const timers = useRef<number[]>([]);
+  // The URL whose page is currently rendered
+  const renderedUrl = useRef('');
 
   const setP = (next: Phase) => {
     phaseRef.current = next;
@@ -92,13 +102,19 @@ const NavigationProgress: React.FC = () => {
     );
   };
 
-  // Navigation start: app router pushes, plus browser back/forward
+  // Navigation start: app router pushes, plus browser back/forward.
+  // On back/forward Next may render a cached page synchronously before this
+  // listener runs - only start if the screen doesn't already match the URL.
   useEffect(() => {
     const offNav = listen(UI_EVENTS.navStart, start);
-    window.addEventListener('popstate', start);
+    const onPopState = () => {
+      const target = normalise(window.location.pathname + window.location.search);
+      if (target !== renderedUrl.current) start();
+    };
+    window.addEventListener('popstate', onPopState);
     return () => {
       offNav();
-      window.removeEventListener('popstate', start);
+      window.removeEventListener('popstate', onPopState);
       clearTimers();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -106,6 +122,8 @@ const NavigationProgress: React.FC = () => {
 
   // Navigation end: the URL actually changed
   useEffect(() => {
+    const search = searchParams.toString();
+    renderedUrl.current = normalise(pathname + (search ? `?${search}` : ''));
     finish();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname, searchParams]);

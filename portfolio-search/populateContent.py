@@ -48,6 +48,7 @@ class ContentStore:
             data = json.load(f)
         for section in SECTIONS:
             data.setdefault(section, [])
+        data.setdefault("profile", {})
         return data
 
     def write(self, data: Dict[str, Any]) -> None:
@@ -90,6 +91,18 @@ class ContentStore:
                 merged = entry
                 data[target_section].append(merged)
 
+            self.write(data)
+            return merged
+
+    def save_profile(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+        """Replace the About Me profile, keeping its existing key order."""
+        for key in ("name", "subtitle", "intro"):
+            if not str(profile.get(key, "")).strip():
+                raise ValueError(f"Profile {key} is required")
+        with self.lock:
+            data = self.load()
+            merged = merge_preserving_key_order(data.get("profile") or profile, profile)
+            data["profile"] = merged
             self.write(data)
             return merged
 
@@ -203,6 +216,9 @@ def make_handler(store: ContentStore):
                 if self.path == "/api/save":
                     saved = store.save_entry(payload["entry"], payload.get("originalId"))
                     self.send_json({"ok": True, "entry": saved})
+                elif self.path == "/api/profile":
+                    saved = store.save_profile(payload["profile"])
+                    self.send_json({"ok": True, "profile": saved})
                 elif self.path == "/api/delete":
                     store.delete_entry(payload["id"])
                     self.send_json({"ok": True})
@@ -256,6 +272,9 @@ PAGE_HTML = r"""<!doctype html>
   .item .t { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .item .s { color: var(--muted); font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   mark { background: #ffe58a; color: inherit; border-radius: 2px; }
+  .item.profile .t::before { content: "★ "; color: var(--accent); }
+  .link-row { display: grid; grid-template-columns: 1fr 2fr auto; gap: 8px; align-items: center; margin-bottom: 8px; }
+  .link-row .acts { display: flex; gap: 4px; }
   main { overflow-y: auto; min-height: 0; }
   .editor { max-width: 860px; margin: 0 auto; padding: 22px 28px 120px; }
   .editor-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 18px; }
@@ -407,6 +426,45 @@ PAGE_HTML = r"""<!doctype html>
           </fieldset>
         </div>
       </form>
+
+      <form id="profileForm" autocomplete="off" onsubmit="return false" hidden>
+        <p class="hint" style="margin-top:0">The main card on the About page. Email and links also power the contact links on the home page.</p>
+        <div class="grid">
+          <div>
+            <label for="pName">Name <span class="req">*</span></label>
+            <input id="pName">
+          </div>
+          <div>
+            <label for="pImage">Photo <span class="hint">(file in public/)</span></label>
+            <input id="pImage" placeholder="portfolio-pfp.jpg">
+          </div>
+          <div class="full">
+            <label for="pSubtitle">Subtitle <span class="req">*</span></label>
+            <input id="pSubtitle">
+          </div>
+          <div class="full">
+            <label for="pIntro">Intro <span class="req">*</span> <span class="hint">(blank line = new paragraph)</span></label>
+            <textarea id="pIntro" style="min-height:320px"></textarea>
+          </div>
+          <div>
+            <label for="pLocation">Location</label>
+            <input id="pLocation">
+          </div>
+          <div>
+            <label for="pEmail">Email <span class="hint">(also the home page "Get in touch")</span></label>
+            <input id="pEmail" type="email">
+          </div>
+          <div class="full">
+            <label for="pStatus">Status line <span class="hint">(e.g. Interested in 2027 Graduate Roles)</span></label>
+            <input id="pStatus">
+          </div>
+          <fieldset class="full">
+            <legend>Links</legend>
+            <div id="pLinks"></div>
+            <button type="button" class="small" id="addLink">+ Add link</button>
+          </fieldset>
+        </div>
+      </form>
     </div>
   </main>
 </div>
@@ -445,6 +503,8 @@ const lists = { photos: [], screenshots: [] };
 let idTouched = false;
 let dirty = false;
 let activeFilter = "all";
+let mode = "entry";        // "entry" | "profile"
+let profileLinks = [];
 
 const $ = (id) => document.getElementById(id);
 const f = {
@@ -527,6 +587,13 @@ function renderList() {
   const q = $("search").value.trim().toLowerCase();
   const terms = q.split(/\s+/).filter(Boolean);
   const html = [];
+  const p = data.profile || {};
+  const profileText = [p.name, p.subtitle, p.intro, p.status].join(" ").toLowerCase();
+  if ((activeFilter === "all" || activeFilter === "about") && terms.every(t => profileText.includes(t))) {
+    const active = mode === "profile" ? " active" : "";
+    html.push(`<div class="group-title">Profile</div>`);
+    html.push(`<div class="item profile${active}" data-profile="1"><div class="t">About Me</div><div class="s">${esc(p.subtitle || "Main About card")}</div></div>`);
+  }
   for (const sec of SECTIONS) {
     if (activeFilter !== "all" && activeFilter !== sec) continue;
     const scored = [];
@@ -548,7 +615,7 @@ function renderList() {
     if (!scored.length) continue;
     html.push(`<div class="group-title">${sec} (${scored.length})</div>`);
     for (const { e } of scored) {
-      const active = current && current.id === e.id ? " active" : "";
+      const active = mode === "entry" && current && current.id === e.id ? " active" : "";
       const sub = [e.company, e.startDate && (e.startDate + (e.endDate ? " → " + e.endDate : " → now"))].filter(Boolean).join(" · ");
       html.push(`<div class="item${active}" data-id="${esc(e.id)}"><div class="t">${highlight(e.title, terms)}</div><div class="s">${highlight(sub, terms)}</div></div>`);
     }
@@ -566,6 +633,7 @@ $("filters").addEventListener("click", (ev) => {
 $("list").addEventListener("click", (ev) => {
   const item = ev.target.closest(".item");
   if (!item) return;
+  if (item.dataset.profile) { if (confirmDiscard()) loadProfile(); return; }
   const found = allEntries().find(x => x.e.id === item.dataset.id);
   if (found && confirmDiscard()) loadEntry(found.e);
 });
@@ -579,7 +647,14 @@ $("search").addEventListener("keydown", (ev) => {
 
 // ---------- form ----------
 
+function showForm(which) {
+  mode = which;
+  $("form").hidden = which !== "entry";
+  $("profileForm").hidden = which !== "profile";
+}
+
 function loadEntry(entry) {
+  showForm("entry");
   current = entry;
   idTouched = !!entry;
   const e = entry || { type: "project", category: DEFAULT_CATEGORY.project };
@@ -613,7 +688,8 @@ function loadEntry(entry) {
 
 function setDirty(v) {
   dirty = v;
-  $("status").textContent = v ? "● Unsaved changes" : (current ? `Saved · ${TYPE_TO_SECTION[current.type] || ""}` : "Not saved yet");
+  const savedLabel = mode === "profile" ? "Saved · profile" : (current ? `Saved · ${TYPE_TO_SECTION[current.type] || ""}` : "Not saved yet");
+  $("status").textContent = v ? "● Unsaved changes" : savedLabel;
   $("status").className = "badge" + (v ? " dirty" : "");
 }
 function confirmDiscard() {
@@ -621,6 +697,7 @@ function confirmDiscard() {
 }
 
 $("form").addEventListener("input", () => setDirty(true));
+$("profileForm").addEventListener("input", () => setDirty(true));
 f.title.addEventListener("input", () => {
   if (!idTouched) f.id.value = slugify(f.title.value);
 });
@@ -801,7 +878,83 @@ function buildEntry() {
 }
 function skillInputHasText() { return $("skillInput").value.trim().length > 0; }
 
+// ---------- profile ----------
+
+const pf = {
+  name: $("pName"), image: $("pImage"), subtitle: $("pSubtitle"), intro: $("pIntro"),
+  location: $("pLocation"), email: $("pEmail"), status: $("pStatus"),
+};
+
+function loadProfile() {
+  showForm("profile");
+  current = null;
+  const p = data.profile || {};
+  for (const [k, el] of Object.entries(pf)) el.value = p[k] || "";
+  profileLinks = (p.links || []).map(l => ({ ...l }));
+  renderLinks();
+  document.querySelectorAll(".invalid").forEach(el => el.classList.remove("invalid"));
+  $("heading").textContent = "About Me (profile)";
+  for (const id of ["dupBtn", "upBtn", "downBtn", "deleteBtn"]) $(id).disabled = true;
+  $("revertBtn").disabled = false;
+  setDirty(false);
+  renderList();
+}
+
+function renderLinks() {
+  const box = $("pLinks");
+  box.innerHTML = "";
+  profileLinks.forEach((l, i) => {
+    const row = document.createElement("div");
+    row.className = "link-row";
+    row.innerHTML = `
+      <input placeholder="Label (e.g. GitHub)" value="${esc(l.label)}" data-k="label">
+      <input placeholder="https://…" value="${esc(l.url)}" data-k="url">
+      <div class="acts">
+        <button type="button" class="small" data-a="up" title="Move up">↑</button>
+        <button type="button" class="small" data-a="down" title="Move down">↓</button>
+        <button type="button" class="small danger" data-a="del" title="Remove">×</button>
+      </div>`;
+    row.querySelectorAll("input").forEach(inp => inp.addEventListener("input", () => { profileLinks[i][inp.dataset.k] = inp.value; }));
+    row.querySelector(".acts").addEventListener("click", (ev) => {
+      const a = ev.target.dataset.a;
+      if (!a) return;
+      if (a === "del") profileLinks.splice(i, 1);
+      if (a === "up" && i > 0) [profileLinks[i - 1], profileLinks[i]] = [profileLinks[i], profileLinks[i - 1]];
+      if (a === "down" && i < profileLinks.length - 1) [profileLinks[i + 1], profileLinks[i]] = [profileLinks[i], profileLinks[i + 1]];
+      renderLinks();
+      setDirty(true);
+    });
+    box.appendChild(row);
+  });
+}
+$("addLink").onclick = () => { profileLinks.push({ label: "", url: "" }); renderLinks(); setDirty(true); };
+
+async function saveProfile() {
+  const errors = [];
+  const bad = (el, msg) => { errors.push(msg); el.classList.add("invalid"); };
+  document.querySelectorAll(".invalid").forEach(el => el.classList.remove("invalid"));
+  const v = (el) => el.value.trim();
+  for (const k of ["name", "subtitle", "intro"]) if (!v(pf[k])) bad(pf[k], `${k[0].toUpperCase() + k.slice(1)} is required`);
+  const links = profileLinks.map(l => ({ label: l.label.trim(), url: l.url.trim() })).filter(l => l.label || l.url);
+  if (links.some(l => !l.label || !l.url)) errors.push("Every link needs a label and a URL");
+  if (errors.length) { toast(errors.join(" · "), "err"); return; }
+
+  const profile = { name: v(pf.name), subtitle: v(pf.subtitle), intro: pf.intro.value.replace(/\r\n/g, "\n").trim() };
+  if (v(pf.image)) profile.image = v(pf.image);
+  for (const k of ["location", "email", "status"]) if (v(pf[k])) profile[k] = v(pf[k]);
+  profile.links = links;
+  try {
+    await api("/api/profile", { profile });
+    await reload();
+    loadProfile();
+    toast("Saved profile");
+  } catch (err) {
+    toast(err.message, "err");
+  }
+}
+
 async function save() {
+  if (mode === "profile") return saveProfile();
   const { entry, errors } = buildEntry();
   if (errors.length) { toast(errors.join(" · "), "err"); return; }
   try {
@@ -827,7 +980,11 @@ async function move(direction) {
 
 $("saveBtn").onclick = save;
 $("newBtn").onclick = () => { if (confirmDiscard()) { loadEntry(null); f.title.focus(); } };
-$("revertBtn").onclick = () => { if (current && confirmDiscard()) loadEntry(current); };
+$("revertBtn").onclick = () => {
+  if (!confirmDiscard()) return;
+  if (mode === "profile") loadProfile();
+  else if (current) loadEntry(current);
+};
 $("upBtn").onclick = () => move(-1);
 $("downBtn").onclick = () => move(1);
 $("dupBtn").onclick = () => {

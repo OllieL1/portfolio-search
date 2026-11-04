@@ -62,6 +62,10 @@ export const ProfileImage = styled.img`
 `;
 
 export const MainContent = styled.div`
+  .about-intro p + p {
+    margin-top: 1rem;
+  }
+
   flex: 1;
 `;
 
@@ -135,7 +139,7 @@ export const SocialLink = styled.a`
   &:hover {
     background: var(--accent-primary-hover);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(26, 115, 232, 0.3);
+    box-shadow: 0 4px 12px color-mix(in srgb, var(--accent-primary) 30%, transparent);
   }
 
   &:nth-child(2) {
@@ -143,7 +147,7 @@ export const SocialLink = styled.a`
 
     &:hover {
       background: var(--accent-red-hover);
-      box-shadow: 0 4px 12px color-mix(in srgb, var(--accent-green) 30%, transparent);
+      box-shadow: 0 4px 12px color-mix(in srgb, var(--accent-red) 30%, transparent);
     }
   }
 `;

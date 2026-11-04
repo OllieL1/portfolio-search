@@ -216,7 +216,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
     <SearchContainer>
       <SearchInput
         type="text"
-        placeholder={isMobile ? 'Search my portfolio…' : 'Search projects, skills, experience…'}
+        placeholder={isMobile ? 'Search my portfolio…' : 'Search skills, tools, topics…'}
         aria-label="Search portfolio"
         value={searchQuery}
         onChange={(e) => onSearchChange(e.target.value)}
