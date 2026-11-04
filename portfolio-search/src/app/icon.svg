@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3b6cf0"/>
+      <stop offset="1" stop-color="#7c3aed"/>
+    </linearGradient>
+  </defs>
+  <!-- head: feathered ear tufts with the owl's V-shaped brow between them -->
+  <path fill="url(#g)" d="M11 24 L7 5 L22 15 Q32 22 42 15 L57 5 L53 24 Q59 34 55 45 Q49 60 32 60 Q15 60 9 45 Q5 34 11 24 Z"/>
+  <!-- facial discs -->
+  <circle cx="21.5" cy="34" r="13" fill="#fff" fill-opacity="0.2"/>
+  <circle cx="42.5" cy="34" r="13" fill="#fff" fill-opacity="0.2"/>
+  <!-- eyes -->
+  <circle cx="21.5" cy="34" r="9" fill="#fff"/>
+  <circle cx="42.5" cy="34" r="9" fill="#fff"/>
+  <circle cx="22.5" cy="35" r="4.4" fill="#0f172a"/>
+  <circle cx="41.5" cy="35" r="4.4" fill="#0f172a"/>
+  <circle cx="24" cy="33.4" r="1.3" fill="#fff"/>
+  <circle cx="43" cy="33.4" r="1.3" fill="#fff"/>
+  <!-- beak -->
+  <path fill="#f59e0b" d="M28.6 40 L35.4 40 L32 48.5 Z"/>
+</svg>
