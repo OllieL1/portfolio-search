@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo } from 'react';
 import { useAppRouter } from '../../hooks/useAppRouter';
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 import { Code, Briefcase, GraduationCap, User, Linkedin, Github, Tag, Shuffle } from 'lucide-react';
 import { useIsClient } from '../../hooks/useWindow';
 import AnimatedLogo from './AnimatedLogo';
@@ -34,6 +34,26 @@ const Page = styled.div`
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 768px) {
+    height: 100vh;
+    height: 100dvh;
+    min-height: 0;
+    overflow: hidden;
+  }
+`;
+
+// The home page always fits on a phone screen, so pin it in place:
+// no scrolling and no rubber-band bounce. Only applies while this page is mounted.
+const LockMobileScroll = createGlobalStyle`
+  @media (max-width: 768px) {
+    html,
+    body {
+      height: 100%;
+      overflow: hidden;
+      overscroll-behavior: none;
+    }
+  }
 `;
 
 const Container = styled.main`
@@ -385,6 +405,7 @@ const HomePage: React.FC = () => {
 
   return (
     <Page>
+      <LockMobileScroll />
       <Container>
         <SearchSection>
           <MobileContacts aria-label="Contact">
