@@ -136,18 +136,18 @@ const getSectionIcon = (section: string) => {
 // Helper function to create tab from current route - includes main section pages on mobile
 const createTabFromRoute = (pathname: string, searchParams?: URLSearchParams, isMobile: boolean = false): Tab | null => {
   const timestamp = Date.now();
-  
+
   // On desktop, don't create tabs for main section pages
   // On mobile, do create tabs for main section pages
   if (!isMobile && (pathname === '/' || pathname === '/experience' || pathname === '/projects' || 
       pathname === '/education' || pathname === '/about')) {
     return null;
   }
-  
+
   if (pathname === '/') {
     return null; // Never create tab for home page
   }
-  
+
   if (pathname === '/experience') {
     return {
       id: 'experience',
@@ -157,7 +157,7 @@ const createTabFromRoute = (pathname: string, searchParams?: URLSearchParams, is
       timestamp
     };
   }
-  
+
   if (pathname === '/projects') {
     return {
       id: 'projects',
@@ -167,7 +167,7 @@ const createTabFromRoute = (pathname: string, searchParams?: URLSearchParams, is
       timestamp
     };
   }
-  
+
   if (pathname === '/education') {
     return {
       id: 'education',
@@ -177,7 +177,7 @@ const createTabFromRoute = (pathname: string, searchParams?: URLSearchParams, is
       timestamp
     };
   }
-  
+
   if (pathname === '/about') {
     return {
       id: 'about',
@@ -187,7 +187,7 @@ const createTabFromRoute = (pathname: string, searchParams?: URLSearchParams, is
       timestamp
     };
   }
-  
+
   if (pathname === '/search') {
     let query = '';
     
@@ -211,7 +211,7 @@ const createTabFromRoute = (pathname: string, searchParams?: URLSearchParams, is
     
     return null;
   }
-  
+
   if (pathname.startsWith('/skills/')) {
     const skill = pathname.split('/skills/')[1];
     if (skill) {
@@ -226,7 +226,7 @@ const createTabFromRoute = (pathname: string, searchParams?: URLSearchParams, is
       };
     }
   }
-  
+
   if (pathname.startsWith('/content/')) {
     const contentId = pathname.split('/content/')[1];
     if (contentId) {
@@ -243,7 +243,7 @@ const createTabFromRoute = (pathname: string, searchParams?: URLSearchParams, is
       }
     }
   }
-  
+
   return null;
 };
 
@@ -415,10 +415,53 @@ const TabManager: React.FC<TabManagerProps> = ({ children }) => {
     )
   };
 
+  // Mobile bottom bar - also shown on the home page before any tabs exist
+  const mobileBar = (
+    <MobileTabsContainer>
+      <MobileTabsList>
+        {/* Theme Toggle */}
+        <MobileThemeToggle onClick={toggleTheme} title={themeLabel} aria-label={themeLabel}>
+          {mobileThemeIcon}
+        </MobileThemeToggle>
+
+        {/* New Search Button - pinned to left */}
+        <MobileNewSearchButton
+          $active={pathname === '/'}
+          onClick={handleHomeClick}
+        >
+          <Search size={18} />
+        </MobileNewSearchButton>
+
+        {/* Scrollable Tabs */}
+        <div style={{ display: 'flex', gap: '0.5rem', overflowX: 'auto', scrollbarWidth: 'none', flex: 1 }}>
+          {tabs.slice().reverse().map(tab => (
+            <MobileTabItem
+              key={tab.id}
+              $active={activeTabId === tab.id}
+              onClick={() => handleTabClick(tab)}
+            >
+              {getTabIcon(tab.type)}
+              <span className="tab-title">
+                {tab.title}
+              </span>
+              <button
+                className="close-button"
+                onClick={(e) => handleCloseTab(e, tab.id)}
+              >
+                <X size={12} />
+              </button>
+            </MobileTabItem>
+          ))}
+        </div>
+      </MobileTabsList>
+    </MobileTabsContainer>
+  );
+
   if (!shouldShowTabs) {
     return (
       <>
         {children}
+        {mobileBar}
       </>
     );
   }
@@ -531,45 +574,7 @@ const TabManager: React.FC<TabManagerProps> = ({ children }) => {
         {children}
       </DesktopContent>
 
-      {/* Mobile Bottom Tabs */}
-      <MobileTabsContainer>
-        <MobileTabsList>
-          {/* Theme Toggle */}
-          <MobileThemeToggle onClick={toggleTheme} title={themeLabel} aria-label={themeLabel}>
-            {mobileThemeIcon}
-          </MobileThemeToggle>
-
-          {/* New Search Button - pinned to left */}
-          <MobileNewSearchButton
-            $active={pathname === '/'}
-            onClick={handleHomeClick}
-          >
-            <Search size={18} />
-          </MobileNewSearchButton>
-
-          {/* Scrollable Tabs */}
-          <div style={{ display: 'flex', gap: '0.5rem', overflowX: 'auto', scrollbarWidth: 'none', flex: 1 }}>
-            {tabs.slice().reverse().map(tab => (
-              <MobileTabItem
-                key={tab.id}
-                $active={activeTabId === tab.id}
-                onClick={() => handleTabClick(tab)}
-              >
-                {getTabIcon(tab.type)}
-                <span className="tab-title">
-                  {tab.title}
-                </span>
-                <button
-                  className="close-button"
-                  onClick={(e) => handleCloseTab(e, tab.id)}
-                >
-                  <X size={12} />
-                </button>
-              </MobileTabItem>
-            ))}
-          </div>
-        </MobileTabsList>
-      </MobileTabsContainer>
+      {mobileBar}
 
       {/* Mobile Content with bottom spacing */}
       <MobileContent>

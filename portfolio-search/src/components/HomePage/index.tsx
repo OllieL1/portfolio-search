@@ -8,7 +8,7 @@ import { useIsClient } from '../../hooks/useWindow';
 import AnimatedLogo from './AnimatedLogo';
 import SearchBar from './SearchBar';
 import Shortcuts from './Shortcuts';
-import HomeFooter from './HomeFooter';
+import HomeFooter, { CONTACT_LINKS } from './HomeFooter';
 import contentData from '../../data/content.json';
 import { ContentItem } from '../../types/content';
 
@@ -56,6 +56,37 @@ const SearchSection = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 1.25rem;
+`;
+
+// Contact icons above the name - only where the mobile bottom bar replaces the footer
+const MobileContacts = styled.nav`
+  display: none;
+
+  @media (max-width: 768px) {
+    display: flex;
+    justify-content: center;
+    gap: 1.25rem;
+    margin-bottom: 0.25rem;
+  }
+`;
+
+const ContactIcon = styled.a`
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid var(--border-default);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  box-shadow: var(--shadow-sm);
+  transition: color 0.2s ease, border-color 0.2s ease;
+
+  &:active {
+    color: var(--text-heading);
+    border-color: color-mix(in srgb, var(--accent-primary) 40%, var(--border-default));
+  }
 `;
 
 const SurpriseMeButton = styled.button`
@@ -356,6 +387,19 @@ const HomePage: React.FC = () => {
     <Page>
       <Container>
         <SearchSection>
+          <MobileContacts aria-label="Contact">
+            {CONTACT_LINKS.map(link => (
+              <ContactIcon
+                key={link.label}
+                href={link.href}
+                aria-label={link.label}
+                title={link.label}
+                {...(link.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+              >
+                {React.cloneElement(link.icon, { size: 18 })}
+              </ContactIcon>
+            ))}
+          </MobileContacts>
           <AnimatedLogo />
           <SearchBar
             searchQuery={searchQuery}

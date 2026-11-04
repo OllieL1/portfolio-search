@@ -4,7 +4,7 @@ import { Github, Linkedin, Mail, Moon, Sun } from 'lucide-react';
 import { useTheme } from '../../theme';
 import { emit, UI_EVENTS } from '../../lib/uiEvents';
 
-const LINKS = [
+export const CONTACT_LINKS = [
   { label: 'GitHub', href: 'https://github.com/OllieL1', icon: <Github size={14} /> },
   { label: 'LinkedIn', href: 'https://linkedin.com/in/ollie-wl', icon: <Linkedin size={14} /> },
   { label: 'Get in touch', href: 'mailto:oliverlivingston@icloud.com', icon: <Mail size={14} /> },
@@ -19,8 +19,9 @@ const Footer = styled.footer`
   padding: 0.7rem 1.5rem;
   border-top: 1px solid var(--border-subtle);
 
-  @media (max-width: 480px) {
-    padding: 0.6rem 1rem;
+  /* Mobile uses the bottom tab bar + contact icons above the name instead */
+  @media (max-width: 768px) {
+    display: none;
   }
 `;
 
@@ -89,7 +90,7 @@ const HomeFooter: React.FC = () => {
   return (
     <Footer>
       <Group>
-        {LINKS.map(link => (
+        {CONTACT_LINKS.map(link => (
           <FooterLink
             key={link.label}
             href={link.href}

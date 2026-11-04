@@ -18,6 +18,13 @@ const Row = styled.nav`
   justify-content: center;
   align-items: center;
   gap: 0.25rem 0.5rem;
+
+  @media (max-width: 768px) {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.25rem 1rem;
+    justify-items: center;
+  }
 `;
 
 const Separator = styled.span`
@@ -26,7 +33,7 @@ const Separator = styled.span`
   border-radius: 50%;
   background: var(--border-default);
 
-  @media (max-width: 480px) {
+  @media (max-width: 768px) {
     display: none;
   }
 `;

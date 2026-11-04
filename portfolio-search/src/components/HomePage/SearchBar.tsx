@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Search } from 'lucide-react';
+import { useWindow } from '../../hooks/useWindow';
 
 // Types
 interface AutocompleteItem {
@@ -187,6 +188,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [isMac, setIsMac] = useState(false);
+  const { isMobile } = useWindow();
 
   useEffect(() => {
     setIsMac(/Mac|iPod|iPhone|iPad/.test(navigator.platform));
@@ -214,7 +216,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
     <SearchContainer>
       <SearchInput
         type="text"
-        placeholder="Search projects, skills, experience…"
+        placeholder={isMobile ? 'Search my portfolio…' : 'Search projects, skills, experience…'}
         aria-label="Search portfolio"
         value={searchQuery}
         onChange={(e) => onSearchChange(e.target.value)}
