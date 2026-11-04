@@ -4,6 +4,7 @@ import './globals.css';
 import StyledComponentsRegistry from '../lib/registry';
 import TabManager from '../components/TabManager';
 import SpotlightSearch from '../components/SpotlightSearch';
+import ShortcutsProvider from '../components/ShortcutsProvider';
 import { GlobalStyle } from '../components/HomePage/GlobalStyles';
 import { ThemeScript } from '../theme/ThemeScript';
 import { ThemeStyle } from '../theme/ThemeStyle';
@@ -54,6 +55,7 @@ export default function RootLayout({
               {children}
             </TabManager>
             <SpotlightSearch />
+            <ShortcutsProvider />
           </ThemeProvider>
         </StyledComponentsRegistry>
       </body>

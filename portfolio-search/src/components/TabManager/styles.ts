@@ -53,6 +53,8 @@ export const SidebarContainer = styled.div<{ $open: boolean; $pinned: boolean }>
   z-index: 50;
   width: ${props => props.$open ? '320px' : '0px'};
   overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
 
   @media (max-width: 768px) {
     display: none;
@@ -379,5 +381,49 @@ export const MobileContent = styled.div`
 
   @media (min-width: 769px) {
     display: none;
+  }
+`;
+
+export const SidebarSections = styled.div`
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 0 16px;
+`;
+
+export const SidebarFooter = styled.button`
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0.5rem 16px 1rem;
+  padding: 0.55rem 0.75rem;
+  border: 1px dashed var(--border-default);
+  border-radius: 10px;
+  background: none;
+  font: inherit;
+  font-size: 0.78rem;
+  color: var(--text-tertiary);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+
+  kbd {
+    font-family: inherit;
+    font-size: 0.7rem;
+    font-weight: 600;
+    line-height: 1;
+    color: var(--text-secondary);
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-default);
+    border-bottom-width: 2px;
+    border-radius: 4px;
+    padding: 0.15rem 0.35rem;
+  }
+
+  &:hover {
+    color: var(--text-heading);
+    border-color: color-mix(in srgb, var(--accent-primary) 40%, var(--border-default));
+    background: var(--bg-hover);
   }
 `;

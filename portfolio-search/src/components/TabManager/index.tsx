@@ -6,6 +6,7 @@ import { X, Search, Briefcase, GraduationCap, Code, User, Hash, ChevronRight, Ho
 import { getContentById } from '../../utils/contentUtils';
 import { useIsClient } from '../../hooks/useWindow';
 import { useTheme } from '../../theme';
+import { emit, listen, UI_EVENTS } from '../../lib/uiEvents';
 import { Tab } from './types';
 import {
   SidebarContainer,
@@ -26,7 +27,9 @@ import {
   MobileNewSearchButton,
   MobileThemeToggle,
   MobileTabItem,
-  MobileContent
+  MobileContent,
+  SidebarSections,
+  SidebarFooter
 } from './styles';
 
 interface TabManagerProps {
@@ -368,6 +371,9 @@ const TabManager: React.FC<TabManagerProps> = ({ children }) => {
     saveSidebarState(newPinnedState);
   };
 
+  // "S" keyboard shortcut pins / unpins the sidebar
+  useEffect(() => listen(UI_EVENTS.toggleSidebar, handlePinToggle));
+
   const handleSidebarMouseEnter = () => {
     if (!sidebarPinned) {
       setSidebarOpen(true);
@@ -456,13 +462,18 @@ const TabManager: React.FC<TabManagerProps> = ({ children }) => {
 
           {sidebarOpen && (
             <>
-              <HomeButton onClick={handleHomeClick} type="button">
+              <HomeButton onClick={handleHomeClick} type="button" title="Home (H)" aria-label="Home">
                 <Home size={16} />
               </HomeButton>
               <ThemeToggle onClick={toggleTheme} title={themeLabel} aria-label={themeLabel}>
                 {themeIcon}
               </ThemeToggle>
-              <PinButton onClick={handlePinToggle} $pinned={sidebarPinned}>
+              <PinButton
+                onClick={handlePinToggle}
+                $pinned={sidebarPinned}
+                title={sidebarPinned ? 'Unpin sidebar (S)' : 'Pin sidebar (S)'}
+                aria-label={sidebarPinned ? 'Unpin sidebar' : 'Pin sidebar'}
+              >
                 {sidebarPinned ? <PinOff size={16} /> : <Pin size={16} />}
               </PinButton>
             </>
@@ -470,7 +481,7 @@ const TabManager: React.FC<TabManagerProps> = ({ children }) => {
         </SidebarHeader>
 
         {/* Sections */}
-        <div style={{ paddingLeft: '16px', paddingRight: '16px' }}>
+        <SidebarSections>
           {Object.entries(groupedTabs).map(([section, sectionTabs]) => {
             if (sectionTabs.length === 0 && section === 'Other') return null;
             
@@ -512,7 +523,13 @@ const TabManager: React.FC<TabManagerProps> = ({ children }) => {
               </SectionContainer>
             );
           })}
-        </div>
+        </SidebarSections>
+
+        {sidebarOpen && (
+          <SidebarFooter type="button" onClick={() => emit(UI_EVENTS.openShortcuts)}>
+            Press <kbd>?</kbd> for keyboard shortcuts
+          </SidebarFooter>
+        )}
       </SidebarContainer>
 
       {/* Desktop Content with sidebar spacing */}
