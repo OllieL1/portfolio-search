@@ -397,6 +397,9 @@ PAGE_HTML = r"""<!doctype html>
             <label>Photos <span class="hint">(filenames from public/content/…)</span></label>
             <div id="photos"></div>
             <button type="button" class="small" id="addPhoto">+ Add photo</button>
+            <label style="margin-top:12px">Screenshots <span class="hint">(shown inline as a showcase; files in public/content/&lt;id&gt;/)</span></label>
+            <div id="screenshots"></div>
+            <button type="button" class="small" id="addScreenshot">+ Add screenshot</button>
             <div style="margin-top:14px">
               <label for="video">Video <span class="hint">(public/content/videos)</span></label>
               <select id="video"></select>
@@ -432,13 +435,13 @@ const SECTIONS = ["experiences", "projects", "education", "about"];
 const TYPE_TO_SECTION = { experience: "experiences", project: "projects", education: "education", about: "about" };
 const DEFAULT_CATEGORY = { experience: "Work Experience", project: "Projects", education: "Education", about: "About" };
 // Field order used for brand-new entries (existing entries keep their own order server-side)
-const KEY_ORDER = ["id","title","company","startDate","endDate","dateRange","detail","skills","type","category","link","relevance","photos","video"];
+const KEY_ORDER = ["id","title","company","startDate","endDate","dateRange","detail","skills","type","category","link","relevance","photos","screenshots","video"];
 
 let data = {};
 let media = {};
 let current = null;        // the stored entry being edited (null = new)
 let skills = [];
-let photos = [];
+const lists = { photos: [], screenshots: [] };
 let idTouched = false;
 let dirty = false;
 let activeFilter = "all";
@@ -595,9 +598,11 @@ function loadEntry(entry) {
   f.linkLabel.value = (e.link && e.link.label) || "";
   f.video.value = e.video || "";
   skills = [...(e.skills || [])];
-  photos = (e.photos || []).map(p => ({ ...p }));
+  lists.photos = (e.photos || []).map(p => ({ ...p }));
+  lists.screenshots = (e.screenshots || []).map(p => ({ ...p }));
   renderSkills();
-  renderPhotos();
+  renderPhotos("photos");
+  renderPhotos("screenshots");
   updateStartRequired();
   document.querySelectorAll(".invalid").forEach(el => el.classList.remove("invalid"));
   $("heading").textContent = entry ? entry.title : "New entry";
@@ -696,8 +701,9 @@ function photoSrc(filename) {
   }
   return "";
 }
-function renderPhotos() {
-  const box = $("photos");
+function renderPhotos(kind) {
+  const photos = lists[kind];
+  const box = $(kind);
   box.innerHTML = "";
   photos.forEach((p, i) => {
     const row = document.createElement("div");
@@ -726,13 +732,14 @@ function renderPhotos() {
       if (a === "del") photos.splice(i, 1);
       if (a === "up" && i > 0) [photos[i - 1], photos[i]] = [photos[i], photos[i - 1]];
       if (a === "down" && i < photos.length - 1) [photos[i + 1], photos[i]] = [photos[i], photos[i + 1]];
-      renderPhotos();
+      renderPhotos(kind);
       setDirty(true);
     });
     box.appendChild(row);
   });
 }
-$("addPhoto").onclick = () => { photos.push({ caption: "", filename: "" }); renderPhotos(); setDirty(true); };
+$("addPhoto").onclick = () => { lists.photos.push({ caption: "", filename: "" }); renderPhotos("photos"); setDirty(true); };
+$("addScreenshot").onclick = () => { lists.screenshots.push({ caption: "", filename: "" }); renderPhotos("screenshots"); setDirty(true); };
 
 // ---------- build + validate ----------
 
@@ -759,8 +766,11 @@ function buildEntry() {
   if (!v(f.detail)) bad(f.detail, "Detail is required");
   if (!skills.length) { errors.push("Add at least one skill"); $("skills").classList.add("invalid"); }
   if (!!v(f.linkUrl) !== !!v(f.linkLabel)) bad(v(f.linkUrl) ? f.linkLabel : f.linkUrl, "Link needs both a URL and a label");
-  const cleanPhotos = photos.map(p => ({ caption: p.caption.trim(), filename: p.filename.trim() })).filter(p => p.filename || p.caption);
+  const clean = (arr) => arr.map(p => ({ caption: p.caption.trim(), filename: p.filename.trim() })).filter(p => p.filename || p.caption);
+  const cleanPhotos = clean(lists.photos);
+  const cleanScreenshots = clean(lists.screenshots);
   if (cleanPhotos.some(p => !p.filename)) errors.push("Every photo needs a filename");
+  if (cleanScreenshots.some(p => !p.filename)) errors.push("Every screenshot needs a filename");
 
   const e = {
     id: v(f.id), title: v(f.title), company: v(f.company),
@@ -779,6 +789,7 @@ function buildEntry() {
   if (f.relevance.value) e.relevance = Number(f.relevance.value);
   if (v(f.linkUrl) && v(f.linkLabel)) e.link = { url: v(f.linkUrl), label: v(f.linkLabel) };
   if (cleanPhotos.length) e.photos = cleanPhotos;
+  if (cleanScreenshots.length) e.screenshots = cleanScreenshots;
   if (f.video.value) e.video = f.video.value;
 
   // Carry over any extra fields this form doesn't know about

@@ -1,21 +1,22 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { useRouter, usePathname } from 'next/navigation';
-import { X, Search, Briefcase, GraduationCap, Code, User, Hash, ChevronRight, Home, Pin, PinOff, Sun, Moon, Monitor } from 'lucide-react';
+import { usePathname } from 'next/navigation';
+import { useAppRouter } from '../../hooks/useAppRouter';
+import { X, Search, Briefcase, GraduationCap, Code, User, Hash, ChevronRight, Home, Pin, PinOff, Sun, Moon, PanelLeftOpen } from 'lucide-react';
 import { getContentById } from '../../utils/contentUtils';
 import { useIsClient } from '../../hooks/useWindow';
 import { useTheme } from '../../theme';
+import { emit, listen, UI_EVENTS } from '../../lib/uiEvents';
 import { Tab } from './types';
 import {
   SidebarContainer,
   SidebarTrigger,
   SidebarHoverArea,
   SidebarHeader,
-  SearchInput,
+  SidebarIconButton,
   HomeButton,
   PinButton,
-  ThemeToggle,
   SectionContainer,
   SectionHeader,
   TabsList,
@@ -26,7 +27,11 @@ import {
   MobileNewSearchButton,
   MobileThemeToggle,
   MobileTabItem,
-  MobileContent
+  MobileContent,
+  SidebarSections,
+  SidebarFooter,
+  SidebarFooterButton,
+  FloatingThemeToggle
 } from './styles';
 
 interface TabManagerProps {
@@ -132,18 +137,18 @@ const getSectionIcon = (section: string) => {
 // Helper function to create tab from current route - includes main section pages on mobile
 const createTabFromRoute = (pathname: string, searchParams?: URLSearchParams, isMobile: boolean = false): Tab | null => {
   const timestamp = Date.now();
-  
+
   // On desktop, don't create tabs for main section pages
   // On mobile, do create tabs for main section pages
   if (!isMobile && (pathname === '/' || pathname === '/experience' || pathname === '/projects' || 
       pathname === '/education' || pathname === '/about')) {
     return null;
   }
-  
+
   if (pathname === '/') {
     return null; // Never create tab for home page
   }
-  
+
   if (pathname === '/experience') {
     return {
       id: 'experience',
@@ -153,7 +158,7 @@ const createTabFromRoute = (pathname: string, searchParams?: URLSearchParams, is
       timestamp
     };
   }
-  
+
   if (pathname === '/projects') {
     return {
       id: 'projects',
@@ -163,7 +168,7 @@ const createTabFromRoute = (pathname: string, searchParams?: URLSearchParams, is
       timestamp
     };
   }
-  
+
   if (pathname === '/education') {
     return {
       id: 'education',
@@ -173,7 +178,7 @@ const createTabFromRoute = (pathname: string, searchParams?: URLSearchParams, is
       timestamp
     };
   }
-  
+
   if (pathname === '/about') {
     return {
       id: 'about',
@@ -183,7 +188,7 @@ const createTabFromRoute = (pathname: string, searchParams?: URLSearchParams, is
       timestamp
     };
   }
-  
+
   if (pathname === '/search') {
     let query = '';
     
@@ -207,7 +212,7 @@ const createTabFromRoute = (pathname: string, searchParams?: URLSearchParams, is
     
     return null;
   }
-  
+
   if (pathname.startsWith('/skills/')) {
     const skill = pathname.split('/skills/')[1];
     if (skill) {
@@ -222,7 +227,7 @@ const createTabFromRoute = (pathname: string, searchParams?: URLSearchParams, is
       };
     }
   }
-  
+
   if (pathname.startsWith('/content/')) {
     const contentId = pathname.split('/content/')[1];
     if (contentId) {
@@ -239,28 +244,24 @@ const createTabFromRoute = (pathname: string, searchParams?: URLSearchParams, is
       }
     }
   }
-  
+
   return null;
 };
 
 const TabManager: React.FC<TabManagerProps> = ({ children }) => {
-  const router = useRouter();
+  const router = useAppRouter();
   const pathname = usePathname();
   const [tabs, setTabs] = useState<Tab[]>([]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [sidebarPinned, setSidebarPinned] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
 
   const isClient = useIsClient();
-  const { theme, resolvedTheme, setTheme } = useTheme();
+  const { theme, toggleTheme } = useTheme();
+  const themeLabel = theme === 'dark' ? 'Switch to light mode (T)' : 'Switch to dark mode (T)';
 
-  const cycleTheme = () => {
-    const next = theme === 'system' ? 'light' : theme === 'light' ? 'dark' : 'system';
-    setTheme(next);
-  };
-
-  const themeIcon = theme === 'system' ? <Monitor size={16} /> : resolvedTheme === 'dark' ? <Moon size={16} /> : <Sun size={16} />;
-  const mobileThemeIcon = theme === 'system' ? <Monitor size={18} /> : resolvedTheme === 'dark' ? <Moon size={18} /> : <Sun size={18} />;
+  // Show the theme you'd switch to
+  const themeIcon = theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />;
+  const mobileThemeIcon = theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />;
 
   // Load tabs and sidebar state from session storage on mount
   useEffect(() => {
@@ -324,14 +325,6 @@ const TabManager: React.FC<TabManagerProps> = ({ children }) => {
     router.push('/');
   };
 
-  const handleSearchSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
-      setSearchQuery('');
-    }
-  };
-
   const handleSectionClick = (section: string) => {
     // Don't allow clicking on "Other" section
     if (section === 'Other') return;
@@ -371,6 +364,9 @@ const TabManager: React.FC<TabManagerProps> = ({ children }) => {
     saveSidebarState(newPinnedState);
   };
 
+  // "S" keyboard shortcut pins / unpins the sidebar
+  useEffect(() => listen(UI_EVENTS.toggleSidebar, handlePinToggle));
+
   const handleSidebarMouseEnter = () => {
     if (!sidebarPinned) {
       setSidebarOpen(true);
@@ -405,12 +401,13 @@ const TabManager: React.FC<TabManagerProps> = ({ children }) => {
 
   // Group tabs by section (no sorting - maintain original order)
   const groupedTabs = {
+    // Same order as the 1-4 keyboard shortcuts
+    'Projects': tabs.filter(tab => tab.type === 'projects' || 
+      (tab.type === 'content' && getContentById(tab.contentId!)?.category === 'Projects')),
     'Experience': tabs.filter(tab => tab.type === 'experience' || 
       (tab.type === 'content' && getContentById(tab.contentId!)?.category === 'Work Experience')),
     'Education': tabs.filter(tab => tab.type === 'education' || 
       (tab.type === 'content' && getContentById(tab.contentId!)?.category === 'Education')),
-    'Projects': tabs.filter(tab => tab.type === 'projects' || 
-      (tab.type === 'content' && getContentById(tab.contentId!)?.category === 'Projects')),
     'About Me': tabs.filter(tab => tab.type === 'about' || 
       (tab.type === 'content' && getContentById(tab.contentId!)?.category === 'About')),
     'Other': tabs.filter(tab => 
@@ -419,18 +416,57 @@ const TabManager: React.FC<TabManagerProps> = ({ children }) => {
     )
   };
 
+  // Mobile bottom bar
+  const mobileBar = (
+    <MobileTabsContainer>
+      <MobileTabsList>
+        {/* Theme Toggle */}
+        <MobileThemeToggle onClick={toggleTheme} title={themeLabel} aria-label={themeLabel}>
+          {mobileThemeIcon}
+        </MobileThemeToggle>
+
+        {/* New Search Button - pinned to left */}
+        <MobileNewSearchButton
+          $active={pathname === '/'}
+          onClick={handleHomeClick}
+        >
+          <Search size={18} />
+        </MobileNewSearchButton>
+
+        {/* Scrollable Tabs */}
+        <div style={{ display: 'flex', gap: '0.5rem', overflowX: 'auto', scrollbarWidth: 'none', flex: 1 }}>
+          {tabs.slice().reverse().map(tab => (
+            <MobileTabItem
+              key={tab.id}
+              $active={activeTabId === tab.id}
+              onClick={() => handleTabClick(tab)}
+            >
+              {getTabIcon(tab.type)}
+              <span className="tab-title">
+                {tab.title}
+              </span>
+              <button
+                className="close-button"
+                onClick={(e) => handleCloseTab(e, tab.id)}
+              >
+                <X size={12} />
+              </button>
+            </MobileTabItem>
+          ))}
+        </div>
+      </MobileTabsList>
+    </MobileTabsContainer>
+  );
+
   if (!shouldShowTabs) {
     return (
       <>
         {children}
-        {/* Floating theme toggle when no tab UI is visible */}
-        <MobileThemeToggle
-          onClick={cycleTheme}
-          title={`Theme: ${theme}`}
-          style={{ position: 'fixed', bottom: '1.5rem', right: '1.5rem', zIndex: 50 }}
-        >
+        {/* Home page before any tabs exist: just a floating theme toggle on mobile
+            (desktop has the theme toggle in the home footer) */}
+        <FloatingThemeToggle onClick={toggleTheme} title={themeLabel} aria-label={themeLabel}>
           {mobileThemeIcon}
-        </MobileThemeToggle>
+        </FloatingThemeToggle>
       </>
     );
   }
@@ -440,8 +476,8 @@ const TabManager: React.FC<TabManagerProps> = ({ children }) => {
       {/* Desktop Sidebar Hover Area - expanded hover zone */}
       {!sidebarOpen && (
         <SidebarHoverArea onMouseEnter={handleSidebarMouseEnter}>
-          <SidebarTrigger>
-            <Search size={16} />
+          <SidebarTrigger aria-label="Open sidebar">
+            <PanelLeftOpen size={16} />
           </SidebarTrigger>
         </SidebarHoverArea>
       )}
@@ -455,25 +491,25 @@ const TabManager: React.FC<TabManagerProps> = ({ children }) => {
       >
         {/* Sidebar Header */}
         <SidebarHeader>
-          <form onSubmit={handleSearchSubmit} style={{ flex: 1, minWidth: 0 }}>
-            <SearchInput
-              type="text"
-              placeholder="Search..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              $open={sidebarOpen}
-            />
-          </form>
-
           {sidebarOpen && (
             <>
-              <HomeButton onClick={handleHomeClick} type="button">
+              <SidebarIconButton type="button" onClick={handleHomeClick} title="Home (H)" aria-label="Home">
                 <Home size={16} />
-              </HomeButton>
-              <ThemeToggle onClick={cycleTheme} title={`Theme: ${theme}`}>
-                {themeIcon}
-              </ThemeToggle>
-              <PinButton onClick={handlePinToggle} $pinned={sidebarPinned}>
+              </SidebarIconButton>
+              <SidebarIconButton
+                type="button"
+                onClick={() => emit(UI_EVENTS.openSearch)}
+                title="Search (Ctrl/⌘ K)"
+                aria-label="Search"
+              >
+                <Search size={16} />
+              </SidebarIconButton>
+              <PinButton
+                onClick={handlePinToggle}
+                $pinned={sidebarPinned}
+                title={sidebarPinned ? 'Unpin sidebar (S)' : 'Pin sidebar (S)'}
+                aria-label={sidebarPinned ? 'Unpin sidebar' : 'Pin sidebar'}
+              >
                 {sidebarPinned ? <PinOff size={16} /> : <Pin size={16} />}
               </PinButton>
             </>
@@ -481,7 +517,7 @@ const TabManager: React.FC<TabManagerProps> = ({ children }) => {
         </SidebarHeader>
 
         {/* Sections */}
-        <div style={{ paddingLeft: '16px', paddingRight: '16px' }}>
+        <SidebarSections>
           {Object.entries(groupedTabs).map(([section, sectionTabs]) => {
             if (sectionTabs.length === 0 && section === 'Other') return null;
             
@@ -523,7 +559,19 @@ const TabManager: React.FC<TabManagerProps> = ({ children }) => {
               </SectionContainer>
             );
           })}
-        </div>
+        </SidebarSections>
+
+        {sidebarOpen && (
+          <SidebarFooter>
+            <SidebarFooterButton type="button" onClick={() => emit(UI_EVENTS.openShortcuts)} title="Keyboard shortcuts (?)">
+              <kbd>?</kbd>
+              Keyboard shortcuts
+            </SidebarFooterButton>
+            <SidebarFooterButton type="button" onClick={toggleTheme} title={themeLabel} aria-label={themeLabel}>
+              {themeIcon}
+            </SidebarFooterButton>
+          </SidebarFooter>
+        )}
       </SidebarContainer>
 
       {/* Desktop Content with sidebar spacing */}
@@ -531,45 +579,7 @@ const TabManager: React.FC<TabManagerProps> = ({ children }) => {
         {children}
       </DesktopContent>
 
-      {/* Mobile Bottom Tabs */}
-      <MobileTabsContainer>
-        <MobileTabsList>
-          {/* Theme Toggle */}
-          <MobileThemeToggle onClick={cycleTheme} title={`Theme: ${theme}`}>
-            {mobileThemeIcon}
-          </MobileThemeToggle>
-
-          {/* New Search Button - pinned to left */}
-          <MobileNewSearchButton
-            $active={pathname === '/'}
-            onClick={handleHomeClick}
-          >
-            <Search size={18} />
-          </MobileNewSearchButton>
-
-          {/* Scrollable Tabs */}
-          <div style={{ display: 'flex', gap: '0.5rem', overflowX: 'auto', scrollbarWidth: 'none', flex: 1 }}>
-            {tabs.slice().reverse().map(tab => (
-              <MobileTabItem
-                key={tab.id}
-                $active={activeTabId === tab.id}
-                onClick={() => handleTabClick(tab)}
-              >
-                {getTabIcon(tab.type)}
-                <span className="tab-title">
-                  {tab.title}
-                </span>
-                <button
-                  className="close-button"
-                  onClick={(e) => handleCloseTab(e, tab.id)}
-                >
-                  <X size={12} />
-                </button>
-              </MobileTabItem>
-            ))}
-          </div>
-        </MobileTabsList>
-      </MobileTabsContainer>
+      {mobileBar}
 
       {/* Mobile Content with bottom spacing */}
       <MobileContent>

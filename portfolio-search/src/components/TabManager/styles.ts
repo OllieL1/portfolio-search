@@ -34,7 +34,7 @@ export const SidebarTrigger = styled.div`
   color: var(--text-secondary);
 
   &:hover {
-    background: rgba(59, 130, 246, 0.1);
+    background: color-mix(in srgb, var(--accent-primary) 10%, transparent);
     color: var(--accent-primary);
     transform: scale(1.1);
   }
@@ -53,6 +53,8 @@ export const SidebarContainer = styled.div<{ $open: boolean; $pinned: boolean }>
   z-index: 50;
   width: ${props => props.$open ? '320px' : '0px'};
   overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
 
   @media (max-width: 768px) {
     display: none;
@@ -74,27 +76,6 @@ export const NewSearchContainer = styled.div`
   gap: 0.5rem;
 `;
 
-export const SearchInput = styled.input<{ $open: boolean }>`
-  width: 100%;
-  padding: 0.5rem 0.75rem;
-  border: 1px solid var(--border-subtle);
-  border-radius: 0.5rem;
-  background: var(--bg-input);
-  color: var(--text-primary);
-  font-size: 0.875rem;
-  transition: all 0.2s ease;
-
-  &:focus {
-    outline: none;
-    border-color: var(--accent-primary);
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-  }
-
-  &::placeholder {
-    color: var(--text-tertiary);
-  }
-`;
-
 export const HomeButton = styled.button`
   flex-shrink: 0;
   padding: 0.5rem;
@@ -114,7 +95,10 @@ export const HomeButton = styled.button`
   }
 `;
 
+export const SidebarIconButton = styled(HomeButton)``;
+
 export const PinButton = styled.button<{ $pinned: boolean }>`
+  margin-left: auto;
   flex-shrink: 0;
   padding: 0.5rem;
   border: 1px solid var(--border-subtle);
@@ -130,25 +114,6 @@ export const PinButton = styled.button<{ $pinned: boolean }>`
   &:hover {
     background: ${props => props.$pinned ? 'var(--accent-primary-hover)' : 'var(--bg-hover)'};
     color: ${props => props.$pinned ? 'var(--text-on-accent)' : 'var(--text-primary)'};
-  }
-`;
-
-export const ThemeToggle = styled.button`
-  flex-shrink: 0;
-  padding: 0.5rem;
-  border: 1px solid var(--border-subtle);
-  border-radius: 0.5rem;
-  background: var(--bg-card);
-  color: var(--text-secondary);
-  cursor: pointer;
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  &:hover {
-    background: var(--bg-hover);
-    color: var(--text-primary);
   }
 `;
 
@@ -209,7 +174,7 @@ export const TabItem = styled.div<{ $active: boolean }>`
   transition: all 0.2s ease;
   background: ${props => props.$active ? 'var(--accent-primary)' : 'transparent'};
   color: ${props => props.$active ? 'var(--text-on-accent)' : 'var(--text-primary)'};
-  box-shadow: ${props => props.$active ? '0 4px 12px -2px rgba(59, 130, 246, 0.25)' : 'none'};
+  box-shadow: ${props => props.$active ? '0 4px 12px -2px color-mix(in srgb, var(--accent-primary) 25%, transparent)' : 'none'};
 
   &:hover {
     background: ${props => props.$active ? 'var(--accent-primary-hover)' : 'var(--bg-hover)'};
@@ -295,14 +260,14 @@ export const MobileNewSearchButton = styled.button<{ $active: boolean }>`
   border: 1px solid var(--bg-glass-border);
   cursor: pointer;
   transition: all 0.2s ease;
-  background: ${props => props.$active ? 'rgba(59, 130, 246, 0.9)' : 'var(--bg-glass)'};
+  background: ${props => props.$active ? 'color-mix(in srgb, var(--accent-primary) 90%, transparent)' : 'var(--bg-glass)'};
   color: ${props => props.$active ? 'white' : 'var(--text-primary)'};
-  box-shadow: ${props => props.$active ? '0 8px 20px -3px rgba(59, 130, 246, 0.4)' : 'var(--shadow-md)'};
+  box-shadow: ${props => props.$active ? '0 8px 20px -3px color-mix(in srgb, var(--accent-primary) 40%, transparent)' : 'var(--shadow-md)'};
   backdrop-filter: blur(15px);
 
   &:hover {
     transform: translateY(-1px);
-    background: ${props => props.$active ? 'rgba(59, 130, 246, 1)' : 'var(--bg-glass-hover)'};
+    background: ${props => props.$active ? 'color-mix(in srgb, var(--accent-primary) 100%, transparent)' : 'var(--bg-glass-hover)'};
   }
 `;
 
@@ -338,13 +303,13 @@ export const MobileTabItem = styled.div<{ $active: boolean }>`
   border: 1px solid var(--bg-glass-border);
   cursor: pointer;
   transition: all 0.2s ease;
-  background: ${props => props.$active ? 'rgba(59, 130, 246, 0.9)' : 'var(--bg-glass)'};
+  background: ${props => props.$active ? 'color-mix(in srgb, var(--accent-primary) 90%, transparent)' : 'var(--bg-glass)'};
   color: ${props => props.$active ? 'white' : 'var(--text-primary)'};
-  box-shadow: ${props => props.$active ? '0 8px 20px -3px rgba(59, 130, 246, 0.4)' : 'var(--shadow-md)'};
+  box-shadow: ${props => props.$active ? '0 8px 20px -3px color-mix(in srgb, var(--accent-primary) 40%, transparent)' : 'var(--shadow-md)'};
   backdrop-filter: blur(15px);
 
   &:hover {
-    background: ${props => props.$active ? 'rgba(59, 130, 246, 1)' : 'var(--bg-glass-hover)'};
+    background: ${props => props.$active ? 'color-mix(in srgb, var(--accent-primary) 100%, transparent)' : 'var(--bg-glass-hover)'};
   }
 
   .tab-title {
@@ -376,6 +341,69 @@ export const MobileTabItem = styled.div<{ $active: boolean }>`
 
 export const MobileContent = styled.div`
   padding-bottom: 5rem;
+
+  @media (min-width: 769px) {
+    display: none;
+  }
+`;
+
+export const SidebarSections = styled.div`
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 0 16px;
+`;
+
+export const SidebarFooter = styled.div`
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.6rem 12px;
+  border-top: 1px solid var(--border-subtle);
+  white-space: nowrap;
+`;
+
+export const SidebarFooterButton = styled.button`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.45rem 0.55rem;
+  border: none;
+  border-radius: 8px;
+  background: none;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  transition: color 0.2s ease, background 0.2s ease;
+
+  kbd {
+    font-family: inherit;
+    font-size: 0.7rem;
+    font-weight: 600;
+    line-height: 1;
+    color: var(--text-secondary);
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-default);
+    border-bottom-width: 2px;
+    border-radius: 4px;
+    padding: 0.15rem 0.35rem;
+  }
+
+  &:hover {
+    color: var(--text-heading);
+    background: var(--bg-hover);
+  }
+`;
+
+export const FloatingThemeToggle = styled(MobileThemeToggle)`
+  position: fixed;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  z-index: 50;
 
   @media (min-width: 769px) {
     display: none;

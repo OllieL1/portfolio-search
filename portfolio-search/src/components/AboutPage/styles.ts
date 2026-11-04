@@ -143,7 +143,7 @@ export const SocialLink = styled.a`
 
     &:hover {
       background: var(--accent-red-hover);
-      box-shadow: 0 4px 12px rgba(52, 168, 83, 0.3);
+      box-shadow: 0 4px 12px color-mix(in srgb, var(--accent-green) 30%, transparent);
     }
   }
 `;

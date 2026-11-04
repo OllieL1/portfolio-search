@@ -1,7 +1,9 @@
 "use client";
 
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
-import { useRouter, usePathname } from 'next/navigation';
+import { usePathname } from 'next/navigation';
+import { useAppRouter } from '../../hooks/useAppRouter';
+import { listen, UI_EVENTS } from '../../lib/uiEvents';
 import {
   Search,
   Code,
@@ -47,7 +49,7 @@ interface SpotlightResult {
 }
 
 const SpotlightSearch: React.FC = () => {
-  const router = useRouter();
+  const router = useAppRouter();
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState('');
@@ -79,6 +81,9 @@ const SpotlightSearch: React.FC = () => {
       document.body.style.overflow = '';
     };
   }, [isOpen]);
+
+  // Sidebar search button opens the modal
+  useEffect(() => listen(UI_EVENTS.openSearch, () => setIsOpen(true)), []);
 
   // Global Ctrl+K / Cmd+K listener
   useEffect(() => {

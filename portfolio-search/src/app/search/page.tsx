@@ -1,12 +1,13 @@
 "use client";
 
 import { Suspense } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
+import { useAppRouter } from '../../hooks/useAppRouter';
 import { searchContent } from '../../utils/contentUtils';
 import SearchResults from '../../components/SearchResults';
 
 function SearchContent() {
-  const router = useRouter();
+  const router = useAppRouter();
   const searchParams = useSearchParams();
   const query = searchParams.get('q') || '';
   

@@ -1,4 +1,9 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const rise = keyframes`
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+`;
 
 export const Container = styled.div`
   max-width: 1200px;
@@ -48,23 +53,55 @@ export const ProjectsGrid = styled.div`
   }
 `;
 
-export const ProjectCard = styled.div`
+export const ProjectCard = styled.div<{ $index?: number }>`
   background: var(--bg-card);
   border: 1px solid var(--border-default);
-  border-radius: 8px;
+  border-radius: 12px;
   padding: 1.5rem;
   cursor: pointer;
-  transition: all 0.2s ease;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
   width: 100%;
   max-width: 600px;
 
+  @media (prefers-reduced-motion: no-preference) {
+    animation: ${rise} 0.45s ease-out both;
+    animation-delay: ${({ $index = 0 }) => Math.min($index, 8) * 0.05}s;
+  }
+
   &:hover {
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
     border-color: var(--accent-secondary);
+  }
+
+  &:hover img {
+    transform: scale(1.03);
   }
 
   @media (max-width: 768px) {
     padding: 1rem;
+  }
+`;
+
+export const ProjectCover = styled.div`
+  margin: -1.5rem -1.5rem 1.25rem;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border-default);
+  background: var(--bg-subtle);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  @media (max-width: 768px) {
+    margin: -1rem -1rem 1rem;
   }
 `;
 

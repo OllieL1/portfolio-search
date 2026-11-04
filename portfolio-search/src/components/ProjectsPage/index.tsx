@@ -1,6 +1,6 @@
 import React from 'react';
 import { Calendar, Award } from 'lucide-react';
-import { getAllContent } from '../../utils/contentUtils';
+import { getAllContent, getCoverImage } from '../../utils/contentUtils';
 import { ContentItem } from '../../types/content';
 import { useWindow } from '../../hooks/useWindow'; // Import the custom hook
 import {
@@ -10,6 +10,7 @@ import {
   Subtitle,
   ProjectsGrid,
   ProjectCard,
+  ProjectCover,
   ProjectHeader,
   ProjectInfo,
   ProjectTitle,
@@ -115,11 +116,24 @@ const ProjectsPage: React.FC<ProjectsPageProps> = ({ onItemClick, onSkillClick }
         </EmptyState>
       ) : (
         <ProjectsGrid>
-          {projects.map((project) => (
+          {projects.map((project, index) => {
+            const cover = getCoverImage(project);
+            return (
             <ProjectCard
               key={project.id}
+              $index={index}
+              role="link"
+              tabIndex={0}
               onClick={() => onItemClick(project.id)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') onItemClick(project.id);
+              }}
             >
+              {cover && (
+                <ProjectCover>
+                  <img src={cover} alt="" loading="lazy" width={600} height={338} />
+                </ProjectCover>
+              )}
               <ProjectHeader>
                 <ProjectInfo>
                   <ProjectTitle>{project.title}</ProjectTitle>
@@ -147,7 +161,8 @@ const ProjectsPage: React.FC<ProjectsPageProps> = ({ onItemClick, onSkillClick }
                 </SkillsContainer>
               )}
             </ProjectCard>
-          ))}
+            );
+          })}
         </ProjectsGrid>
       )}
     </Container>

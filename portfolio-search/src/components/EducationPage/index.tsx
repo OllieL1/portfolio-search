@@ -189,7 +189,7 @@ const EducationPage: React.FC<EducationPageProps> = ({ onItemClick, onSkillClick
           <p>
             This is my <strong>Placement Year</strong> at JP Morgan Chase. 
             <br />
-            <span style={{ color: '#1a73e8', textDecoration: 'underline' }}>
+            <span style={{ color: 'var(--accent-secondary)', textDecoration: 'underline' }}>
               Click here to learn more about my Software Engineer Industrial Placement →
             </span>
           </p>
@@ -237,7 +237,7 @@ const EducationPage: React.FC<EducationPageProps> = ({ onItemClick, onSkillClick
             {hasMore && (
               <SkillTag style={{ 
                 background: '#f1f3f4', 
-                color: '#5f6368',
+                color: 'var(--text-secondary)',
                 cursor: 'default'
               }}>
                 +{course.skills.length - 3} more
@@ -287,7 +287,7 @@ const EducationPage: React.FC<EducationPageProps> = ({ onItemClick, onSkillClick
         <TimelineLine />
         
         <Section id="university" $isActive={activeSection === 'university'}>
-          <SectionHeader $color={activeSection === 'university' ? '#1a73e8' : '#5f6368'}>
+          <SectionHeader $color={activeSection === 'university' ? 'var(--accent-secondary)' : 'var(--text-secondary)'}>
             <GraduationCap size={28} className="icon" />
             <h2>University of Glasgow</h2>
           </SectionHeader>
@@ -297,7 +297,7 @@ const EducationPage: React.FC<EducationPageProps> = ({ onItemClick, onSkillClick
               <h3>{yearSection.title}</h3>
               {yearSection.courses.length > 0 ? (
                 yearSection.courses.map((course: EducationItem) => 
-                  renderCourseCard(course, activeSection === 'university' ? '#1a73e8' : '#5f6368')
+                  renderCourseCard(course, activeSection === 'university' ? 'var(--accent-secondary)' : 'var(--text-secondary)')
                 )
               ) : (
                 renderEmptyYearMessage(yearSection.key)
@@ -307,14 +307,14 @@ const EducationPage: React.FC<EducationPageProps> = ({ onItemClick, onSkillClick
         </Section>
 
         <Section id="highschool" $isActive={activeSection === 'highschool'}>
-          <SectionHeader $color={activeSection === 'highschool' ? '#34a853' : '#5f6368'}>
+          <SectionHeader $color={activeSection === 'highschool' ? '#34a853' : 'var(--text-secondary)'}>
             <School size={28} className="icon" />
             <h2>High School</h2>
           </SectionHeader>
           
           {highSchoolCourses.length > 0 ? (
             highSchoolCourses.map((course: EducationItem) => 
-              renderCourseCard(course, activeSection === 'highschool' ? '#34a853' : '#5f6368')
+              renderCourseCard(course, activeSection === 'highschool' ? '#34a853' : 'var(--text-secondary)')
             )
           ) : (
             <EmptyYearMessage>

@@ -1,13 +1,14 @@
 "use client";
 
 import React, { useState, useMemo } from 'react';
-import { useRouter } from 'next/navigation';
-import styled from 'styled-components';
+import { useAppRouter } from '../../hooks/useAppRouter';
+import styled, { createGlobalStyle } from 'styled-components';
 import { Code, Briefcase, GraduationCap, User, Linkedin, Github, Tag, Shuffle } from 'lucide-react';
 import { useIsClient } from '../../hooks/useWindow';
 import AnimatedLogo from './AnimatedLogo';
 import SearchBar from './SearchBar';
 import Shortcuts from './Shortcuts';
+import HomeFooter, { CONTACT_LINKS } from './HomeFooter';
 import contentData from '../../data/content.json';
 import { ContentItem } from '../../types/content';
 
@@ -23,20 +24,48 @@ interface AutocompleteItem {
 interface ShortcutItem {
   name: string;
   icon: React.ReactNode;
+  hotkey?: string;
   action: () => void;
 }
 
 // Layout styled components
-const Container = styled.div`
+const Page = styled.div`
   min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+
+  @media (max-width: 768px) {
+    height: 100vh;
+    height: 100dvh;
+    min-height: 0;
+    overflow: hidden;
+  }
+`;
+
+// The home page always fits on a phone screen, so pin it in place:
+// no scrolling and no rubber-band bounce. Only applies while this page is mounted.
+const LockMobileScroll = createGlobalStyle`
+  @media (max-width: 768px) {
+    html,
+    body {
+      height: 100%;
+      overflow: hidden;
+      overscroll-behavior: none;
+    }
+  }
+`;
+
+const Container = styled.main`
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 2rem;
-  
+  padding: 2rem 2rem 12vh;
+
   @media (max-width: 768px) {
-    padding: 1rem;
+    padding: 1.5rem 1rem 8vh;
   }
 `;
 
@@ -46,42 +75,80 @@ const SearchSection = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
+  gap: 1.25rem;
+`;
+
+// Contact icons above the name - only where the mobile bottom bar replaces the footer
+const MobileContacts = styled.nav`
+  display: none;
+
+  @media (max-width: 768px) {
+    display: flex;
+    justify-content: center;
+    gap: 1.25rem;
+    margin-bottom: 0.25rem;
+  }
+`;
+
+const ContactIcon = styled.a`
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid var(--border-default);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  box-shadow: var(--shadow-sm);
+  transition: color 0.2s ease, border-color 0.2s ease;
+
+  &:active {
+    color: var(--text-heading);
+    border-color: color-mix(in srgb, var(--accent-primary) 40%, var(--border-default));
+  }
 `;
 
 const SurpriseMeButton = styled.button`
-  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-primary-hover) 100%);
-  color: var(--text-on-accent);
-  border: none;
-  border-radius: 25px;
-  padding: 0.75rem 2rem;
-  font-size: 0.9rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
+  margin-top: 0.75rem;
+  display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  box-shadow: var(--shadow-accent);
+  padding: 0.6rem 1.15rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-default);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+
+  svg {
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
 
   &:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-accent-hover);
+    color: var(--text-heading);
+    border-color: color-mix(in srgb, var(--accent-primary) 40%, var(--border-default));
+    box-shadow: var(--shadow-md);
+
+    svg {
+      transform: rotate(360deg);
+      color: var(--accent-primary);
+    }
   }
 
   &:active {
-    transform: translateY(0);
-  }
-
-  @media (max-width: 768px) {
-    padding: 0.6rem 1.5rem;
-    font-size: 0.85rem;
+    transform: scale(0.98);
   }
 `;
 
 // Main component
 const HomePage: React.FC = () => {
-  const router = useRouter();
+  const router = useAppRouter();
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [showAutocomplete, setShowAutocomplete] = useState<boolean>(false);
   
@@ -202,28 +269,12 @@ const HomePage: React.FC = () => {
     });
   };
 
-  // Shortcuts
+  // Shortcuts (hotkeys match the global keyboard shortcuts)
   const shortcuts: ShortcutItem[] = [
-    { 
-      name: 'Projects', 
-      icon: <Code size={20} />,
-      action: navigateToProjects
-    },
-    { 
-      name: 'Experience', 
-      icon: <Briefcase size={20} />,
-      action: navigateToExperience
-    },
-    { 
-      name: 'Education', 
-      icon: <GraduationCap size={20} />,
-      action: navigateToEducation
-    },
-    { 
-      name: 'About Me', 
-      icon: <User size={20} />,
-      action: navigateToAbout
-    }
+    { name: 'Projects', icon: <Code size={14} />, hotkey: '1', action: navigateToProjects },
+    { name: 'Experience', icon: <Briefcase size={14} />, hotkey: '2', action: navigateToExperience },
+    { name: 'Education', icon: <GraduationCap size={14} />, hotkey: '3', action: navigateToEducation },
+    { name: 'About', icon: <User size={14} />, hotkey: '4', action: navigateToAbout },
   ];
 
   // Improved autocomplete suggestions
@@ -353,9 +404,23 @@ const HomePage: React.FC = () => {
   };
 
   return (
-    <>
+    <Page>
+      <LockMobileScroll />
       <Container>
         <SearchSection>
+          <MobileContacts aria-label="Contact">
+            {CONTACT_LINKS.map(link => (
+              <ContactIcon
+                key={link.label}
+                href={link.href}
+                aria-label={link.label}
+                title={link.label}
+                {...(link.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+              >
+                {React.cloneElement(link.icon, { size: 18 })}
+              </ContactIcon>
+            ))}
+          </MobileContacts>
           <AnimatedLogo />
           <SearchBar
             searchQuery={searchQuery}
@@ -368,12 +433,13 @@ const HomePage: React.FC = () => {
           />
           <Shortcuts shortcuts={shortcuts} />
           <SurpriseMeButton onClick={navigateToRandomContent}>
-            <Shuffle size={16} />
-            Surprise Me
+            <Shuffle size={14} />
+            Surprise me
           </SurpriseMeButton>
         </SearchSection>
       </Container>
-    </>
+      <HomeFooter />
+    </Page>
   );
 };
 

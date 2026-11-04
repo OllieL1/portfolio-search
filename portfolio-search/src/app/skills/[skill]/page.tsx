@@ -1,12 +1,12 @@
 "use client";
 
 import { use } from 'react';
-import { useRouter } from 'next/navigation';
+import { useAppRouter } from '../../../hooks/useAppRouter';
 import { getContentBySkill } from '../../../utils/contentUtils';
 import SkillsResults from '../../../components/SkillsResults';
 
 export default function Skills({ params }: { params: Promise<{ skill: string }> }) {
-  const router = useRouter();
+  const router = useAppRouter();
   const { skill: encodedSkill } = use(params);
   
   // Decode the skill parameter from the URL

@@ -237,12 +237,12 @@ export const PasswordInput = styled.input`
   transition: all 0.2s ease;
   background: var(--bg-input);
   color: var(--text-primary);
-  font-family: 'Roboto Slab', serif;
+  font-family: inherit;
 
   &:focus {
     outline: none;
     border-color: var(--accent-primary);
-    box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.1);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-primary) 10%, transparent);
   }
 
   &::placeholder {
@@ -282,13 +282,13 @@ export const PasswordButton = styled.button`
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
-  font-family: 'Roboto Slab', serif;
-  box-shadow: 0 2px 8px rgba(66, 133, 244, 0.2);
+  font-family: inherit;
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--accent-primary) 20%, transparent);
 
   &:hover:not(:disabled) {
     background: var(--accent-primary-hover);
     transform: translateY(-1px);
-    box-shadow: 0 4px 16px rgba(66, 133, 244, 0.3);
+    box-shadow: 0 4px 16px color-mix(in srgb, var(--accent-primary) 30%, transparent);
   }
 
   &:active:not(:disabled) {

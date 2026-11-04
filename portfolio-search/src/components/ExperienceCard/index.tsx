@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { ExternalLink, Camera } from 'lucide-react';
 import PhotoGallery from '../PhotoGallery';
+import ScreenshotShowcase from '../ScreenshotShowcase';
+import RichText from './RichText';
 import {
   CardContainer,
   CardHeader,
   HeaderBottom,
+  ActionRow,
   Title,
   Company,
   DateRange,
@@ -36,10 +39,19 @@ interface ExperienceCardProps {
     label: string;
   };
   photos?: PhotoGalleryItem[];
+  screenshots?: PhotoGalleryItem[];
   video?: string;
   contentId?: string;
+  type?: string;
   onSkillClick?: (skill: string) => void;
 }
+
+const SECTION_LABELS: Record<string, { detail: string; skills: string }> = {
+  experience: { detail: 'About the Role', skills: 'Skills Gained' },
+  project: { detail: 'Overview', skills: 'Built With' },
+  education: { detail: 'About the Course', skills: 'Skills Gained' },
+  about: { detail: 'About', skills: 'Related Skills' },
+};
 
 const ExperienceCard: React.FC<ExperienceCardProps> = ({
   title,
@@ -49,8 +61,10 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
   skills,
   link,
   photos,
+  screenshots,
   video,
   contentId,
+  type,
   onSkillClick
 }) => {
   const [showGallery, setShowGallery] = useState(false);
@@ -63,15 +77,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
     }
   };
 
-  // Function to render text with line breaks
-  const renderTextWithLineBreaks = (text: string) => {
-    return text.split('\n').map((line, index, array) => (
-      <React.Fragment key={index}>
-        {line}
-        {index < array.length - 1 && <br />}
-      </React.Fragment>
-    ));
-  };
+  const labels = SECTION_LABELS[type ?? ''] ?? SECTION_LABELS.experience;
 
   const handleOpenGallery = () => {
     setShowGallery(true);
@@ -99,7 +105,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
         <Company>{company}</Company>
         <HeaderBottom>
           {dateRange && <DateRange>{dateRange}</DateRange>}
-          <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', flexWrap: 'wrap' }}>
+          <ActionRow>
             {photos && photos.length > 0 && (
               <PhotoGalleryButton onClick={handleOpenGallery}>
                 <Camera size={14} className="icon" />
@@ -116,14 +122,21 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
                 <ExternalLink size={14} className="icon" />
               </ExternalLinkButton>
             )}
-          </div>
+          </ActionRow>
         </HeaderBottom>
       </CardHeader>
 
       <DetailSection>
-        <SectionTitle>About the Role</SectionTitle>
-        <DetailText>{renderTextWithLineBreaks(detail)}</DetailText>
+        <SectionTitle>{labels.detail}</SectionTitle>
+        <DetailText><RichText text={detail} /></DetailText>
       </DetailSection>
+
+      {screenshots && screenshots.length > 0 && contentId && (
+        <VideoSection>
+          <SectionTitle>Showcase</SectionTitle>
+          <ScreenshotShowcase screenshots={screenshots} contentId={contentId} />
+        </VideoSection>
+      )}
 
       {video && (
         <VideoSection>
@@ -138,7 +151,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
       )}
 
       <SkillsSection>
-        <SectionTitle>Skills Gained</SectionTitle>
+        <SectionTitle>{labels.skills}</SectionTitle>
         <SkillsContainer>
           {skills.map((skill, index) => (
             <SkillTag

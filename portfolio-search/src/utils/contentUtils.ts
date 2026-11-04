@@ -17,6 +17,12 @@ export const getContentById = (id: string): ContentItem | undefined => {
   return getAllContent().find(item => item.id === id);
 };
 
+// First screenshot, else first photo - used as a card cover image
+export const getCoverImage = (item: ContentItem): string | undefined => {
+  const media = item.screenshots?.[0] ?? item.photos?.[0];
+  return media ? `/content/${item.id}/${media.filename}` : undefined;
+};
+
 // Get content by type
 export const getContentByType = (type: keyof ContentData): ContentItem[] => {
   const data = contentData as ContentData;
