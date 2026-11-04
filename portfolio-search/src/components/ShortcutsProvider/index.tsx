@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useCallback, useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useAppRouter } from '../../hooks/useAppRouter';
 import ShortcutsModal from '../ShortcutsModal';
 import { useTheme } from '../../theme';
 import { emit, listen, UI_EVENTS } from '../../lib/uiEvents';
@@ -24,7 +24,7 @@ const isTypingTarget = (target: EventTarget | null) => {
 
 // Global single-key shortcuts plus the "?" help dialog
 const ShortcutsProvider: React.FC = () => {
-  const router = useRouter();
+  const router = useAppRouter();
   const { toggleTheme } = useTheme();
   const [open, setOpen] = useState(false);
   const close = useCallback(() => setOpen(false), []);

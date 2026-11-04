@@ -1,10 +1,10 @@
 "use client";
 
-import { useRouter } from 'next/navigation';
+import { useAppRouter } from '../../hooks/useAppRouter';
 import ProjectsPage from '../../components/ProjectsPage';
 
 export default function Projects() {
-  const router = useRouter();
+  const router = useAppRouter();
 
   const handleItemClick = (contentId: string) => {
     router.push(`/content/${contentId}`);

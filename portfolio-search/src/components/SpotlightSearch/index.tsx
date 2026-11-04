@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
-import { useRouter, usePathname } from 'next/navigation';
+import { usePathname } from 'next/navigation';
+import { useAppRouter } from '../../hooks/useAppRouter';
 import {
   Search,
   Code,
@@ -47,7 +48,7 @@ interface SpotlightResult {
 }
 
 const SpotlightSearch: React.FC = () => {
-  const router = useRouter();
+  const router = useAppRouter();
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState('');

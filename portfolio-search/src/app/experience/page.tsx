@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useAppRouter } from '../../hooks/useAppRouter';
 import ExperiencePage from '../../components/ExperiencePage';
 
 export default function Experience() {
-  const router = useRouter();
+  const router = useAppRouter();
 
   useEffect(() => {
     router.prefetch('/content/placeholder');

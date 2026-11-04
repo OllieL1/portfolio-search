@@ -5,6 +5,8 @@ import StyledComponentsRegistry from '../lib/registry';
 import TabManager from '../components/TabManager';
 import SpotlightSearch from '../components/SpotlightSearch';
 import ShortcutsProvider from '../components/ShortcutsProvider';
+import NavigationProgress from '../components/NavigationProgress';
+import { Suspense } from 'react';
 import { GlobalStyle } from '../components/HomePage/GlobalStyles';
 import { ThemeScript } from '../theme/ThemeScript';
 import { ThemeStyle } from '../theme/ThemeStyle';
@@ -51,6 +53,9 @@ export default function RootLayout({
         <StyledComponentsRegistry>
           <ThemeProvider>
             <GlobalStyle />
+            <Suspense fallback={null}>
+              <NavigationProgress />
+            </Suspense>
             <TabManager>
               {children}
             </TabManager>

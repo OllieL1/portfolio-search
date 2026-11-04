@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { useRouter, usePathname } from 'next/navigation';
+import { usePathname } from 'next/navigation';
+import { useAppRouter } from '../../hooks/useAppRouter';
 import { X, Search, Briefcase, GraduationCap, Code, User, Hash, ChevronRight, Home, Pin, PinOff, Sun, Moon } from 'lucide-react';
 import { getContentById } from '../../utils/contentUtils';
 import { useIsClient } from '../../hooks/useWindow';
@@ -247,7 +248,7 @@ const createTabFromRoute = (pathname: string, searchParams?: URLSearchParams, is
 };
 
 const TabManager: React.FC<TabManagerProps> = ({ children }) => {
-  const router = useRouter();
+  const router = useAppRouter();
   const pathname = usePathname();
   const [tabs, setTabs] = useState<Tab[]>([]);
   const [sidebarOpen, setSidebarOpen] = useState(false);

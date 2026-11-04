@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useMemo } from 'react';
-import { useRouter } from 'next/navigation';
+import { useAppRouter } from '../../hooks/useAppRouter';
 import styled from 'styled-components';
 import { Code, Briefcase, GraduationCap, User, Linkedin, Github, Tag, Shuffle } from 'lucide-react';
 import { useIsClient } from '../../hooks/useWindow';
@@ -97,7 +97,7 @@ const SurpriseMeButton = styled.button`
 
 // Main component
 const HomePage: React.FC = () => {
-  const router = useRouter();
+  const router = useAppRouter();
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [showAutocomplete, setShowAutocomplete] = useState<boolean>(false);
   
