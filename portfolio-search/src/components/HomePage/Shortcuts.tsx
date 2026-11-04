@@ -54,7 +54,7 @@ const ShortcutButton = styled.button`
   &:hover {
     background: var(--bg-hover);
     border-color: var(--accent-primary);
-    box-shadow: 0 4px 12px rgba(66, 133, 244, 0.12);
+    box-shadow: 0 4px 12px color-mix(in srgb, var(--accent-primary) 12%, transparent);
     transform: translateY(-2px);
 
     .shortcut-icon {

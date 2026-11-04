@@ -34,7 +34,7 @@ export const SidebarTrigger = styled.div`
   color: var(--text-secondary);
 
   &:hover {
-    background: rgba(59, 130, 246, 0.1);
+    background: color-mix(in srgb, var(--accent-primary) 10%, transparent);
     color: var(--accent-primary);
     transform: scale(1.1);
   }
@@ -87,7 +87,7 @@ export const SearchInput = styled.input<{ $open: boolean }>`
   &:focus {
     outline: none;
     border-color: var(--accent-primary);
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-primary) 10%, transparent);
   }
 
   &::placeholder {
@@ -209,7 +209,7 @@ export const TabItem = styled.div<{ $active: boolean }>`
   transition: all 0.2s ease;
   background: ${props => props.$active ? 'var(--accent-primary)' : 'transparent'};
   color: ${props => props.$active ? 'var(--text-on-accent)' : 'var(--text-primary)'};
-  box-shadow: ${props => props.$active ? '0 4px 12px -2px rgba(59, 130, 246, 0.25)' : 'none'};
+  box-shadow: ${props => props.$active ? '0 4px 12px -2px color-mix(in srgb, var(--accent-primary) 25%, transparent)' : 'none'};
 
   &:hover {
     background: ${props => props.$active ? 'var(--accent-primary-hover)' : 'var(--bg-hover)'};
@@ -295,14 +295,14 @@ export const MobileNewSearchButton = styled.button<{ $active: boolean }>`
   border: 1px solid var(--bg-glass-border);
   cursor: pointer;
   transition: all 0.2s ease;
-  background: ${props => props.$active ? 'rgba(59, 130, 246, 0.9)' : 'var(--bg-glass)'};
+  background: ${props => props.$active ? 'color-mix(in srgb, var(--accent-primary) 90%, transparent)' : 'var(--bg-glass)'};
   color: ${props => props.$active ? 'white' : 'var(--text-primary)'};
-  box-shadow: ${props => props.$active ? '0 8px 20px -3px rgba(59, 130, 246, 0.4)' : 'var(--shadow-md)'};
+  box-shadow: ${props => props.$active ? '0 8px 20px -3px color-mix(in srgb, var(--accent-primary) 40%, transparent)' : 'var(--shadow-md)'};
   backdrop-filter: blur(15px);
 
   &:hover {
     transform: translateY(-1px);
-    background: ${props => props.$active ? 'rgba(59, 130, 246, 1)' : 'var(--bg-glass-hover)'};
+    background: ${props => props.$active ? 'color-mix(in srgb, var(--accent-primary) 100%, transparent)' : 'var(--bg-glass-hover)'};
   }
 `;
 
@@ -338,13 +338,13 @@ export const MobileTabItem = styled.div<{ $active: boolean }>`
   border: 1px solid var(--bg-glass-border);
   cursor: pointer;
   transition: all 0.2s ease;
-  background: ${props => props.$active ? 'rgba(59, 130, 246, 0.9)' : 'var(--bg-glass)'};
+  background: ${props => props.$active ? 'color-mix(in srgb, var(--accent-primary) 90%, transparent)' : 'var(--bg-glass)'};
   color: ${props => props.$active ? 'white' : 'var(--text-primary)'};
-  box-shadow: ${props => props.$active ? '0 8px 20px -3px rgba(59, 130, 246, 0.4)' : 'var(--shadow-md)'};
+  box-shadow: ${props => props.$active ? '0 8px 20px -3px color-mix(in srgb, var(--accent-primary) 40%, transparent)' : 'var(--shadow-md)'};
   backdrop-filter: blur(15px);
 
   &:hover {
-    background: ${props => props.$active ? 'rgba(59, 130, 246, 1)' : 'var(--bg-glass-hover)'};
+    background: ${props => props.$active ? 'color-mix(in srgb, var(--accent-primary) 100%, transparent)' : 'var(--bg-glass-hover)'};
   }
 
   .tab-title {

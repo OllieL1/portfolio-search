@@ -40,7 +40,7 @@ const SearchInput = styled.input`
 
   &:focus {
     border-color: var(--accent-primary);
-    box-shadow: 0 4px 12px rgba(66, 133, 244, 0.1);
+    box-shadow: 0 4px 12px color-mix(in srgb, var(--accent-primary) 10%, transparent);
   }
 
   &::placeholder {
@@ -63,7 +63,7 @@ const SearchButton = styled.button`
 
   &:hover {
     color: var(--accent-primary);
-    background: rgba(66, 133, 244, 0.1);
+    background: color-mix(in srgb, var(--accent-primary) 10%, transparent);
   }
 `;
 

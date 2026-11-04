@@ -176,13 +176,13 @@ export const ExternalLinkButton = styled.a`
   text-decoration: none;
   cursor: pointer;
   transition: all 0.2s;
-  box-shadow: 0 1px 4px rgba(66, 133, 244, 0.2);
+  box-shadow: 0 1px 4px color-mix(in srgb, var(--accent-primary) 20%, transparent);
   white-space: nowrap;
 
   &:hover {
     background: var(--accent-primary-hover);
     transform: translateY(-1px);
-    box-shadow: 0 2px 8px rgba(66, 133, 244, 0.3);
+    box-shadow: 0 2px 8px color-mix(in srgb, var(--accent-primary) 30%, transparent);
   }
 
   &:active {

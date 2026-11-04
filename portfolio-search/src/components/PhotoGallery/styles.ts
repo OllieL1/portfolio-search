@@ -50,7 +50,7 @@ export const BackButton = styled.button`
     color: var(--text-on-accent);
     border-color: var(--accent-primary);
     transform: translateY(-1px);
-    box-shadow: 0 2px 8px rgba(66, 133, 244, 0.2);
+    box-shadow: 0 2px 8px color-mix(in srgb, var(--accent-primary) 20%, transparent);
   }
 
   &:active {
