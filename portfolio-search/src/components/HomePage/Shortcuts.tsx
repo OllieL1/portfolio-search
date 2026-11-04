@@ -31,29 +31,6 @@ const Separator = styled.span`
   }
 `;
 
-const Hotkey = styled.kbd`
-  position: absolute;
-  top: -0.35rem;
-  right: -0.15rem;
-  pointer-events: none;
-  background: var(--bg-card);
-  font-family: inherit;
-  font-size: 0.6rem;
-  font-weight: 600;
-  line-height: 1;
-  color: var(--text-tertiary);
-  border: 1px solid var(--border-default);
-  border-radius: 4px;
-  padding: 0.15rem 0.3rem;
-  opacity: 0;
-  transform: translateY(2px);
-  transition: opacity 0.2s ease, transform 0.2s ease;
-
-  @media (hover: none) {
-    display: none;
-  }
-`;
-
 const LinkButton = styled.button`
   position: relative;
   display: inline-flex;
@@ -101,11 +78,6 @@ const LinkButton = styled.button`
     &::after {
       transform: scaleX(1);
     }
-
-    ${Hotkey} {
-      opacity: 1;
-      transform: translateY(0);
-    }
   }
 `;
 
@@ -114,13 +86,9 @@ const Shortcuts: React.FC<ShortcutsProps> = ({ shortcuts }) => (
     {shortcuts.map((shortcut, index) => (
       <React.Fragment key={shortcut.name}>
         {index > 0 && <Separator aria-hidden="true" />}
-        <LinkButton
-          onClick={shortcut.action}
-          title={shortcut.hotkey ? `${shortcut.name} (${shortcut.hotkey})` : shortcut.name}
-        >
+        <LinkButton onClick={shortcut.action}>
           {shortcut.icon}
           {shortcut.name}
-          {shortcut.hotkey && <Hotkey aria-hidden="true">{shortcut.hotkey}</Hotkey>}
         </LinkButton>
       </React.Fragment>
     ))}

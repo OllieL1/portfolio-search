@@ -49,8 +49,8 @@ const SearchInput = styled.input`
   &:focus,
   &:focus-visible {
     outline: none;
-    border-color: color-mix(in srgb, var(--accent-primary) 55%, var(--border-default));
-    box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent-primary) 12%, transparent), var(--shadow-md);
+    border-color: color-mix(in srgb, var(--text-tertiary) 45%, var(--border-default));
+    box-shadow: var(--shadow-md);
   }
 
   &::placeholder {
