@@ -1,22 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#3b6cf0"/>
-      <stop offset="1" stop-color="#7c3aed"/>
-    </linearGradient>
-  </defs>
-  <!-- head: feathered ear tufts with the owl's V-shaped brow between them -->
-  <path fill="url(#g)" d="M11 24 L7 5 L22 15 Q32 22 42 15 L57 5 L53 24 Q59 34 55 45 Q49 60 32 60 Q15 60 9 45 Q5 34 11 24 Z"/>
+  <!-- Retro sleeping owl: flat mid-century colours, closed eyes -->
+  <!-- head: short angular ear tufts with a brow dip -->
+  <path fill="#22305a" d="M10 25 L9 7 L22 16 Q32 21 42 16 L55 7 L54 25 Q59 36 54 47 Q47 60 32 60 Q17 60 10 47 Q5 36 10 25 Z"/>
   <!-- facial discs -->
-  <circle cx="21.5" cy="34" r="13" fill="#fff" fill-opacity="0.2"/>
-  <circle cx="42.5" cy="34" r="13" fill="#fff" fill-opacity="0.2"/>
-  <!-- eyes -->
-  <circle cx="21.5" cy="34" r="9" fill="#fff"/>
-  <circle cx="42.5" cy="34" r="9" fill="#fff"/>
-  <circle cx="22.5" cy="35" r="4.4" fill="#0f172a"/>
-  <circle cx="41.5" cy="35" r="4.4" fill="#0f172a"/>
-  <circle cx="24" cy="33.4" r="1.3" fill="#fff"/>
-  <circle cx="43" cy="33.4" r="1.3" fill="#fff"/>
+  <circle cx="21.5" cy="33" r="12.5" fill="#e6a537"/>
+  <circle cx="42.5" cy="33" r="12.5" fill="#e6a537"/>
+  <circle cx="21.5" cy="33" r="8" fill="#f5ead3"/>
+  <circle cx="42.5" cy="33" r="8" fill="#f5ead3"/>
+  <!-- closed eyes -->
+  <path d="M16.5 33 Q21.5 37.5 26.5 33" fill="none" stroke="#22305a" stroke-width="3" stroke-linecap="round"/>
+  <path d="M37.5 33 Q42.5 37.5 47.5 33" fill="none" stroke="#22305a" stroke-width="3" stroke-linecap="round"/>
   <!-- beak -->
-  <path fill="#f59e0b" d="M28.6 40 L35.4 40 L32 48.5 Z"/>
+  <path fill="#d65a2b" d="M32 38 L35.2 42.5 L32 48.5 L28.8 42.5 Z"/>
 </svg>
