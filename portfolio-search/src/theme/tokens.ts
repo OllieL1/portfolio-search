@@ -53,16 +53,16 @@ export interface ThemeTokens {
 }
 
 export const lightTokens: ThemeTokens = {
-  bgPage: '#fafafa',
+  bgPage: '#f3f3f5',
   bgCard: '#ffffff',
-  bgSubtle: '#f4f4f5',
-  bgHover: '#f4f4f5',
+  bgSubtle: '#efeff2',
+  bgHover: '#ececef',
   bgInput: '#ffffff',
   bgTag: 'rgba(37, 99, 235, 0.08)',
-  bgTagNeutral: '#f4f4f5',
+  bgTagNeutral: '#efeff2',
   bgTagGrade: 'rgba(37, 99, 235, 0.1)',
   bgHighlight: '#fef9c3',
-  bgSidebar: 'rgba(250, 250, 250, 0.9)',
+  bgSidebar: 'rgba(248, 248, 250, 0.92)',
   bgMobileBar: 'rgba(255, 255, 255, 0.75)',
   bgGlass: 'rgba(255, 255, 255, 0.6)',
   bgGlassHover: 'rgba(255, 255, 255, 0.8)',
@@ -78,7 +78,7 @@ export const lightTokens: ThemeTokens = {
 
   borderDefault: '#e4e4e7',
   borderSubtle: '#ececee',
-  borderLight: '#f4f4f5',
+  borderLight: '#ececef',
 
   accentPrimary: '#2563eb',
   accentPrimaryHover: '#1d4ed8',
@@ -95,7 +95,7 @@ export const lightTokens: ThemeTokens = {
   shadowAccent: '0 4px 14px rgba(37, 99, 235, 0.22)',
   shadowAccentHover: '0 8px 24px rgba(37, 99, 235, 0.3)',
 
-  profileBorder: '#f4f4f5',
+  profileBorder: '#efeff2',
   timelineDotBorder: '#ffffff',
   scrollbarThumb: '#d4d4d8',
 };
