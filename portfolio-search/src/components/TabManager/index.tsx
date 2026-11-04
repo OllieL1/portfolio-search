@@ -400,12 +400,13 @@ const TabManager: React.FC<TabManagerProps> = ({ children }) => {
 
   // Group tabs by section (no sorting - maintain original order)
   const groupedTabs = {
+    // Same order as the 1-4 keyboard shortcuts
+    'Projects': tabs.filter(tab => tab.type === 'projects' || 
+      (tab.type === 'content' && getContentById(tab.contentId!)?.category === 'Projects')),
     'Experience': tabs.filter(tab => tab.type === 'experience' || 
       (tab.type === 'content' && getContentById(tab.contentId!)?.category === 'Work Experience')),
     'Education': tabs.filter(tab => tab.type === 'education' || 
       (tab.type === 'content' && getContentById(tab.contentId!)?.category === 'Education')),
-    'Projects': tabs.filter(tab => tab.type === 'projects' || 
-      (tab.type === 'content' && getContentById(tab.contentId!)?.category === 'Projects')),
     'About Me': tabs.filter(tab => tab.type === 'about' || 
       (tab.type === 'content' && getContentById(tab.contentId!)?.category === 'About')),
     'Other': tabs.filter(tab => 
