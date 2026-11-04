@@ -47,6 +47,18 @@ const OWrap = styled.span`
   );
 `;
 
+const HiddenLetter = styled.span`
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+`;
+
 const Spinner = styled.span`
   position: absolute;
   inset: 0;
@@ -160,16 +172,18 @@ const AnimatedLogo: React.FC = () => {
   };
 
   return (
-    <Logo aria-label="Ollie Livingston">
-      <OWrap ref={wrapRef} onMouseEnter={boost} onClick={boost} aria-hidden="true">
-        <Spinner ref={spinnerRef}>
+    <Logo>
+      <OWrap ref={wrapRef} onMouseEnter={boost} onClick={boost}>
+        {/* Real letter for search engines and screen readers; the animation is the visual O */}
+        <HiddenLetter>O</HiddenLetter>
+        <Spinner ref={spinnerRef} aria-hidden="true">
           <Ring />
           <Hole>
             <Fill />
           </Hole>
         </Spinner>
       </OWrap>
-      <span aria-hidden="true">llie Livingston</span>
+      llie Livingston
     </Logo>
   );
 };
